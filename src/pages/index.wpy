@@ -79,9 +79,14 @@
                 return data;
             },
             getProductList: ()=> {
+                // wx.showLoading();
                 getList()
                     .then((res)=> {
-                        this.setData('products', this.methods.adaptList(res.data.data.list));
+                        wx.hideLoading();
+                        this.setData('products', this.methods.adaptList(res.data.list));
+                    })
+                    .catch(()=> {
+                        wx.hideLoading();
                     });
             }
         }

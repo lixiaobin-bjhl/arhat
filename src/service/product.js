@@ -5,12 +5,11 @@
 
 'use strict';
 
-import wepy from 'wepy'
-import config from '../config'
+import { get } from '../function/serviceUtil';
 
 /**
  * 获取产品列表 
  */
 export function getList () {
-    return wepy.request(config.domain + 'api/product')  
+    return get('/api/product')  
 }

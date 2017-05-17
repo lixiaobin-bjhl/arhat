@@ -6,6 +6,6 @@
 'use strict';
 
 export default {
-    domain: 'http://56xg.com:7001/'
+    domain: 'http://56xg.com:7001'
 }
 
