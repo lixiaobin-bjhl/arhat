@@ -1,0 +1,34 @@
+
+    <view class="page" style="background: #f2f2f2">
+
+        <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block  wx:for="{{imgUrls}}" wx:for-index="index" wx:key="*this">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" mode="aspectFill"/>
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
+            <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active"  wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"/>
+                </view>
+                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-media-box__title">{{item.title}}</view>
+                    <view class="weui-media-box__desc">{{item.summary}}</view>
+                </view>
+            </navigator>
+        </view>
+        
+    <view class="weui-footer">
+        <view class="weui-footer__links">
+            <view class="weui-footer__links">
+                <navigator url="" class="weui-footer__link">charity</navigator>
+                <navigator url="" class="weui-footer__link">arhat</navigator>
+            </view>
+        </view>
+        <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
+    </view>
+
+    </view>

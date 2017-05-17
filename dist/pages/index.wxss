@@ -1,0 +1,8 @@
+@import "./../components/footer.wxss";
+.banner {
+  height: 300rpx;
+  width: 100%; }
+
+.banner image {
+  height: 100%;
+  width: 100%; }

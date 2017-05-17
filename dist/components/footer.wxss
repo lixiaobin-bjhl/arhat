@@ -1,0 +1,7 @@
+.weui-footer {
+  margin: 20rpx 0;
+  padding-top: 50rpx;
+  background: #FFF; }
+
+.weui-footer_fixed-bottom {
+  margin-bottom: 0; }

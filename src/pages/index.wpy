@@ -1,0 +1,90 @@
+<style lang="sass">
+.banner {
+    height: 300rpx;
+    width: 100%;
+}
+.banner image {
+    height: 100%;
+    width: 100%;
+}
+</style>
+<template>
+    <view class="page" style="background: #f2f2f2">
+
+        <swiper class="banner" indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{imgUrls}}"  wx:for-index="index" wx:key="*this">
+                <swiper-item>
+                    <image src="{{item}}" class="slide-image" mode="aspectFill" />
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
+            <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" wx:for="{{products}}"  wx:for-index="index"  wx:for-item="item" wx:key="item._id">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
+                </view>
+                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                    <view class="weui-media-box__title">{{item.title}}</view>
+                    <view class="weui-media-box__desc">{{item.summary}}</view>
+                </view>
+            </navigator>
+        </view>
+        <footer/>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import footer from '../components/footer'
+    import { getList } from '../service/product';
+    import compressImage from '../function/compressImage';
+  
+    export default class Index extends wepy.page {
+        data = {
+            imgUrls: [
+                'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+                'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+                'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+            ],
+            products: [],
+            indicatorDots: true,
+            autoplay: true,
+            interval: 5000,
+            duration: 1000
+        }
+
+        config = {
+            navigationBarTitleText: 'arhat'
+        }
+
+        components = {
+            footer
+        }
+
+        onLoad () {
+            this.methods.getProductList();
+        }
+
+        methods = {
+            adaptList: (data)=> {
+                data.forEach((item)=> {
+                    var storageIds = item.storageIds;
+                    if (storageIds && storageIds.length) {
+                        // 显示第1张图
+                        item.imageUrl = compressImage(item.storageIds[0])
+                    }
+                });
+                return data;
+            },
+            getProductList: ()=> {
+                getList()
+                    .then((res)=> {
+                        this.setData('products', this.methods.adaptList(res.data.data.list));
+                    });
+            }
+        }
+    }
+</script>
+

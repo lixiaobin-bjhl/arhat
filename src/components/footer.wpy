@@ -1,0 +1,28 @@
+<style lang="sass">
+.weui-footer {
+    margin: 20rpx 0;
+    padding-top: 50rpx;
+    background: #FFF;
+}
+.weui-footer_fixed-bottom{
+    margin-bottom: 0;
+}
+</style>
+<template>
+    <view class="weui-footer">
+        <view class="weui-footer__links">
+            <view class="weui-footer__links">
+                <navigator url="" class="weui-footer__link">charity</navigator>
+                <navigator url="" class="weui-footer__link">arhat</navigator>
+            </view>
+        </view>
+        <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
+    </view>
+</template>
+
+<script>
+    import wepy from 'wepy'
+    export default class Counter extends wepy.component {
+        
+    }
+</script>
