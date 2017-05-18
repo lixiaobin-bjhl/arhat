@@ -10,12 +10,13 @@
 
         config = {
             pages: [
-                'pages/index'
+                'pages/index',
+                'pages/productDetail'
             ],
             window: {
                 backgroundTextStyle: 'light',
                 navigationBarBackgroundColor: '#fff',
-                navigationBarTitleText: 'WeChat',
+                navigationBarTitleText: 'arhat',
                 navigationBarTextStyle: 'black'
             }
         }

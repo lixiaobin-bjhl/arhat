@@ -13,3 +13,12 @@ import { get } from '../function/serviceUtil';
 export function getList () {
     return get('/api/product')  
 }
+
+/**
+ * 获取产品列表 
+ * 
+ * @param {string} pid 产品id
+ */
+export function getDetial (pid) {
+    return get('/api/product/' + pid)
+}

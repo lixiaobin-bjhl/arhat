@@ -10,7 +10,7 @@
         </swiper>
 
         <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
-            <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active"  wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id">
+            <navigator class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active"  wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"/>
                 </view>
