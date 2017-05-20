@@ -6,6 +6,7 @@
 'use strict';
 
 export default {
-    domain: 'http://127.0.0.1:7001'
+    domain: 'http://127.0.0.1:7001',
+    mobile: '18610720742'
 }
 

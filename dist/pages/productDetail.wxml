@@ -59,6 +59,10 @@
                         <view class="weui-form-preview__label">标题摘要</view>
                         <view class="weui-form-preview__value">{{product.summary}}</view>
                     </view>
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">备注</view>
+                        <view class="weui-form-preview__value">{{product.remark || '-'}}</view>
+                    </view>
                 </view>
                 <view class="weui-form-preview__ft">
                     <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">购买</navigator>

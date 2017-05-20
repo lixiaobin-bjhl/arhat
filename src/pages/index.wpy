@@ -10,7 +10,6 @@
 </style>
 <template>
     <view class="page" style="background: #f2f2f2">
-
         <swiper class="banner" indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{imgUrls}}"  wx:for-index="index" wx:key="*this">
@@ -21,7 +20,7 @@
         </swiper>
 
         <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
-            <navigator class="weui-media-box weui-media-box_appmsg" 
+            <navigator wx:if="{{products && products.length}}" class="weui-media-box weui-media-box_appmsg" 
                 hover-class="weui-cell_active" 
                 wx:for="{{products}}"  
                 wx:for-index="index"  
@@ -36,6 +35,9 @@
                     <view class="weui-media-box__desc">{{item.summary}}</view>
                 </view>
             </navigator>
+           <view class="none-list" wx:if="{{products && !products.length}}">
+                该商户还没有添加产品
+           </view> 
         </view>
         <footer/>
     </view>
@@ -45,7 +47,9 @@
     import wepy from 'wepy'
     import footer from '../components/footer'
     import { getList } from '../service/product';
+    import { login, token } from '../service/user';
     import compressImage from '../function/compressImage';
+    import config from '../config';
   
     export default class Index extends wepy.page {
         data = {
@@ -54,7 +58,7 @@
                 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
                 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
             ],
-            products: [],
+            products: null,
             indicatorDots: true,
             autoplay: true,
             interval: 5000,
@@ -86,12 +90,14 @@
             },
             getProductList: ()=> {
                 wx.showLoading();
+
                 getList()
                     .then((res)=> {
                         wx.hideLoading();
                         this.setData('products', this.methods.adaptList(res.data.list));
                     })
                     .catch(()=> {
+                        this.setData('products', []);
                         wx.hideLoading();
                     });
             }

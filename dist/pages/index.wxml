@@ -1,6 +1,5 @@
 
     <view class="page" style="background: #f2f2f2">
-
         <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block  wx:for="{{imgUrls}}" wx:for-index="index" wx:key="*this">
                 <swiper-item>
@@ -10,7 +9,7 @@
         </swiper>
 
         <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
-            <navigator class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active"  wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
+            <navigator  wx:if="{{products && products.length}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"/>
                 </view>
@@ -19,6 +18,9 @@
                     <view class="weui-media-box__desc">{{item.summary}}</view>
                 </view>
             </navigator>
+           <view class="none-list" wx:if="{{products && !products.length}}">
+                该商户还没有添加产品
+           </view> 
         </view>
         
     <view class="weui-footer">

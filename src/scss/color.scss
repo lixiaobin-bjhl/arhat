@@ -1,0 +1,28 @@
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+
+// 主色
+$brand: #00c0ff;
+
+$gray-999: #999;
+
+$gray-555: #555;
+
+$gray-e9: #E9E9E9;
+
+$gray-f0: #F0F0F0;
+
+$gray-333: #333;
+
+// 链接色
+$link-color: $brand;
+$brand-hover: lighten($brand, 5%);
+
+// 链接悬浮色
+$link-color-hover: darken($link-color, 5%);
+
+// 常用橙色
+$orange: #ff9933;
+

@@ -1,5 +1,5 @@
 <style lang="sass">
-    @import './scss/weui';
+    @import './scss/vendor.scss';
 </style>
 
 <script>

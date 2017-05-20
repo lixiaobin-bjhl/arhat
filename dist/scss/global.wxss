@@ -1,0 +1,10 @@
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.page .none-list {
+  font-size: 20rpx;
+  color: #999;
+  padding: 50rpx;
+  text-align: center; }

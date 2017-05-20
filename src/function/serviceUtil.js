@@ -11,11 +11,15 @@ import config from '../config'
 /**
  * 调用wepy.request 发送请求
  */
-function doRequest(url,data, method) {
+function doRequest(url, data = {}, method = 'get') {
     return new Promise((resolve, reject) => {
-        wepy.request(config.domain + url, {
-            method,
-            params: data
+        wepy.request({
+            url: config.domain + url,
+            method: method,
+            header: {
+                'mobile': config.mobile
+            },
+            data: data
         })
         .then(
             (response)=> {
@@ -48,7 +52,7 @@ function doRequest(url,data, method) {
  * @param {Object} data 发送的数据
  * @return {Promise}
  */
-export function post(url, data = {}, sync) {
+export function post(url, data = {}) {
     return doRequest(url, data, 'post');
 }
 
@@ -60,7 +64,7 @@ export function post(url, data = {}, sync) {
  * @param {boolean} sync 是否是同步请求
  * @return {Promise}
  */
-export function del(url, data = {}, sync) {
+export function del(url, data = {}) {
     return axios.delete(url, {
         params: data
     });
@@ -85,6 +89,6 @@ export function get(url, data = {}) {
  * @param {boolean} sync 是否是同步请求
  * @return {Promise}
  */
-export function put(url, data = {}, sync) {
+export function put(url, data = {}) {
     return axios.put(url, data);
 }
