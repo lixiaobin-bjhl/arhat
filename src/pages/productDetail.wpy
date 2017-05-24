@@ -45,7 +45,7 @@
                     </view>
 
                     <view class="weui-form-preview__item">
-                        <block wx:for="{{product.specifications}}" wx:for-index="index" wx:key="index">
+                        <block wx:for="{{product.specifications}}"  wx:for-index="index" wx:key="index">
                             <view class="weui-form-preview__label">{{item.name}}</view>
                             <view class="weui-form-preview__value">{{item.value}}</view>
                         </block>
@@ -56,10 +56,17 @@
                         <view class="weui-form-preview__value">{{product.productSubject.name}}</view>
                     </view>
 
-                     <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">库存</view>
                         <view class="weui-form-preview__value">{{product.storeCount}}</view>
                     </view>
+
+                    <block wx:for="{{product.customField}}"  wx:for-index="index" wx:key="index" wx:if="{{product.customField && product.customField.length && item.value}}">
+                        <view class="weui-form-preview__item">
+                            <view class="weui-form-preview__label">{{item.name}}</view>
+                            <view class="weui-form-preview__value">{{item.value}}</view>
+                        </view>
+                    </block>
 
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">标题摘要</view>
