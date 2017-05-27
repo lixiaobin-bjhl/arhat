@@ -65,16 +65,15 @@
             duration: 1000
         }
 
-        config = {
-            navigationBarTitleText: 'arhat'
-        }
-
         components = {
             footer
         }
 
         onLoad () {
             this.methods.getProductList();
+            wx.setNavigationBarTitle({
+                title: config.name
+            });
         }
 
         methods = {

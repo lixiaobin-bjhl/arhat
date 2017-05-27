@@ -5,6 +5,7 @@
 <script>
     import wepy from 'wepy'
     import 'wepy-async-function'
+    import config from './config';
 
     export default class extends wepy.app {
 
@@ -16,7 +17,7 @@
             window: {
                 backgroundTextStyle: 'light',
                 navigationBarBackgroundColor: '#fff',
-                navigationBarTitleText: 'arhat',
+                navigationBarTitleText: '',
                 navigationBarTextStyle: 'black'
             }
         }
@@ -45,7 +46,6 @@
 
         async testAsync () {
             const data = await this.sleep(3)
-            console.log(data)
         }
 
         getUserInfo(cb) {

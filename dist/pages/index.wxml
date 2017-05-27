@@ -24,12 +24,6 @@
         </view>
         
     <view class="weui-footer">
-        <view class="weui-footer__links">
-            <view class="weui-footer__links">
-                <navigator url="" class="weui-footer__link">charity</navigator>
-                <navigator url="" class="weui-footer__link">arhat</navigator>
-            </view>
-        </view>
         <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
     </view>
 

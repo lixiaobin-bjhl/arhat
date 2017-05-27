@@ -5,8 +5,9 @@
 
 'use strict';
 
-export default {
+module.exports = {
     domain: 'http://127.0.0.1:7001',
-    mobile: '18610720742'
+    mobile: '18610720742',
+    name: '兄弟鱼坊'
 }
 
