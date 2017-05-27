@@ -1,13 +1,14 @@
 
     <view class="page" style="background: #f2f2f2">
-        <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-            <block  wx:for="{{imgUrls}}" wx:for-index="index" wx:key="*this">
-                <swiper-item>
-                    <image src="{{item}}" class="slide-image" mode="aspectFill"/>
-                </swiper-item>
+        <swiper  wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{bannerOption}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+                <navigator url="productDetail?pid={{item._id}}">
+                    <swiper-item>
+                        <image src="{{item.image}}" class="slide-image" mode="aspectFill"/>
+                    </swiper-item>
+                </navigator>
             </block>
         </swiper>
-
         <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
             <navigator  wx:if="{{products && products.length}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
@@ -16,6 +17,7 @@
                 <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                     <view class="weui-media-box__title">{{item.title}}</view>
                     <view class="weui-media-box__desc">{{item.summary}}</view>
+                    <view class="weui-media-box__title">{{item.payPrice}}</view>
                 </view>
             </navigator>
            <view class="none-list" wx:if="{{products && !products.length}}">

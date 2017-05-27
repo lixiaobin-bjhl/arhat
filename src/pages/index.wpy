@@ -7,22 +7,27 @@
     height: 100%;
     width: 100%;
 }
+.weui-media-box__hd_in-appmsg {
+    width: 80px;
+    height: 80px;
+}
 </style>
 <template>
     <view class="page" style="background: #f2f2f2">
-        <swiper class="banner" indicator-dots="{{indicatorDots}}"
+        <swiper wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-            <block wx:for="{{imgUrls}}"  wx:for-index="index" wx:key="*this">
-                <swiper-item>
-                    <image src="{{item}}" class="slide-image" mode="aspectFill" />
-                </swiper-item>
+            <block wx:for="{{bannerOption}}" wx:for-item="item"  wx:for-index="index" wx:key="item._id">
+                <navigator url="productDetail?pid={{item._id}}">
+                    <swiper-item>
+                        <image src="{{item.image}}" class="slide-image" mode="aspectFill"></image>
+                    </swiper-item>
+                </navigator>
             </block>
         </swiper>
-
         <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
             <navigator wx:if="{{products && products.length}}" class="weui-media-box weui-media-box_appmsg" 
                 hover-class="weui-cell_active" 
-                wx:for="{{products}}"  
+                wx:for="{{products}}"
                 wx:for-index="index"  
                 wx:for-item="item" 
                 wx:key="item._id" 
@@ -33,6 +38,7 @@
                 <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                     <view class="weui-media-box__title">{{item.title}}</view>
                     <view class="weui-media-box__desc">{{item.summary}}</view>
+                    <view class="weui-media-box__title">{{item.payPrice}}</view>
                 </view>
             </navigator>
            <view class="none-list" wx:if="{{products && !products.length}}">
@@ -53,11 +59,7 @@
   
     export default class Index extends wepy.page {
         data = {
-            imgUrls: [
-                'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-                'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-                'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-            ],
+            bannerOption: [],
             products: null,
             indicatorDots: true,
             autoplay: true,
@@ -78,13 +80,26 @@
 
         methods = {
             adaptList: (data)=> {
+                var bannerOption = [];
                 data.forEach((item)=> {
+                    console.log(item._id);
                     var storageIds = item.storageIds;
                     if (storageIds && storageIds.length) {
-                        // 显示第1张图
-                        item.imageUrl = compressImage(item.storageIds[0])
+                        storageIds.forEach((storageId, index)=> {
+                            // 产品仅显示第1张图
+                            if (index === 0) {
+                                item.imageUrl = compressImage(storageId)
+                            // 其余图片放到banner中显示
+                            } else {
+                                bannerOption.push({
+                                    image: compressImage(storageId),
+                                    _id: item._id
+                                });
+                            }
+                        });
                     }
                 });
+                this.setData('bannerOption', bannerOption);
                 return data;
             },
             getProductList: ()=> {
