@@ -1,0 +1,28 @@
+/**
+ * @fileOverview function initUser
+ * @author XiaoBin Li(lixiaobin8878@gmail.com)
+ */
+
+'use strict';
+
+import { login, getUserInfo, jscode2Session } from '../service/global';
+import userInfo from '../plugin/userInfo';
+
+export default function initUser () {
+    return new Promise((resolve, reject)=> {
+        login()
+            .then((res)=> {
+                jscode2Session(res.code)
+                    .then((res)=> {
+                        userInfo.setOpenId(res.openid);
+                        userInfo.setSessionKey(res.session_key);
+                        getUserInfo()
+                            .then((res)=> {
+                                userInfo.setInfo(res);
+                                resolve(res);
+                            })
+                            .catch(reject);
+                    })
+            });
+    });
+}

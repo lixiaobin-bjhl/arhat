@@ -13,7 +13,7 @@
 }
 </style>
 <template>
-    <view class="page" style="background: #f2f2f2">
+    <view class="page" style="background: #f2f2f2"> 
         <swiper wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{bannerOption}}" wx:for-item="item"  wx:for-index="index" wx:key="item._id">
@@ -56,6 +56,9 @@
     import { login, token } from '../service/user';
     import compressImage from '../function/compressImage';
     import config from '../config';
+    import { getUserInfo } from '../service/global';
+    import userInfo from '../plugin/userInfo';
+    import initUser from '../function/initUser';
   
     export default class Index extends wepy.page {
         data = {
@@ -76,13 +79,25 @@
             wx.setNavigationBarTitle({
                 title: config.name
             });
+            this.setUserInfo();
+        }
+
+        async setUserInfo() {
+            let res;
+            try {
+                res = await initUser();
+            } catch (e) {
+                console.log(e);
+                toast('获取用户信息失败');
+            }
+            console.log(res));
+            return userInfo.getInfo();
         }
 
         methods = {
             adaptList: (data)=> {
                 var bannerOption = [];
                 data.forEach((item)=> {
-                    console.log(item._id);
                     var storageIds = item.storageIds;
                     if (storageIds && storageIds.length) {
                         storageIds.forEach((storageId, index)=> {
@@ -102,6 +117,7 @@
                 this.setData('bannerOption', bannerOption);
                 return data;
             },
+
             getProductList: ()=> {
                 wx.showLoading();
 

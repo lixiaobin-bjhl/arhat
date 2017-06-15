@@ -1,0 +1,15 @@
+/**
+ * @fileOverview get userinfo
+ * @author XiaoBin Li(lixiaobin8878@gmail.com)
+ */
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = setUserInfo;
+function setUserInfo(userInfo) {
+  return this._userInfo = userInfo;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNldFVzZXJJbmZvLmpzIl0sIm5hbWVzIjpbInNldFVzZXJJbmZvIiwidXNlckluZm8iLCJfdXNlckluZm8iXSwibWFwcGluZ3MiOiJBQUFBOzs7OztBQUtBOzs7OztrQkFFd0JBLFc7QUFBVCxTQUFTQSxXQUFULENBQXNCQyxRQUF0QixFQUFnQztBQUMzQyxTQUFPLEtBQUtDLFNBQUwsR0FBaUJELFFBQXhCO0FBQ0giLCJmaWxlIjoic2V0VXNlckluZm8uanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBmaWxlT3ZlcnZpZXcgZ2V0IHVzZXJpbmZvXG4gKiBAYXV0aG9yIFhpYW9CaW4gTGkobGl4aWFvYmluODg3OEBnbWFpbC5jb20pXG4gKi9cblxuJ3VzZSBzdHJpY3QnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBzZXRVc2VySW5mbyAodXNlckluZm8pIHtcbiAgICByZXR1cm4gdGhpcy5fdXNlckluZm8gPSB1c2VySW5mbztcbn0iXX0=

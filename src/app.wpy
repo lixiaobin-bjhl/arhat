@@ -23,7 +23,9 @@
         }
 
         globalData = {
-            userInfo: null
+            userInfo: null,
+            openId: null,
+            sessionKey: null
         }
 
         constructor () {
@@ -49,9 +51,9 @@
         }
 
         getUserInfo(cb) {
-            const that = this
+            const that = this;
             if (this.globalData.userInfo) {
-            return this.globalData.userInfo
+                return this.globalData.userInfo
             }
             wepy.getUserInfo({
                 success (res) {

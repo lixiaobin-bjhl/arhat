@@ -14,7 +14,7 @@ import config from '../config'
 function doRequest(url, data = {}, method = 'get') {
     return new Promise((resolve, reject) => {
         wepy.request({
-            url: config.domain + url,
+            url: url.indexOf('http') > -1 ? url : (config.domain + url),
             method: method,
             header: {
                 'mobile': config.mobile
@@ -26,6 +26,8 @@ function doRequest(url, data = {}, method = 'get') {
                 var data = response.data;
                 
                 if (data.code === 0) {
+                    resolve(data);
+                }  else if (typeof data.code === 'undefined') {
                     resolve(data);
                 } else {
                     wx.showToast({
