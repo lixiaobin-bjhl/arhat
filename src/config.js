@@ -10,7 +10,6 @@ module.exports = {
     mobile: '18610720742',
     name: '兄弟鱼坊',
     appId: 'wx9a725aa4ebad3f02',
-    appSecret: 'bd6aef2d3039ac96f2a97614d88359a7',
-    
+    appSecret: 'a26d091593cca71697a7fbef264ba9e5'
 }
 

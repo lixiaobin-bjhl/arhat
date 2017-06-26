@@ -7,7 +7,7 @@
 
 import userInfo from '../plugin/userInfo';
 import wepy from 'wepy';
-import { get } from '../function/serviceUtil';
+import { get, xmlPost } from '../function/serviceUtil';
 import config from '../config';
 
 /**

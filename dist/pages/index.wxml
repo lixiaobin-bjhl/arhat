@@ -23,10 +23,11 @@
            <view class="none-list" wx:if="{{products && !products.length}}">
                 该商户还没有添加产品
            </view> 
-        </view>
-        
+           <view catchtap="purchase" style="padding: 10px; font-size:12px;" data-wepy-params-a="123123">下单</view>
+           
     <view class="weui-footer">
         <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
     </view>
 
+        </view>
     </view>

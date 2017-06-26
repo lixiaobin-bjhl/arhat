@@ -9,12 +9,13 @@
 import checkSession from '../function/checkSession';
 
 export default {
-    async getInfo () {
-        var res = await checkSession();
+    getInfo () {
+        // var res = await checkSession();
+        // console.log(res);
         // if (res) {
             return this._userInfo;
         // } else {
-            // toast('登录信息失效');
+        //     toast('登录信息失效');
         // }
     },
     setInfo (userInfo) {
