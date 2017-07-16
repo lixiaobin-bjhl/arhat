@@ -17,7 +17,7 @@
                 <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
                     <view class="weui-media-box__title">{{item.title}}</view>
                     <view class="weui-media-box__desc">{{item.summary}}</view>
-                    <view class="weui-media-box__title">{{item.payPrice}}</view>
+                    <view class="weui-media-box__title">{{item.payPrice}}<view style="font-size: 12px;float:right; margin-top: 5px; color: #3399ff;" catchtap="addToCard" data-wepy-params-a="{{item}}">加入购物车</view></view>
                 </view>
             </navigator>
            <view class="none-list" wx:if="{{products && !products.length}}">

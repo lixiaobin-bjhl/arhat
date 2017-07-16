@@ -24,13 +24,24 @@ function doRequest(url, data = {}, method = 'get') {
         .then(
             (response)=> {
                 var data = response.data;
-                
+
+                if (response.statusCode > 300) {
+                    wx.showToast({
+                        icon: 'loading',
+                        title: '系统异常，请稍后重试',
+                        duration: 3000
+                    });
+                    reject(data);
+                    return;
+                }
+
                 if (data.code === 0) {
                     resolve(data);
                 }  else if (typeof data.code === 'undefined') {
                     resolve(data);
                 } else {
                     wx.showToast({
+                        icon: 'loading',
                         title: data.message || '系统异常，请稍后重试',
                         duration: 3000
                     });
@@ -39,6 +50,7 @@ function doRequest(url, data = {}, method = 'get') {
             }, 
             (response)=> {
                 wx.showToast({
+                    icon: 'loading',
                     title: '系统异常，请稍后重试',
                     duration: 3000
                 });
