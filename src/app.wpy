@@ -12,6 +12,7 @@
         config = {
             pages: [
                 'pages/index',
+                'pages/card',
                 'pages/productDetail'
             ],
             window: {

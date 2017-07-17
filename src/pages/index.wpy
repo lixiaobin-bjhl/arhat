@@ -45,6 +45,7 @@
                 该商户还没有添加产品
            </view> 
            <view @tap.stop="purchase(123123)" style="padding: 10px; font-size:12px;">下单</view>
+           <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="card">购物车</navigator></view>
            <footer></footer>
         </view>
     </view>
@@ -132,16 +133,21 @@
                     });
             },
             purchase,
+            /**
+             * 去查看购物车 
+             */
+            toCard () {
+                
+            },
             addToCard (item) {
                 wx.showLoading();
                 addToCard({
-                    product: {
-                        id: item._id,
-                        count: 1
-                    }
+                    product: item._id,
+                    count: 1
                 })
                 .then(()=> {
                     wx.hideLoading();
+                    toast('已成功加到购物车');
                 })
             }
         }

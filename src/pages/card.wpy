@@ -1,0 +1,56 @@
+<!--
+     @fileOverview arhat-card
+     @author XiaoBin Li(lixiaobin8878@gmail.com) 
+-->
+
+<template>
+    <view class="page" style="background: #f2f2f2">
+        <block wx:for="{{list}}" wx:for-item="item"  wx:for-index="index" wx:key="item._id">
+            <view style="margin: 10px; background: #FFF;">
+                <view>{{item.product.title}}</view>
+                <view>{{item.product.payPrice}}</view>
+                <view style="font-size: 12px;color: #3399ff;">从购物车中移出</view>
+            </view>
+        </block>
+    </view>
+</template>
+
+<script>
+
+    import wepy from 'wepy'
+    import { getCardByOpenid } from '../service/card'
+    import compressImage from '../function/compressImage'
+    
+    export default class Card  extends wepy.page {
+        data = {
+           list: [] 
+        }
+
+        methods = {
+            /**
+             * 获取产品详情
+             */
+            getCardList: () => {
+                wx.showLoading();
+                getCardByOpenid()
+                    .then((res)=> {
+                        wx.hideLoading();
+                        this.setData('list', res.data.list);
+                    })
+                    .catch(()=>{
+                        wx.hideLoading();
+                    });
+            }
+        }
+
+        onLoad (p) {
+            this.methods.getCardList(p.pid);
+             wx.setNavigationBarTitle({
+                title: '购物车'
+            });
+        }
+
+    }
+</script>
+
+
