@@ -8,13 +8,14 @@
 import { login, getUserInfo, jscode2Session } from '../service/global';
 import userInfo from '../plugin/userInfo';
 
-export default function initUser () {
+export default function initUser (context) {
     return new Promise((resolve, reject)=> {
         login()
             .then((res)=> {
                 jscode2Session(res.code)
                     .then((res)=> {
                         userInfo.setOpenId(res.openid);
+                        context.$root.$broadcast('openidloaded');
                         userInfo.setSessionKey(res.session_key);
                         getUserInfo()
                             .then((res)=> {

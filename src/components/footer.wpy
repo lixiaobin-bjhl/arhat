@@ -9,14 +9,53 @@
 }
 </style>
 <template>
-    <view class="weui-footer">
-        <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
+    <view>
+        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="card">购物车{{cardCount}}<view wx:if="{{cardCount > 0}}">({{cardCount}})</view></navigator></view>
+        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;">我</navigator></view>
+        <view class="weui-footer">
+            <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
+        </view>
     </view>
 </template>
 
 <script>
-    import wepy from 'wepy'
-    export default class Counter extends wepy.component {
-        
+
+    import wepy from 'wepy';
+    import { getCountByOpendId } from '../service/card';
+
+    export default class Footer extends wepy.component {
+        data = {
+            cardCount: 0
+        }
+        methods =  {
+            /**
+             * 统计购物车的数数
+             */
+            getCountByOpendId: ()=> {
+                getCountByOpendId()
+                    .then((res)=> {
+                        // this.cardCount = 123;
+                        this.setData('cardCount', res.data.count);
+                        console.log(res.data.count);
+                    });
+            }
+        }
+        events = {
+            /**
+             * 购物车信息变更后，更新一下统计 
+             */
+            'updatecard' () {
+                 this.methods.getCountByOpendId();
+            },
+            /**
+             * opendid加载后，获取一下购物车信息 
+             */
+            'openidloaded' () {
+                 this.methods.getCountByOpendId();
+            } 
+        }
+        onLoad () {
+            // this.methods.getCountByOpendId();
+        }
     }
 </script>

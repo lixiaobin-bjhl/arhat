@@ -79,9 +79,7 @@ export function post(url, data = {}) {
  * @return {Promise}
  */
 export function del(url, data = {}) {
-    return axios.delete(url, {
-        params: data
-    });
+     return doRequest(url, data, 'delete');
 }
 
 /**

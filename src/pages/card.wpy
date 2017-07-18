@@ -9,7 +9,7 @@
             <view style="margin: 10px; background: #FFF;">
                 <view>{{item.product.title}}</view>
                 <view>{{item.product.payPrice}}</view>
-                <view style="font-size: 12px;color: #3399ff;">从购物车中移出</view>
+                <view style="font-size: 12px;color: #3399ff;" @tap="remove({{item}})">从购物车中移出</view>
             </view>
         </block>
     </view>
@@ -18,14 +18,13 @@
 <script>
 
     import wepy from 'wepy'
-    import { getCardByOpenid } from '../service/card'
+    import { getCardByOpenid, remove } from '../service/card'
     import compressImage from '../function/compressImage'
     
     export default class Card  extends wepy.page {
         data = {
            list: [] 
         }
-
         methods = {
             /**
              * 获取产品详情
@@ -40,6 +39,15 @@
                     .catch(()=>{
                         wx.hideLoading();
                     });
+            },
+            /**
+             * 将商品从购物车中移除 
+             */
+            remove (item) {
+                remove(item._id)
+                .then(()=> {
+                    this.methods.getCardList();
+                });
             }
         }
 

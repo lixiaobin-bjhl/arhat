@@ -4,7 +4,7 @@
             <view style="margin: 10px; background: #FFF;">
                 <view>{{item.product.title}}</view>
                 <view>{{item.product.payPrice}}</view>
-                <view style="font-size: 12px;color: #3399ff;">从购物车中移出</view>
+                <view style="font-size: 12px;color: #3399ff;" bindtap="remove" data-wepy-params-a="{{item}}">从购物车中移出</view>
             </view>
         </block>
     </view>
