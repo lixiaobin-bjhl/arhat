@@ -146,6 +146,7 @@
                 })
                 .then(()=> {
                     wx.hideLoading();
+                    this.$root.$broadcast('updatecard');
                     toast('已成功加到购物车');
                 })
             }
