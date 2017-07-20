@@ -3,15 +3,29 @@
      @author XiaoBin Li(lixiaobin8878@gmail.com) 
 -->
 
+<style lang="sass">
+    .card-list {
+        background: #f2f2f2;
+        .card {
+            margin: 10px; 
+            background: #FFF;
+            &.selected {
+                background: red;
+            }
+        }
+    }
+</style>
+
 <template>
-    <view class="page" style="background: #f2f2f2">
-        <block wx:for="{{list}}" wx:for-item="item"  wx:for-index="index" wx:key="item._id">
-            <view @tap="select({{item}})" style="margin: 10px; background: #FFF;">
+    <view class="page card-list">
+        <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+            <view @tap="select({{item}}, {{index}})" class="card {{item.selected ? 'selected': ''}}">
                 <view>{{item.product.title}}</view>
                 <view>{{item.product.payPrice}}</view>
                 <view style="font-size: 12px;color: #3399ff;" @tap.stop="remove({{item}})">从购物车中移出</view>
             </view>
         </block>
+        <view>应付金额: {{totalMoney}}</view>
         <footer></footer>
     </view>
 </template>
@@ -22,6 +36,8 @@
     import footer from '../components/footer'
     import { getCardByOpenid, remove } from '../service/card'
     import compressImage from '../function/compressImage'
+    import plus from '../function/plus'
+    import minus from '../function/minus'
     
     export default class Card  extends wepy.page {
         data = {
@@ -30,6 +46,22 @@
 
         components = {
             footer
+        }
+
+        computed = {
+            totalMoney () {
+                var result = 0;
+                this.list.forEach((item)=> {
+                    if (item.selected) {
+                        var discountPrice = item.product.discountPrice;
+                        var price = item.product.price;
+                        // 产品有折扣就减去折扣，没有折扣就是原价
+                        var pay = discountPrice ? minus(price, discountPrice) : price;
+                        result = plus(result, pay);
+                    }
+                });
+                return result;
+            }
         }
 
         methods = {
@@ -41,7 +73,8 @@
                 getCardByOpenid()
                     .then((res)=> {
                         wx.hideLoading();
-                        this.setData('list', res.data.list);
+                        this.list = res.data.list;
+                        this.$apply();
                     })
                     .catch(()=>{
                         wx.hideLoading();
@@ -50,8 +83,10 @@
             /**
              * 购物车中选择商品支付 
              */
-            select (card) {
-                console.log(11);
+            select (card, index) {
+                var selected = card.selected ? false : true;
+                this.list[index].selected = selected;
+                this.$apply();
             },
             /**
              * 将商品从购物车中移除 

@@ -1,0 +1,27 @@
+/**
+ * @file 减法
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+
+'use strict';
+
+var decimalLength = require('./decimalLength.js');
+var float2Int = require('./float2Int.js');
+
+/**
+ * 减法
+ *
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+module.exports = function (a, b) {
+
+  var length = Math.max(decimalLength(a), decimalLength(b));
+
+  a = float2Int(a, length);
+  b = float2Int(b, length);
+
+  return (a - b) / Math.pow(10, length);
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1pbnVzLmpzIl0sIm5hbWVzIjpbImRlY2ltYWxMZW5ndGgiLCJyZXF1aXJlIiwiZmxvYXQySW50IiwibW9kdWxlIiwiZXhwb3J0cyIsImEiLCJiIiwibGVuZ3RoIiwiTWF0aCIsIm1heCIsInBvdyJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7O0FBS0E7O0FBRUEsSUFBSUEsZ0JBQWdCQyxRQUFRLGlCQUFSLENBQXBCO0FBQ0EsSUFBSUMsWUFBWUQsUUFBUSxhQUFSLENBQWhCOztBQUVBOzs7Ozs7O0FBT0FFLE9BQU9DLE9BQVAsR0FBaUIsVUFBVUMsQ0FBVixFQUFhQyxDQUFiLEVBQWdCOztBQUU3QixNQUFJQyxTQUFTQyxLQUFLQyxHQUFMLENBQ0dULGNBQWNLLENBQWQsQ0FESCxFQUVHTCxjQUFjTSxDQUFkLENBRkgsQ0FBYjs7QUFLQUQsTUFBSUgsVUFBVUcsQ0FBVixFQUFhRSxNQUFiLENBQUo7QUFDQUQsTUFBSUosVUFBVUksQ0FBVixFQUFhQyxNQUFiLENBQUo7O0FBRUEsU0FBTyxDQUFDRixJQUFJQyxDQUFMLElBQVVFLEtBQUtFLEdBQUwsQ0FBUyxFQUFULEVBQWFILE1BQWIsQ0FBakI7QUFFSCxDQVpEIiwiZmlsZSI6Im1pbnVzLmpzIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAZmlsZSDlh4/ms5VcbiAqIEBhdXRob3IgWGlhb0JpbiBMaShsaXhpYW9iaW44ODc4QGdtYWlsLmNvbSkgXG4gKi9cblxuJ3VzZSBzdHJpY3QnO1xuXG52YXIgZGVjaW1hbExlbmd0aCA9IHJlcXVpcmUoJy4vZGVjaW1hbExlbmd0aCcpO1xudmFyIGZsb2F0MkludCA9IHJlcXVpcmUoJy4vZmxvYXQySW50Jyk7XG5cbi8qKlxuICog5YeP5rOVXG4gKlxuICogQHBhcmFtIHtudW1iZXJ9IGFcbiAqIEBwYXJhbSB7bnVtYmVyfSBiXG4gKiBAcmV0dXJuIHtudW1iZXJ9XG4gKi9cbm1vZHVsZS5leHBvcnRzID0gZnVuY3Rpb24gKGEsIGIpIHtcblxuICAgIHZhciBsZW5ndGggPSBNYXRoLm1heChcbiAgICAgICAgICAgICAgICAgICAgZGVjaW1hbExlbmd0aChhKSxcbiAgICAgICAgICAgICAgICAgICAgZGVjaW1hbExlbmd0aChiKVxuICAgICAgICAgICAgICAgICk7XG5cbiAgICBhID0gZmxvYXQySW50KGEsIGxlbmd0aCk7XG4gICAgYiA9IGZsb2F0MkludChiLCBsZW5ndGgpO1xuXG4gICAgcmV0dXJuIChhIC0gYikgLyBNYXRoLnBvdygxMCwgbGVuZ3RoKTtcblxufTtcbiJdfQ==
