@@ -5,7 +5,7 @@
 
 'use strict';
 
-import { get } from '../function/serviceUtil';
+import { get, post } from '../function/serviceUtil';
 
 /**
  * 获取产品列表 
@@ -21,4 +21,13 @@ export function getList () {
  */
 export function getDetial (pid) {
     return get('/api/product/' + pid)
+}
+
+/**
+ * 根据商品ids获取商口列表
+ * 
+ * @param {string} params.products 产品及数量信息
+ */
+export function listByIds (params) {
+    return post('/api/product/l/', params);
 }

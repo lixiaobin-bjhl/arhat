@@ -13,7 +13,8 @@
             pages: [
                 'pages/index',
                 'pages/card',
-                'pages/productDetail'
+                'pages/productDetail',
+                'pages/orderConfirm'
             ],
             window: {
                 backgroundTextStyle: 'light',

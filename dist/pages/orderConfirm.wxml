@@ -1,0 +1,14 @@
+
+    <view class="page">
+        
+         <block  wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+            <view bindtap="select" class="card {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
+                <view>{{item.title}}</view>
+                <view>{{item.priceStr}}</view>
+                <view>数量 {{item.count}}</view>
+            </view>
+        </block>
+
+        <view>应付金额：{{totalMoney}}</view>
+        <view style="color: #3399ff">提交订单</view>
+    </view>

@@ -21,11 +21,12 @@
         <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
             <view @tap="select({{item}}, {{index}})" class="card {{item.selected ? 'selected': ''}}">
                 <view>{{item.product.title}}</view>
-                <view>{{item.product.payPrice}}</view>
+                <view>{{item.product.priceStr}}</view>
                 <view style="font-size: 12px;color: #3399ff;" @tap.stop="remove({{item}})">从购物车中移出</view>
             </view>
         </block>
         <view>应付金额: {{totalMoney}}</view>
+        <view @tap="pay" style="font-size: 12px;color: #3399ff;">结算</view>
         <footer></footer>
     </view>
 </template>
@@ -37,7 +38,7 @@
     import { getCardByOpenid, remove } from '../service/card'
     import compressImage from '../function/compressImage'
     import plus from '../function/plus'
-    import minus from '../function/minus'
+    import purchase from '../function/purchase'
     
     export default class Card  extends wepy.page {
         data = {
@@ -52,13 +53,7 @@
             totalMoney () {
                 var result = 0;
                 this.list.forEach((item)=> {
-                    if (item.selected) {
-                        var discountPrice = item.product.discountPrice;
-                        var price = item.product.price;
-                        // 产品有折扣就减去折扣，没有折扣就是原价
-                        var pay = discountPrice ? minus(price, discountPrice) : price;
-                        result = plus(result, pay);
-                    }
+                    result = plus(item.product.payPrice, result);
                 });
                 return result;
             }
@@ -97,18 +92,21 @@
                     this.methods.getCardList();
                     this.$root.$broadcast('updatecard');
                 });
+            },
+            /**
+             * 下单 
+             */
+            pay () {
+                console.log(123);
             }
         }
-
+        
         onLoad (p) {
             this.methods.getCardList(p.pid);
-             wx.setNavigationBarTitle({
+            wx.setNavigationBarTitle({
                 title: '购物车'
             });
             this.$root.$broadcast('updatecard');
         }
-
     }
 </script>
-
-

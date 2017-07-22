@@ -1,1 +1,1 @@
-{"pages":["pages/index","pages/card","pages/productDetail"],"window":{"backgroundTextStyle":"light","navigationBarBackgroundColor":"#fff","navigationBarTitleText":"","navigationBarTextStyle":"black"}}
+{"pages":["pages/index","pages/card","pages/productDetail","pages/orderConfirm"],"window":{"backgroundTextStyle":"light","navigationBarBackgroundColor":"#fff","navigationBarTitleText":"","navigationBarTextStyle":"black"}}
