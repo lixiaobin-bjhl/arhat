@@ -5,8 +5,18 @@
 
 <template>
     <view class="page">
-        
-         <block wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+        <block wx:if="{{defaultShippingAddress}}">
+            <view>{{defaultShippingAddress.name}}</view>
+            <view>{{defaultShippingAddress.mobile}}</view>
+            <view>{{defaultShippingAddress.region}}{{defaultShippingAddress.address}}</view>
+            <view style="color: #3399ff" @tap="selectShipingAddress">
+                地址管理
+            </view>
+        </block>
+        <view style="color: #3399ff" @tap="selectShipingAddress" wx:else>
+            选择配送地址
+        </view>
+        <block wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
             <view @tap="select({{item}}, {{index}})" class="card {{item.selected ? 'selected': ''}}">
                 <view>{{item.title}}</view>
                 <view>{{item.priceStr}}</view>
@@ -15,6 +25,7 @@
         </block>
 
         <view>应付金额：{{totalMoney}}</view>
+        <view>收货方式快递</view>
         <view style="color: #3399ff">提交订单</view>
     </view>
 </template>
@@ -22,16 +33,73 @@
 <script>
 
     import wepy from 'wepy'
-
-    import { listByIds } from '../service/product';
+    import { listByIds } from '../service/product'
+    import { list } from '../service/shippingAddress'
     import plus from '../function/plus'
     
-    export default class Card  extends wepy.page {
+    export default class OrderConfirm  extends wepy.page {
+        
+        config = {
+            navigationBarTitleText: '确认定单'
+        }
+
         data = {
-           products: null
+           products: null,
+           shippingAddressList: null
+        }
+
+        onShow () {
+            this.methods.getShippingAddressList();
+        }
+
+        computed = {
+            // 默认收货地地址
+            defaultShippingAddress: ()=> {
+                var result = null;
+                var shippingAddressList = this.shippingAddressList;
+                if (shippingAddressList && shippingAddressList.length) {
+                    // 如果只有一个收货地址，不管是不是默认的，就当默认的使用
+                    if (shippingAddressList.length == 1) {
+                        result = shippingAddressList[0];
+                    } else {
+                        shippingAddressList.some((item)=> {
+                            if (item.isDefault) {
+                                result = item;
+                                return true;
+                            }
+                        });
+                    }
+                }
+                return result;
+            } 
         }
 
         methods = {
+            /**
+             * 选择配送地址 
+             */
+            selectShipingAddress () {
+                wx.navigateTo({
+                   url: 'shippingAddress'
+                });
+            },
+
+            /**
+             * 获取收货地址列表
+             */
+            getShippingAddressList: ()=> {
+                list()
+                    .then((res)=> {
+                        this.shippingAddressList = res.data.list; 
+                        this.$apply();
+                    })
+                    .catch(()=> {
+                        this.shippingAddressList = [];
+                        this.$apply();
+                    });
+                    
+            },
+
             /**
              * 根据产品ids获取商品信息 
              */
@@ -58,22 +126,7 @@
             }
         };
 
-        computed = {
-            totalMoney () {
-                var result = 0;
-                var products = this.products || [];
-
-                products.forEach((item)=> {
-                    result = plus(item.payPrice, result);
-                });
-                return result;
-            }
-        }
-
         onLoad (p) {
-            wx.setNavigationBarTitle({
-                title: '确认定单'
-            });
             var pids = p.pids;
             // 直接购买产品 
             this.methods.getProductsByIds(pids);

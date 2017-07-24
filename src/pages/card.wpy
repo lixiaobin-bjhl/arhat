@@ -41,6 +41,11 @@
     import purchase from '../function/purchase'
     
     export default class Card  extends wepy.page {
+
+        config = {
+            navigationBarTitleText: '购物车' 
+        }
+
         data = {
            list: [] 
         }
@@ -49,11 +54,17 @@
             footer
         }
 
+        onShow () {
+            this.$invoke('footer', 'getCountByOpendId');
+        }
+
         computed = {
             totalMoney () {
                 var result = 0;
                 this.list.forEach((item)=> {
-                    result = plus(item.product.payPrice, result);
+                    if (item.selected) {
+                        result = plus(item.product.payPrice, result);
+                    }
                 });
                 return result;
             }
@@ -90,7 +101,7 @@
                 remove(item._id)
                 .then(()=> {
                     this.methods.getCardList();
-                    this.$root.$broadcast('updatecard');
+                    this.$invoke('footer', 'getCountByOpendId');;
                 });
             },
             /**
@@ -103,10 +114,6 @@
         
         onLoad (p) {
             this.methods.getCardList(p.pid);
-            wx.setNavigationBarTitle({
-                title: '购物车'
-            });
-            this.$root.$broadcast('updatecard');
         }
     }
 </script>

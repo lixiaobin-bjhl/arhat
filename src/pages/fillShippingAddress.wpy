@@ -1,0 +1,150 @@
+<style>
+    .section {
+        border-bottom: 1px solid #DDD;
+        padding: 10px;
+    }
+</style>
+
+<template>
+    <form bindsubmit="submit" bindreset="reset">
+        <view class="section">
+            <view class="section__title">收货人姓名</view>
+            <input bindinput="bindInputName" maxlength="5" value="{{name}}" placeholder="收货人姓名" auto-focus/>
+        </view>
+        <view class="section">
+            <view class="section__title">收货人手机号</view>
+            <input bindinput="bindInputMobile" maxlength="11" value="{{mobile}}" placeholder="收货人手机号"/>
+        </view>
+
+        <view class="section">
+            <view class="section__title">省市区</view>
+            <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+                <view class="picker">
+                当前选择：{{region[0] || '-'}} {{region[1] || '-'}} {{region[2] || '-'}}
+                </view>
+            </picker>
+        </view>
+
+        <view class="section">
+            <view class="section__title">收货人地址</view>
+            <input bindinput="bindInputAddress" maxlength="20" value="{{address}}" placeholder="收货人地址"/>
+        </view>
+
+        <view class="btn-area">
+            <button formType="submit">保存</button>
+        </view>
+   </form>  
+</template>
+
+<script>
+
+    import wepy from 'wepy'
+    import { add, show, update } from '../service/shippingAddress'
+
+    export default class FillShippingAddress  extends wepy.page {
+
+        data = {
+            id: null,
+            shippingAddressList: null,
+            name: '',
+            mobile: '',
+            address: '',
+            region: []
+        }
+
+        methods = {
+            // 编辑地址时，获取地址详情
+            show: (id) => {
+                show(id)
+                    .then((res)=> {
+                        var data = res.data;
+                        this.name = data.name;
+                        this.address = data.address;
+                        this.region = data.region;
+                        this.mobile = data.mobile;
+                    });
+            },
+            bindInputName: function (e) {
+                this.name = e.detail.value;
+            },
+            bindInputMobile: function (e) {
+                this.mobile = e.detail.value;
+            },
+            bindInputAddress: function (e) {
+                this.address = e.detail.value;
+            },
+            bindRegionChange: function (e) {
+                this.region = e.detail.value;
+            },
+            submit: ()=> {
+                var name = this.name;
+                var mobile = this.mobile;
+                var address = this.address;
+                var region = this.region;
+
+                if (!name) {
+                    wx.showToast({
+                        title: '请输入姓名'
+                    });
+                    return;
+                }
+
+                if (!/^1\d{10}/.test(mobile)) {
+                    wx.showToast({
+                        title: '请输入正确的手机号'
+                    });
+                    return;
+                }
+
+                if (region.length !==3) {
+                    wx.showToast({
+                        title: '请选择完整的省市区'
+                    });
+                    return;
+                }
+
+                if (!address) {
+                    wx.showToast({
+                        title: '请输入收货人地址'
+                    });
+                    return;
+                }
+                
+                var id = this.id;
+
+                var params = {
+                    name,
+                    mobile,
+                    address,
+                    region
+                };
+
+                var service = id  
+                    ? update.bind(null, id, params)
+                    :add.bind(null, params);
+
+                service()
+                    .then(()=> {
+                        wx.showToast({
+                            title: '保存成功'
+                        });
+                        wx.navigateBack();
+                    })
+            } 
+        }
+
+        onLoad (p)  {
+            if (p.id) {
+                wx.setNavigationBarTitle({
+                    title: '编辑地址'
+                });
+                this.id = p.id;
+                this.methods.show(p.id);
+            } else {
+                wx.setNavigationBarTitle({
+                    title: '添加地址'
+                });
+            }
+        }
+     }
+</script>

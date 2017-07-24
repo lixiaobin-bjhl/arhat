@@ -1,0 +1,126 @@
+<style>
+    .selected {
+        background: red;
+    }
+</style>
+
+<template>
+    <view class="page">
+        <view wx:if="{{shippingAddressList && shippingAddressList.length}}">
+            <block wx:for="{{shippingAddressList}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+                <view style="border-bottom: 1px solid #DDD" @tap="selectShippingAddress({{item}})" class="{{item.isDefault ? 'selected': ''}}">
+                    <view>{{item.name}}</view>
+                    <view>{{item.mobile}}</view>
+                    <view>{{item.region}}{{item.address}}</view>
+                    <view style="color: #3399ff" @tap.stop="modify({{item}})">编辑</view>
+                    <view style="color: #3399ff" @tap.stop="del({{item}})">删除</view>
+                </view>
+            </block>
+        </view>
+        <view wx:else>
+            还没有收货地址
+        </view>
+        <view style="color: #3399ff" @tap="addShippingAddress">添加收货地址</view>
+    </view>
+</template>
+
+<script>
+
+    import wepy from 'wepy'
+    import { list, setDefault, remove} from '../service/shippingAddress'
+
+    export default class ShippingAddress extends wepy.page {
+        
+        config = {
+            navigationBarTitleText: '地址管理'
+        }
+
+        onShow () {
+            this.methods.getShippingAddressList();
+        }
+
+        data = {
+            shippingAddressList: null 
+        }
+
+        methods = {
+            /**
+             * 设置默认收货地址 
+             */
+            selectShippingAddress (item) {
+                // 如果当前本身就是默认地址，就不用操作数据库直接返回
+                if (item.isDefault) {
+                    wx.navigateBack();
+                    return;
+                }
+                
+                var isCurrentDefaultId = 0;
+                this.shippingAddressList.some((n)=> {
+                    if (n.isDefault) {
+                        isCurrentDefaultId = n._id;
+                        return true;
+                    }
+                });
+
+                var ps = [setDefault(item._id, true)];
+
+                // 将当前默认的状态去掉
+                if (isCurrentDefaultId) {
+                    ps.push(setDefault(isCurrentDefaultId, false))
+                }
+
+                Promise.all(ps)
+                    .then(()=> {
+                        wx.navigateBack();
+                    });
+            },
+
+            /**
+             * 添加收货地址 
+             */
+            addShippingAddress () {
+                wx.navigateTo({
+                   url: 'fillShippingAddress'
+                });
+            },
+
+            /**
+             * 编辑地址 
+             */
+            modify (item) {
+                wx.navigateTo({
+                   url: 'fillShippingAddress?id=' + item._id
+                });
+            },
+
+            /**
+             * 删除收货地址 
+             */
+            del (item) {
+                remove(item._id)
+                    .then(()=> {
+                        wx.showToast({
+                            title: '保存成功'
+                        });
+                        this.methods.getShippingAddressList();
+                    });
+            },
+
+            /**
+             * 获取收货地址列表
+             */
+            getShippingAddressList: ()=> {
+                list()
+                    .then((res)=> {
+                        this.shippingAddressList = res.data.list; 
+                        this.$apply();
+                    })
+                    .catch(()=> {
+                        this.shippingAddressList = [];
+                        this.$apply();
+                    });
+            }
+        }
+     }
+</script>
+

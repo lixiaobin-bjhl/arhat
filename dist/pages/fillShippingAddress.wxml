@@ -1,0 +1,29 @@
+
+    <form bindsubmit="submit" bindreset="reset">
+        <view class="section">
+            <view class="section__title">收货人姓名</view>
+            <input bindinput="bindInputName" maxlength="5" value="{{name}}" placeholder="收货人姓名" auto-focus/>
+        </view>
+        <view class="section">
+            <view class="section__title">收货人手机号</view>
+            <input bindinput="bindInputMobile" maxlength="11" value="{{mobile}}" placeholder="收货人手机号"/>
+        </view>
+
+        <view class="section">
+            <view class="section__title">省市区</view>
+            <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+                <view class="picker">
+                当前选择：{{region[0] || '-'}} {{region[1] || '-'}} {{region[2] || '-'}}
+                </view>
+            </picker>
+        </view>
+
+        <view class="section">
+            <view class="section__title">收货人地址</view>
+            <input bindinput="bindInputAddress" maxlength="20" value="{{address}}" placeholder="收货人地址"/>
+        </view>
+
+        <view class="btn-area">
+            <button formType="submit">保存</button>
+        </view>
+   </form>

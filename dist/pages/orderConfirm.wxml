@@ -1,7 +1,17 @@
 
     <view class="page">
-        
-         <block  wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+        <block  wx:if="{{defaultShippingAddress}}">
+            <view>{{defaultShippingAddress.name}}</view>
+            <view>{{defaultShippingAddress.mobile}}</view>
+            <view>{{defaultShippingAddress.region}}{{defaultShippingAddress.address}}</view>
+            <view style="color: #3399ff" bindtap="selectShipingAddress">
+                地址管理
+            </view>
+        </block>
+        <view style="color: #3399ff" bindtap="selectShipingAddress"  wx:else>
+            选择配送地址
+        </view>
+        <block wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
             <view bindtap="select" class="card {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
                 <view>{{item.title}}</view>
                 <view>{{item.priceStr}}</view>
@@ -10,5 +20,6 @@
         </block>
 
         <view>应付金额：{{totalMoney}}</view>
+        <view>收货方式快递</view>
         <view style="color: #3399ff">提交订单</view>
     </view>

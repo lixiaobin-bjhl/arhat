@@ -1,0 +1,18 @@
+
+    <view class="page">
+        <view  wx:if="{{shippingAddressList && shippingAddressList.length}}">
+            <block wx:for="{{shippingAddressList}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+                <view style="border-bottom: 1px solid #DDD" bindtap="selectShippingAddress" class="{{item.isDefault ? 'selected': ''}}" data-wepy-params-a="{{item}}">
+                    <view>{{item.name}}</view>
+                    <view>{{item.mobile}}</view>
+                    <view>{{item.region}}{{item.address}}</view>
+                    <view style="color: #3399ff" catchtap="modify" data-wepy-params-a="{{item}}">编辑</view>
+                    <view style="color: #3399ff" catchtap="del" data-wepy-params-a="{{item}}">删除</view>
+                </view>
+            </block>
+        </view>
+        <view  wx:else>
+            还没有收货地址
+        </view>
+        <view style="color: #3399ff" bindtap="addShippingAddress">添加收货地址</view>
+    </view>

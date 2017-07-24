@@ -15,7 +15,7 @@ export default function initUser (context) {
                 jscode2Session(res.code)
                     .then((res)=> {
                         userInfo.setOpenId(res.openid);
-                        context.$root.$broadcast('openidloaded');
+                        context.$invoke('footer', 'getCountByOpendId');
                         userInfo.setSessionKey(res.session_key);
                         getUserInfo()
                             .then((res)=> {

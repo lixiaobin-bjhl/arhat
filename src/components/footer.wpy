@@ -11,7 +11,7 @@
 <template>
     <view>
         <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="card">购物车<view wx:if="{{cardCount > 0}}">({{cardCount}})</view></navigator></view>
-        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;">我</navigator></view>
+        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
         <view class="weui-footer">
             <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
         </view>
@@ -36,7 +36,6 @@
                     .then((res)=> {
                         this.cardCount = res.data.count;
                         this.$apply();
-                        // console.log(res.data.count);
                     });
             }
         }
@@ -45,13 +44,13 @@
              * 购物车信息变更后，更新一下统计 
              */
             'updatecard' () {
-                 this.methods.getCountByOpendId();
+                //  this.methods.getCountByOpendId();
             },
             /**
              * opendid加载后，获取一下购物车信息 
              */
             'openidloaded' () {
-                 this.methods.getCountByOpendId();
+                //  this.methods.getCountByOpendId();
             } 
         }
         onLoad () {

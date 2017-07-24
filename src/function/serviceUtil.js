@@ -98,9 +98,8 @@ export function get(url, data = {}) {
  *
  * @param {string} url 请求 url
  * @param {Object} data 发送的数据
- * @param {boolean} sync 是否是同步请求
  * @return {Promise}
  */
 export function put(url, data = {}) {
-    return axios.put(url, data);
+    return doRequest(url, data, 'put');
 }
