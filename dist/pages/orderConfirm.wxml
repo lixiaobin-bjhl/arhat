@@ -18,8 +18,11 @@
                 <view>数量 {{item.count}}</view>
             </view>
         </block>
-
-        <view>应付金额：{{totalMoney}}</view>
+        <view class="section">
+            <textarea placeholder="请输入备注信息" bindinput="bindInputRemark" value="{{remark}}" maxlength="50" style="border: 1px solid #DDD; height: 100px"/>
+        </view>
         <view>收货方式快递</view>
-        <view style="color: #3399ff">提交订单</view>
+        <view>快递费用：0.00</view>
+        <view>应付金额：{{totalMoney}}</view>
+        <view style="color: #3399ff" bindtap="createOrder">提交订单</view>
     </view>

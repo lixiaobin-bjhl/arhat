@@ -23,10 +23,13 @@
                 <view>数量 {{item.count}}</view>
             </view>
         </block>
-
-        <view>应付金额：{{totalMoney}}</view>
+        <view class="section">
+            <textarea placeholder="请输入备注信息"  bindinput="bindInputRemark" value="{{remark}}" maxlength="50" style="border: 1px solid #DDD; height: 100px" />
+        </view>
         <view>收货方式快递</view>
-        <view style="color: #3399ff">提交订单</view>
+        <view>快递费用：0.00</view>
+        <view>应付金额：{{totalMoney}}</view>
+        <view style="color: #3399ff" @tap="createOrder">提交订单</view>
     </view>
 </template>
 
@@ -35,7 +38,12 @@
     import wepy from 'wepy'
     import { listByIds } from '../service/product'
     import { list } from '../service/shippingAddress'
-    import plus from '../function/plus'
+    import * as order from '../service/order';
+    import multiply from '../function/multiply';
+    import plus from '../function/plus';
+    import config from '../config';
+    import getOrderNumber from '../function/getOrderNumber';
+    import purchase from '../function/purchase';
     
     export default class OrderConfirm  extends wepy.page {
         
@@ -45,6 +53,7 @@
 
         data = {
            products: null,
+           remark: '',
            shippingAddressList: null
         }
 
@@ -71,10 +80,59 @@
                     }
                 }
                 return result;
-            } 
+            },
+            totalMoney () {
+                var result = 0;
+                var products = this.products || [];
+                products.forEach((item)=> {
+                    result = plus(item.payPrice, result);
+                });
+                return result;
+            }
         }
 
         methods = {
+            /**
+             * 填写备注信息 
+             */
+            bindInputRemark: (e)=> {
+                this.remark = e.detail.value;
+            },
+
+            /**
+             * 创建订单 
+             */
+            createOrder: ()=> {
+
+                var outTradeNo = getOrderNumber();
+
+                var params = {
+                    products: this.products.map((item)=> {
+                        return {
+                            product: item._id,
+                            count: item.count
+                        }
+                    }),
+                    shippingAddress: this.defaultShippingAddress._id,
+                    discountMoney: 0,
+                    title: this.products.map((item)=> {
+                        return item.title
+                    }).join(','),
+                    status: 0,
+                    mobile: config.mobile,
+                    remark: this.remark.trim(),
+                    mchId: config.mchId,
+                    outTradeNo: outTradeNo,
+                    expressMoney: 0,
+                    totalFee: multiply(this.totalMoney, 100)
+                };
+
+                order.add(params)
+                    .then((res)=> {
+                        purchase(params);
+                    });
+            },
+
             /**
              * 选择配送地址 
              */
@@ -97,7 +155,6 @@
                         this.shippingAddressList = [];
                         this.$apply();
                     });
-                    
             },
 
             /**

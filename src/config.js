@@ -11,6 +11,8 @@ module.exports = {
     name: '兄弟鱼坊',
     appId: 'wx9a725aa4ebad3f02',
     mchId: 1483041862,
-    appSecret: 'a26d091593cca71697a7fbef264ba9e5'
+    appSecret: 'a26d091593cca71697a7fbef264ba9e5',
+    key: 'q5yB94rRFxWd3TPhdeenSBpScyTesf67',
+    ip: '114.115.158.88'
 }
 
