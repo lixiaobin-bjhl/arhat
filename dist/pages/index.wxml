@@ -29,6 +29,7 @@
     <view>
         <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="card">购物车<view  wx:if="{{$footer$cardCount > 0}}">({{$footer$cardCount}})</view></navigator></view>
         <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
+        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="order">我的订单</navigator></view>
         <view class="weui-footer">
             <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
         </view>

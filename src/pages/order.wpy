@@ -1,0 +1,58 @@
+
+<template>
+    <view class="page">
+        <view wx:if="{{list && list.length}}">
+            <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+                <view style="border-bottom: 1px solid #DDD">
+                    <block wx:for="{{item.products}}" wx:for-item="product" wx:for-index="n" wx:key="product._id">
+                        <view>{{product.product.title}}</view>
+                        <view>数量：{{product.count}}</view>
+                    </block> 
+                    <view>价格{{item.totalFee}}</view>
+                </view>
+            </block>
+        </view>
+        <view wx:else>
+            还没有订单
+        </view>
+    </view>
+</template>
+
+<script>
+
+    import wepy from 'wepy'
+    import { list } from '../service/order'
+
+    export default class Order extends wepy.page {
+        
+        config = {
+            navigationBarTitleText: '我的订单'
+        }
+
+        onShow () {
+            this.methods.getOrderList();
+        }
+
+        data = {
+            list: null 
+        }
+
+        methods = {
+            /**
+             * 获取收货地址列表
+             */
+            getOrderList: ()=> {
+                list()
+                    .then((res)=> {
+                        this.list = res.data; 
+                        this.$apply();
+                    })
+                    .catch(()=> {
+                        this.list = [];
+                        this.$apply();
+                    });
+            }
+        }
+     }
+</script>
+

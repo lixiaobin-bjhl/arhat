@@ -14,7 +14,7 @@ import userInfo from '../plugin/userInfo';
  * @reutrn {Promise}
  */
 export function list () {
-    return post('/api/shippingAddress/openid', {
+    return post('/api/order/openid', {
         openid: userInfo.getOpenId()
     });
 }

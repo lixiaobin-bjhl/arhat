@@ -26,7 +26,7 @@ export default function (params) {
     var out_trade_no = params.outTradeNo;
     var notify_url = 'https://www.sheliguo.com/purchase/notice';
     var trade_type = 'JSAPI';
-    var body = config.name + '定单' ;
+    var body = params.title;
     var appid = config.appId;
     var timeStamp = createTimeStamp();
     var params = {

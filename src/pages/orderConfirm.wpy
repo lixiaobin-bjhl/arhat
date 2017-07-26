@@ -106,6 +106,13 @@
 
                 var outTradeNo = getOrderNumber();
 
+                if (!this.defaultShippingAddress) {
+                    wx.showToast({
+                        title: '请填写收货地址'
+                    });
+                    return;
+                }
+
                 var params = {
                     products: this.products.map((item)=> {
                         return {
@@ -115,9 +122,10 @@
                     }),
                     shippingAddress: this.defaultShippingAddress._id,
                     discountMoney: 0,
-                    title: this.products.map((item)=> {
-                        return item.title
-                    }).join(','),
+                    // title: this.products.map((item)=> {
+                    //     return item.title
+                    // }).join(','),
+                    title: '你妹啊',
                     status: 0,
                     mobile: config.mobile,
                     remark: this.remark.trim(),

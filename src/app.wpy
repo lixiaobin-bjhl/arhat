@@ -16,7 +16,8 @@
                 'pages/productDetail',
                 'pages/orderConfirm',
                 'pages/shippingAddress',
-                'pages/fillShippingAddress'
+                'pages/fillShippingAddress',
+                'pages/order'
             ],
             window: {
                 backgroundTextStyle: 'light',
