@@ -6,8 +6,10 @@
                     <block wx:for="{{item.products}}" wx:for-item="product" wx:for-index="n" wx:key="product._id">
                         <view>{{product.product.title}}</view>
                         <view>数量：{{product.count}}</view>
-                    </block> 
+                    </block>
+                    <view>支付状态：{{item.statusStr}}</view>
                     <view>价格{{item.totalFee}}</view>
+                    <view style="color: #3399ff;" bindtap="pay" wx:if="{{item.status === 0}}" data-wepy-params-a="{{item}}">去支付</view>
                 </view>
             </block>
         </view>

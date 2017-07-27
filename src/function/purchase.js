@@ -11,7 +11,7 @@ import getMd5PaySign from './getMd5PaySign';
 import config from '../config';
 import { getPrepayId } from '../service/purchase';
 import userInfo from '../plugin/userInfo';
-import getOrderNumber from './getOrderNumber';
+import createOrderNumber from './createOrderNumber';
 
 export default function (params) {
 

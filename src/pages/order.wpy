@@ -7,8 +7,10 @@
                     <block wx:for="{{item.products}}" wx:for-item="product" wx:for-index="n" wx:key="product._id">
                         <view>{{product.product.title}}</view>
                         <view>数量：{{product.count}}</view>
-                    </block> 
+                    </block>
+                    <view>支付状态：{{item.statusStr}}</view>
                     <view>价格{{item.totalFee}}</view>
+                    <view style="color: #3399ff;" @tap="pay({{item}})" wx:if="{{item.status === 0}}">去支付</view>
                 </view>
             </block>
         </view>
@@ -22,6 +24,12 @@
 
     import wepy from 'wepy'
     import { list } from '../service/order'
+    import pageConfig  from './config'
+    import multiply from '../function/multiply'
+    import config from '../config';
+    import indexBy from '../function/indexBy'
+    import createOrderNumber from '../function/createOrderNumber'
+    import purchase from '../function/purchase'
 
     export default class Order extends wepy.page {
         
@@ -39,12 +47,56 @@
 
         methods = {
             /**
+             * 获取支付状态
+             */
+            getStatusStr (status) {
+                var option = indexBy(pageConfig.ORDER_STATUS, 'id')[status];
+                var result = '';
+                if (option) {
+                    result = option.name;
+                }
+                return result;
+            },
+            /**
+             * 付款 
+             */
+            pay (item) {
+                var params = {
+                    products: item.products.map((item)=> {
+                        return {
+                            product: item.product._id,
+                            count: item.count
+                        }
+                    }),
+                    shippingAddress: item.shippingAddress._id,
+                    discountMoney: 0,
+                    title: item.products.map((item)=> {
+                        return item.product.title
+                    }).join(',').slice(0, 50),
+                    status: 0,
+                    mobile: config.mobile,
+                    remark: item.remark,
+                    mchId: config.mchId,
+                    outTradeNo: createOrderNumber(),
+                    expressMoney: 0,
+                    totalFee: multiply(item.totalFee, 100)
+                };
+
+                console.log(params);
+
+                purchase(params);
+            },
+            /**
              * 获取收货地址列表
              */
             getOrderList: ()=> {
                 list()
                     .then((res)=> {
-                        this.list = res.data; 
+                        var data = res.data;
+                        data.forEach((item)=> {
+                            item.statusStr = this.methods.getStatusStr(item.status);
+                        });
+                        this.list = data; 
                         this.$apply();
                     })
                     .catch(()=> {
