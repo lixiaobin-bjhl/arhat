@@ -17,7 +17,7 @@ export default function (params) {
 
     var nonce_str = createNonceStr();
     var mch_id = params.mchId;
-    var attach = params.mobile;
+    var attach = params.id;
     var key = config.key;
     var spbill_create_ip = config.ip;
     var total_fee = params.totalFee;

@@ -136,6 +136,8 @@
 
                 order.add(params)
                     .then((res)=> {
+                        var data = res.data;
+                        params.id = data._id;
                         purchase(params);
                     });
             },

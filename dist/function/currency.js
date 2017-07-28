@@ -1,0 +1,25 @@
+/**
+ * @fileOverview 货币格式化
+ * @author XiaoBin Li(lixiaobin@baijiahulian.com)
+ */
+
+'use strict';
+
+/**
+ * 格式化货币形式
+ * @param {number} value
+ * @param {boolean} hasPlus 正数是否需要加号
+ */
+
+module.exports = function (value) {
+  var hasPlus = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  // 正负数
+  var negative = value < 0 ? '-' : hasPlus ? '+' : '';
+  // 整数部分
+  var integer = parseInt(value = Math.abs(+value || 0).toFixed(2), 10) + '';
+  var part = (part = integer.length) > 3 ? part % 3 : 0;
+
+  return '￥' + negative + (part ? integer.substr(0, part) + ',' : '') + integer.substr(part).replace(/(\d{3})(?=\d)/g, '$1' + ',') + ('.' + Math.abs(value - integer).toFixed(2).slice(2));
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImN1cnJlbmN5LmpzIl0sIm5hbWVzIjpbIm1vZHVsZSIsImV4cG9ydHMiLCJ2YWx1ZSIsImhhc1BsdXMiLCJuZWdhdGl2ZSIsImludGVnZXIiLCJwYXJzZUludCIsIk1hdGgiLCJhYnMiLCJ0b0ZpeGVkIiwicGFydCIsImxlbmd0aCIsInN1YnN0ciIsInJlcGxhY2UiLCJzbGljZSJdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7O0FBS0E7O0FBRUE7Ozs7OztBQUtBQSxPQUFPQyxPQUFQLEdBQWlCLFVBQVVDLEtBQVYsRUFBa0M7QUFBQSxNQUFqQkMsT0FBaUIsdUVBQVAsS0FBTzs7QUFDL0M7QUFDQSxNQUFJQyxXQUFXRixRQUFRLENBQVIsR0FBWSxHQUFaLEdBQW1CQyxVQUFVLEdBQVYsR0FBZ0IsRUFBbEQ7QUFDQTtBQUNBLE1BQUlFLFVBQVVDLFNBQVNKLFFBQVFLLEtBQUtDLEdBQUwsQ0FBUyxDQUFDTixLQUFELElBQVUsQ0FBbkIsRUFBc0JPLE9BQXRCLENBQThCLENBQTlCLENBQWpCLEVBQW1ELEVBQW5ELElBQ1IsRUFETjtBQUVBLE1BQUlDLE9BQU8sQ0FBQ0EsT0FBT0wsUUFBUU0sTUFBaEIsSUFBMEIsQ0FBMUIsR0FBOEJELE9BQU8sQ0FBckMsR0FBeUMsQ0FBcEQ7O0FBRUEsU0FBTyxNQUFNTixRQUFOLElBQWtCTSxPQUFPTCxRQUFRTyxNQUFSLENBQWUsQ0FBZixFQUFrQkYsSUFBbEIsSUFBMEIsR0FBakMsR0FBdUMsRUFBekQsSUFDREwsUUFBUU8sTUFBUixDQUFlRixJQUFmLEVBQXFCRyxPQUFyQixDQUE2QixnQkFBN0IsRUFBK0MsT0FBTyxHQUF0RCxDQURDLElBRUEsTUFBTU4sS0FBS0MsR0FBTCxDQUFTTixRQUFRRyxPQUFqQixFQUEwQkksT0FBMUIsQ0FBa0MsQ0FBbEMsRUFBcUNLLEtBQXJDLENBQTJDLENBQTNDLENBRk4sQ0FBUDtBQUdILENBWEQiLCJmaWxlIjoiY3VycmVuY3kuanMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBmaWxlT3ZlcnZpZXcg6LSn5biB5qC85byP5YyWXG4gKiBAYXV0aG9yIFhpYW9CaW4gTGkobGl4aWFvYmluQGJhaWppYWh1bGlhbi5jb20pXG4gKi9cblxuJ3VzZSBzdHJpY3QnO1xuXG4vKipcbiAqIOagvOW8j+WMlui0p+W4geW9ouW8j1xuICogQHBhcmFtIHtudW1iZXJ9IHZhbHVlXG4gKiBAcGFyYW0ge2Jvb2xlYW59IGhhc1BsdXMg5q2j5pWw5piv5ZCm6ZyA6KaB5Yqg5Y+3XG4gKi9cbm1vZHVsZS5leHBvcnRzID0gZnVuY3Rpb24gKHZhbHVlLCBoYXNQbHVzID0gZmFsc2UpIHtcbiAgICAvLyDmraPotJ/mlbBcbiAgICB2YXIgbmVnYXRpdmUgPSB2YWx1ZSA8IDAgPyAnLScgOiAoaGFzUGx1cyA/ICcrJyA6ICcnKTtcbiAgICAvLyDmlbTmlbDpg6jliIZcbiAgICB2YXIgaW50ZWdlciA9IHBhcnNlSW50KHZhbHVlID0gTWF0aC5hYnMoK3ZhbHVlIHx8IDApLnRvRml4ZWQoMiksIDEwKSBcbiAgICAgICAgKyAnJztcbiAgICB2YXIgcGFydCA9IChwYXJ0ID0gaW50ZWdlci5sZW5ndGgpID4gMyA/IHBhcnQgJSAzIDogMDtcblxuICAgIHJldHVybiAn77+lJyArIG5lZ2F0aXZlICsgKHBhcnQgPyBpbnRlZ2VyLnN1YnN0cigwLCBwYXJ0KSArICcsJyA6ICcnKSBcbiAgICAgICAgKyBpbnRlZ2VyLnN1YnN0cihwYXJ0KS5yZXBsYWNlKC8oXFxkezN9KSg/PVxcZCkvZywgJyQxJyArICcsJykgXG4gICAgICAgICsgKCcuJyArIE1hdGguYWJzKHZhbHVlIC0gaW50ZWdlcikudG9GaXhlZCgyKS5zbGljZSgyKSk7XG59Il19

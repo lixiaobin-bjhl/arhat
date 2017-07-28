@@ -9,7 +9,7 @@
                         <view>数量：{{product.count}}</view>
                     </block>
                     <view>支付状态：{{item.statusStr}}</view>
-                    <view>价格{{item.totalFee}}</view>
+                    <view>价格{{item.payStr}}</view>
                     <view style="color: #3399ff;" @tap="pay({{item}})" wx:if="{{item.status === 0}}">去支付</view>
                 </view>
             </block>
@@ -26,6 +26,8 @@
     import { list } from '../service/order'
     import pageConfig  from './config'
     import multiply from '../function/multiply'
+    import divide from '../function/divide'
+    import currency from '../function/currency'
     import config from '../config';
     import indexBy from '../function/indexBy'
     import createOrderNumber from '../function/createOrderNumber'
@@ -68,6 +70,7 @@
                             count: item.count
                         }
                     }),
+                    id: item._id,
                     shippingAddress: item.shippingAddress._id,
                     discountMoney: 0,
                     title: item.products.map((item)=> {
@@ -81,9 +84,6 @@
                     expressMoney: 0,
                     totalFee: multiply(item.totalFee, 100)
                 };
-
-                console.log(params);
-
                 purchase(params);
             },
             /**
@@ -95,6 +95,7 @@
                         var data = res.data;
                         data.forEach((item)=> {
                             item.statusStr = this.methods.getStatusStr(item.status);
+                            item.payStr = currency(divide(item.totalFee, 100));
                         });
                         this.list = data; 
                         this.$apply();

@@ -8,7 +8,7 @@
                         <view>数量：{{product.count}}</view>
                     </block>
                     <view>支付状态：{{item.statusStr}}</view>
-                    <view>价格{{item.totalFee}}</view>
+                    <view>价格{{item.payStr}}</view>
                     <view style="color: #3399ff;" bindtap="pay" wx:if="{{item.status === 0}}" data-wepy-params-a="{{item}}">去支付</view>
                 </view>
             </block>
