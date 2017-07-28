@@ -145,7 +145,10 @@
              */
             pay (item) {
                wx.navigateTo({
-                   url: 'orderConfirm?pids=' + item._id
+                   url: 'orderConfirm?products=' + JSON.stringify([{
+                       count: 1,
+                       id: item._id
+                   }])
                });
             },
             addToCard (item) {

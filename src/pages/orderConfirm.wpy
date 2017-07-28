@@ -169,15 +169,10 @@
             /**
              * 根据产品ids获取商品信息 
              */
-            getProductsByIds: (ids) => {
+            getProductsByIds: (products) => {
                 wx.showLoading();
                 listByIds({
-                    products: [
-                        {
-                            count: 1,
-                            id: ids
-                        }
-                    ]
+                    products: products
                 })
                     .then((res)=> {
                         wx.hideLoading();
@@ -193,9 +188,11 @@
         };
 
         onLoad (p) {
-            var pids = p.pids;
+            var products = p.products;
+            products = JSON.parse(products);
+            
             // 直接购买产品 
-            this.methods.getProductsByIds(pids);
+            this.methods.getProductsByIds(products);
         }
     }
 </script>
