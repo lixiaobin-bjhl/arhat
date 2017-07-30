@@ -1,5 +1,5 @@
 /**
- * @fileOverview arhat-service-card
+ * @fileOverview arhat-card-service
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
 

@@ -7,6 +7,7 @@
 
 import { login, getUserInfo, jscode2Session } from '../service/global';
 import userInfo from '../plugin/userInfo';
+import { add } from '../service/user';
 
 export default function initUser (context) {
     return new Promise((resolve, reject)=> {
@@ -20,6 +21,8 @@ export default function initUser (context) {
                         getUserInfo()
                             .then((res)=> {
                                 userInfo.setInfo(res);
+                                console.log(res);
+                                add(res);
                                 resolve(res);
                             })
                             .catch(reject);

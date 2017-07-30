@@ -1,5 +1,5 @@
 /**
- * @fileOverview arhat-service-shipping
+ * @fileOverview arhat-shippingAddress-service
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
 

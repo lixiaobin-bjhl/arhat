@@ -1,5 +1,5 @@
 /**
- * @fileOverview arhat-service-order
+ * @fileOverview arhat-order-service
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
 
