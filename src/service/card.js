@@ -52,3 +52,17 @@ export function getCountByOpendId () {
 export function remove (id) {
     return del('/api/card/' + id);
 }
+
+/**
+ * 删除购物车中的商品信息
+ * 
+ * @param {Array} pids 产品ids
+ * 
+ * @return {Promise}
+ */
+export function removeByPids (pids) {
+    var openid = userInfo.getOpenId();
+    return del('/api/card/pids/' + openid, {
+        pids: pids
+    });
+}

@@ -66,16 +66,17 @@ export default function (params) {
                 signType: signType,
                 paySign: paySign,
                 success: function(res) {
-                    console.log(1)
+                    wx.navigateTo({
+                        url: 'order'
+                    });
                 },
                 fail: function(res) {
                     console.log(res);
                 },
                 complete: function(res) {
-                    console.log(3);
+                    console.log('complete');
                 }
             };
-            console.log('paymentRequest', paymentRequest);
             wx.requestPayment(paymentRequest);
         });
 

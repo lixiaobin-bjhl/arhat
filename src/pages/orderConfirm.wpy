@@ -37,6 +37,7 @@
 
     import wepy from 'wepy'
     import { listByIds } from '../service/product'
+    import { removeByPids } from '../service/card'
     import { list } from '../service/shippingAddress'
     import * as order from '../service/order';
     import multiply from '../function/multiply';
@@ -85,7 +86,7 @@
                 var result = 0;
                 var products = this.products || [];
                 products.forEach((item)=> {
-                    result = plus(item.payPrice, result);
+                    result = plus(multiply(item.payPrice, item.count), result);
                 });
                 return result;
             }
@@ -112,9 +113,9 @@
                     });
                     return;
                 }
-
+                var products = this.products;
                 var params = {
-                    products: this.products.map((item)=> {
+                    products: products.map((item)=> {
                         return {
                             product: item._id,
                             count: item.count
@@ -122,9 +123,11 @@
                     }),
                     shippingAddress: this.defaultShippingAddress._id,
                     discountMoney: 0,
-                    title: this.products.map((item)=> {
+                    title: products.map((item)=> {
                         return item.title
-                    }).join(',').slice(0, 50),
+                    })
+                    .join(',')
+                    .slice(0, 50),
                     status: 0,
                     mobile: config.mobile,
                     remark: this.remark.trim(),
@@ -138,6 +141,10 @@
                     .then((res)=> {
                         var data = res.data;
                         params.id = data._id;
+                        // 下单后，把购物车的中商品删除掉
+                        removeByPids(products.map((item)=> {
+                            return item._id
+                        }));
                         purchase(params);
                     });
             },
