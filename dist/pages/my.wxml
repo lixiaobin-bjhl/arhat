@@ -1,15 +1,6 @@
 
-    <view class="page card-list">
-        <block  wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-            <view bindtap="select" class="card {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
-                <view>{{item.product.title}}</view>
-                <view>{{item.product.priceStr}}</view>
-                <view style="font-size: 12px;color: #3399ff;" catchtap="remove" data-wepy-params-a="{{item}}">从购物车中移出</view>
-            </view>
-        </block>
-        <view  wx:if="list && !list.length">购物车是空的</view>
-        <view>应付金额: {{totalMoney}}</view>
-        <view bindtap="pay" style="font-size: 12px;color: #3399ff;">结算</view>
+    <view class="page">
+       my
         
 
     <view class="fmenu">

@@ -3,12 +3,12 @@
 </style>
 
 <script>
+
     import wepy from 'wepy'
     import 'wepy-async-function'
     import config from './config'
 
     export default class extends wepy.app {
-
         config = {
             pages: [
                 'pages/index',
@@ -17,7 +17,8 @@
                 'pages/orderConfirm',
                 'pages/shippingAddress',
                 'pages/fillShippingAddress',
-                'pages/order'
+                'pages/order',
+                'pages/my'
             ],
             window: {
                 backgroundTextStyle: 'light',

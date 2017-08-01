@@ -1,21 +1,70 @@
-<style lang="sass">
-.weui-footer {
-    margin: 20rpx 0;
-    padding-top: 50rpx;
-    background: #FFF;
-}
-.weui-footer_fixed-bottom{
-    margin-bottom: 0;
-}
+<style lang="sass"> 
+    @import '../scss/color';
+    .fmenu {
+        display: flex;
+        flex-flow:row wrap;
+        justify-content: center;
+        align-items: center;
+        height: 104rpx;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        border-top: 1rpx solid map-get($borders, normal);
+        .menu-item {
+            flex: 1;
+            text-align: center;
+            font-size: 30rpx;
+            .icon {
+                width: 45rpx;
+                height: 45rpx;
+                margin: 2px auto 2px auto;
+                background-repeat: none;
+                background-size: contain;
+            }
+            .home {
+                background-image: url('http://otzuzbqja.bkt.clouddn.com/home1.svg');
+            }
+            .card {
+                background-image: url('http://otzuzbqja.bkt.clouddn.com/card1.svg');
+            }
+            .my {
+                background-image: url('http://otzuzbqja.bkt.clouddn.com/my1.svg');
+            }
+            &.active {
+                color: $brand;
+                .home {
+                    background-image: url('http://otzuzbqja.bkt.clouddn.com/home-active1.svg');
+                }
+                .card {
+                    background-image: url('http://otzuzbqja.bkt.clouddn.com/card-active1.svg');
+                }
+                .my {
+                    background-image: url('http://otzuzbqja.bkt.clouddn.com/my-active1.svg');
+                }
+            }
+        }
+    }
 </style>
 <template>
-    <view>
-        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="card">购物车<view wx:if="{{cardCount > 0}}">({{cardCount}})</view></navigator></view>
-        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
-        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="order">我的订单</navigator></view>
-        <view class="weui-footer">
-            <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view>
+
+    <view class="fmenu">
+        <view class="menu-item {{from ==='home' ? 'active': ''}}" @tap="redirect('index')">  
+            <view class="icon home"></view>    
+            <view>首页</view>  
+        </view>   
+        <view class="menu-item {{from ==='card' ? 'active': ''}}" @tap="redirect('card')">
+            <view class="icon card"></view>   
+            <view>购物车</view>
+        </view> 
+        <view class="menu-item {{from ==='my' ? 'active': ''}}" @tap="redirect('my')">
+            <view class="icon my"></view>  
+            <view>我的</view>
         </view>
+
+         <!-- <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
+       <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="order">我的订单</navigator></view>
+       <view class="weui-footer">
+           <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view> -->
     </view>
 </template>
 
@@ -28,7 +77,24 @@
         data = {
             cardCount: 0
         }
+
+        props = {
+            from: String
+        }
+
         methods =  {
+            /**
+             * 页面跳转 
+             */
+            redirect (url) {
+                // 本来就在当前页，就不跳转了
+                if (url == this.from) {
+                    return;
+                }
+                wx.redirectTo({
+                    url: url
+                });
+            },
             /**
              * 统计购物车的数数
              */
@@ -39,24 +105,6 @@
                         this.$apply();
                     });
             }
-        }
-        events = {
-            /**
-             * 购物车信息变更后，更新一下统计 
-             */
-            'updatecard' () {
-                //  this.methods.getCountByOpendId();
-            },
-            /**
-             * opendid加载后，获取一下购物车信息 
-             */
-            'openidloaded' () {
-                //  this.methods.getCountByOpendId();
-            } 
-        }
-        onLoad () {
-            // console.log(1231);
-            // this.methods.getCountByOpendId();
         }
     }
 </script>

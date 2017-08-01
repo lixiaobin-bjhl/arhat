@@ -1,0 +1,48 @@
+<!--
+     @fileOverview arhat-my
+     @author XiaoBin Li(lixiaobin8878@gmail.com) 
+-->
+
+<style lang="sass">
+    
+</style>
+
+<template>
+    <view class="page">
+       my
+        <footer from="my"></footer>
+    </view>
+   
+</template>
+
+<script>
+    import wepy from 'wepy'
+    import footer from '../components/footer'
+    
+    export default class My  extends wepy.page {
+
+        config = {
+            navigationBarTitleText: '我的' 
+        }
+
+        data = {
+           list: [] 
+        }
+
+        components = {
+            footer
+        }
+
+        onShow () {
+            this.$invoke('footer', 'getCountByOpendId');
+        }
+
+        methods = {
+           
+        }
+        
+        onLoad (p) {
+            
+        }
+    }
+</script>

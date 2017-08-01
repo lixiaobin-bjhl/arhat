@@ -21,7 +21,6 @@ export default function initUser (context) {
                         getUserInfo()
                             .then((res)=> {
                                 userInfo.setInfo(res);
-                                console.log(res);
                                 add(res);
                                 resolve(res);
                             })

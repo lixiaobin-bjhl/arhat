@@ -4,7 +4,7 @@
  */
 
 // 主色
-$brand: #00c0ff;
+$brand: #1296db;
 
 $gray-999: #999;
 
@@ -16,6 +16,9 @@ $gray-f0: #F0F0F0;
 
 $gray-333: #333;
 
+$borders: (
+    normal: #d9d9d9
+);
 // 链接色
 $link-color: $brand;
 $brand-hover: lighten($brand, 5%);
