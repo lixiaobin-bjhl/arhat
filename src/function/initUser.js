@@ -20,7 +20,7 @@ export default function initUser (context) {
                         userInfo.setSessionKey(res.session_key);
                         getUserInfo()
                             .then((res)=> {
-                                userInfo.setInfo(res);
+                                // userInfo.setInfo(res);
                                 add(res);
                                 resolve(res);
                             })

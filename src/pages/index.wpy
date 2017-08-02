@@ -13,7 +13,7 @@
 }
 </style>
 <template>
-    <view class="page" style="background: #f2f2f2"> 
+    <view class="page"> 
         <swiper wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{bannerOption}}" wx:for-item="item"  wx:for-index="index" wx:key="item._id">
@@ -44,24 +44,23 @@
             </navigator>
            <view class="none-list" wx:if="{{products && !products.length}}">
                 该商户还没有添加产品
-           </view> 
+           </view>
            <footer from="home"></footer>
         </view>
     </view>
 </template>
-
 <script>
     import wepy from 'wepy'
     import footer from '../components/footer'
-    import { getList } from '../service/product';
-    import { addToCard } from '../service/card';
+    import { getList } from '../service/product'
+    import { addToCard } from '../service/card'
     import { login, token } from '../service/user';
-    import compressImage from '../function/compressImage';
-    import config from '../config';
-    import { getUserInfo } from '../service/global';
-    import userInfo from '../plugin/userInfo';
-    import initUser from '../function/initUser';
-    import purchase from '../function/purchase';
+    import compressImage from '../function/compressImage'
+    import config from '../config'
+    import { getUserInfo } from '../service/global'
+    import userInfo from '../plugin/userInfo'
+    import initUser from '../function/initUser'
+    import purchase from '../function/purchase'
   
     export default class Index extends wepy.page {
         data = {

@@ -1,1 +1,50 @@
 @import "./../components/footer.wxss";
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.banner {
+  height: 135px;
+  text-align: center;
+  color: #FFF;
+  background-size: cover;
+  background: url("http://otzuzbqja.bkt.clouddn.com/banner1.png") #1296db; }
+  .banner image {
+    margin-top: 18px;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%; }
+
+.my-menu {
+  margin-top: 10px;
+  background: #FFF;
+  color: #555; }
+  .my-menu .menu-item {
+    height: 44px;
+    line-height: 44px;
+    padding: 0 10px;
+    border-bottom: 1px solid #eaeaea; }
+    .my-menu .menu-item:last-of-type {
+      border-bottom: 0; }
+  .my-menu .icon, .my-menu .arrow-right, .my-menu .menu-sign {
+    background-repeat: none;
+    background-size: contain; }
+  .my-menu .arrow-right {
+    float: right;
+    width: 14px;
+    height: 14px;
+    margin-top: 15px;
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/arrow-right.svg"); }
+  .my-menu .menu-sign {
+    width: 20px;
+    height: 20px;
+    margin-top: 12px;
+    margin-right: 5px;
+    float: left; }
+  .my-menu .order {
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/order.svg"); }
+  .my-menu .card {
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/card2.svg"); }
+  .my-menu .address {
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/address.svg"); }

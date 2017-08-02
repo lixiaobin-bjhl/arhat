@@ -9,10 +9,11 @@
   justify-content: center;
   align-items: center;
   height: 104rpx;
+  background: #FFF;
   width: 100%;
   position: fixed;
   bottom: 0;
-  border-top: 1rpx solid #d9d9d9; }
+  border-top: 1rpx solid #eaeaea; }
   .fmenu .menu-item {
     flex: 1;
     text-align: center;
@@ -20,7 +21,7 @@
     .fmenu .menu-item .icon {
       width: 45rpx;
       height: 45rpx;
-      margin: 2px auto 2px auto;
+      margin: 5px auto 3px auto;
       background-repeat: none;
       background-size: contain; }
     .fmenu .menu-item .home {

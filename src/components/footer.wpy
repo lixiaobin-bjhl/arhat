@@ -6,10 +6,11 @@
         justify-content: center;
         align-items: center;
         height: 104rpx;
+        background: #FFF;
         width: 100%;
         position: fixed;
         bottom: 0;
-        border-top: 1rpx solid map-get($borders, normal);
+        border-top: 1rpx solid map-get($borders, shallow);
         .menu-item {
             flex: 1;
             text-align: center;
@@ -17,7 +18,7 @@
             .icon {
                 width: 45rpx;
                 height: 45rpx;
-                margin: 2px auto 2px auto;
+                margin: 5px auto 3px auto;
                 background-repeat: none;
                 background-size: contain;
             }
@@ -46,7 +47,6 @@
     }
 </style>
 <template>
-
     <view class="fmenu">
         <view class="menu-item {{from ==='home' ? 'active': ''}}" @tap="redirect('index')">  
             <view class="icon home"></view>    
@@ -61,10 +61,10 @@
             <view>我的</view>
         </view>
 
-         <!-- <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
+        <!-- <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
        <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="order">我的订单</navigator></view>
        <view class="weui-footer">
-           <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view> -->
+        <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view> -->
     </view>
 </template>
 
@@ -99,11 +99,11 @@
              * 统计购物车的数数
              */
             getCountByOpendId: ()=> {
-                getCountByOpendId()
-                    .then((res)=> {
-                        this.cardCount = res.data.count;
-                        this.$apply();
-                    });
+                // getCountByOpendId()
+                //     .then((res)=> {
+                //         this.cardCount = res.data.count;
+                //         this.$apply();
+                //     });
             }
         }
     }

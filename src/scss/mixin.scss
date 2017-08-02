@@ -3,24 +3,6 @@
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
 
-@mixin flex-container() {
-    display: -webkit-box;
-    display: -ms-box;
-    display: -moz-box;
-    display: box;
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: -moz-flex;
-    display: flex;
-}
-
-@mixin flex($column) {
-    -webkit-box-flex: $column;
-    -ms-box-flex: $column;
-    -moz-box-flex: $column;
-    box-flex: $column;
-    flex: $column;
-}
 
 @mixin clearfix() {
     &:before,
@@ -42,20 +24,6 @@
     transform: translate(-50%, -50%);
 }
 
-@mixin list-items($count) {
-    float: left;
-    width: 100%/$count;
-}
-
-@mixin circle($size, $txt-color, $bg-color) {
-    width: $size;
-    height: $size;
-    line-height: $size;
-    border-radius: 50%;
-    text-align: center;
-    color: $txt-color;
-    background: $bg-color;
-}
 @mixin text-overflow() {
     overflow: hidden;
     text-overflow: ellipsis;
