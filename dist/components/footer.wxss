@@ -12,8 +12,8 @@
   background: #FFF;
   width: 100%;
   position: fixed;
-  bottom: 0;
-  border-top: 1rpx solid #eaeaea; }
+  border-top: 1rpx solid #eaeaea;
+  bottom: 0; }
   .fmenu .menu-item {
     flex: 1;
     text-align: center;
@@ -37,4 +37,4 @@
       .fmenu .menu-item.active .card {
         background-image: url("http://otzuzbqja.bkt.clouddn.com/card-active1.svg"); }
       .fmenu .menu-item.active .my {
-        background-image: url("http://otzuzbqja.bkt.clouddn.com/my-active1.svg"); }
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/my-active2.svg"); }

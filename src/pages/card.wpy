@@ -4,6 +4,18 @@
 -->
 
 <style lang="sass">
+    @import '../scss/color';
+    @import '../scss/mixin';
+    
+    .empty-notice {
+        text-align: center;
+        color: #999;
+        font-size: 14px;
+        .base {
+            color: #333;
+            font-size: 16px;
+        }
+    }
     .card-list {
         background: #f2f2f2;
         .card {
@@ -14,31 +26,96 @@
             }
         }
     }
+    .surfing {
+        width: 308rpx;
+        height: 82rpx;
+        line-height: 82rpx;
+        border: 1px solid #ff9933;
+        color: #ff9933;
+        margin-top: 20px;
+    }
+    .pay-wrap {
+        position: fixed;
+        bottom: 104rpx;
+        height: 104rpx;
+        background: #FFF;
+        width: 100%;
+        border-top: 1rpx solid map-get($borders, shallow);
+        label {
+            float: left;
+            @extend .middle;
+            font-size: 14px;
+            margin: 10px 0 0 10px;
+        }
+        .btn-group {
+            float: right;
+            view {
+                vertical-align: middle;
+            }
+            .pay-money {
+                @extend .middle;
+                margin-right: 5px;
+                font-size: 12px;
+            }
+            .money {
+                color: #ff3333;
+                @extend .middle;
+            }
+            button {
+                @extend .middle;
+                height: 104rpx;
+                width: 222rpx;
+                border-radius: 0;
+                background: #ff3333;
+                color: #FFF;
+            }
+        }
+    }
+
 </style>
 
 <template>
     <view class="page card-list">
         <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
             <view @tap="select({{item}}, {{index}})" class="card {{item.selected ? 'selected': ''}}">
+                <view><checkbox checked="{{item.selected}}"/></view>  
                 <view>{{item.product.title}}</view>
                 <view>{{item.product.priceStr}}</view>
                 <view style="font-size: 12px;color: #3399ff;" @tap.stop="remove({{item}})">从购物车中移出</view>
             </view>
         </block>
-        <view wx:if="list && !list.length">购物车是空的</view>
-        <view>应付金额: {{totalMoney}}</view>
-        <view @tap="pay" style="font-size: 12px;color: #3399ff;">结算</view>
+        
+        <view class="pay-wrap clearfix">
+            <label class="checkbox" @tap="selectAll">
+                <checkbox checked="{{isSelectAll}}"/>全选
+            </label>
+            <view class="btn-group">
+                <view class="pay-money">
+                    <view class="money">合计： {{totalMoney}}</view>
+                    <view class="right gray-light">包含运费</view>
+                </view>
+                <button @tap="pay">结算</button>
+            </view>
+        </view>
+
+        <view wx:if="{{list && !list.length}}" class="empty-notice">
+            <view class="empty"></view>
+            <view class="base">购物车快饿瘪了^_^</view>
+            <view>快给我挑点宝贝</view>
+            <button @tap="redirect('index')" class="surfing">去逛逛</button>
+        </view>
         <footer from="card"></footer>
     </view>
 </template>
 
 <script>
 
-    import wepy from 'wepy'
+    import wepy from 'wepy' 
     import footer from '../components/footer'
     import { getCardByOpenid, remove } from '../service/card'
     import compressImage from '../function/compressImage'
     import plus from '../function/plus'
+    import currency from '../function/currency'
     import purchase from '../function/purchase'
     
     export default class Card  extends wepy.page {
@@ -48,7 +125,8 @@
         }
 
         data = {
-           list: [] 
+           list: [],
+           isSelectAll: false
         }
 
         components = {
@@ -67,7 +145,7 @@
                         result = plus(item.product.payPrice, result);
                     }
                 });
-                return result;
+                return currency(result);
             }
         }
 
@@ -88,12 +166,29 @@
                     });
             },
             /**
+             * 全选 
+             */
+            selectAll () {
+                this.isSelectAll = !this.isSelectAll;
+                // 将所有产品全选或返选上
+                this.list.forEach((item, index)=> {
+                    this.list[index].selected = this.isSelectAll;
+                });
+            },
+            /**
              * 购物车中选择商品支付 
              */
             select (card, index) {
                 var selected = card.selected ? false : true;
                 this.list[index].selected = selected;
-                this.$apply();
+                // 判读是否有全选，全选就将全选按钮全选住
+                if (this.list.every((item)=> {
+                    return item.selected;
+                })) {
+                    this.isSelectAll = true;
+                } else {
+                    this.isSelectAll = false;
+                }
             },
             /**
              * 将商品从购物车中移除 
@@ -107,38 +202,48 @@
             },
 
             /**
-             * 获取选中的商品 
+             * 跳转地址 
              */
-            getSelectedProducts: () => {
-                var result = [];
-                this.list.forEach((item)=> {
-                    if (item.selected) {
-                        result.push({
-                            // 这里默认一个商品只能买1个
-                            count: 1,
-                            id: item.product._id
-                        });
-                    }
+            redirect (url) {
+                wx.redirectTo({
+                    url: url
                 });
-                return result;
             },
             
             /**
              * 下单 
              */
             pay: ()=> {
-                if (!this.totalMoney) {
+                var selectedProducts = this.getSelectedProducts();
+                if (!selectedProducts.length) {
                     wx.showToast({
                         title: '请选择商品'
                     });
                     return;
                 }
                 wx.navigateTo({
-                   url: 'orderConfirm?products=' + JSON.stringify(this.methods.getSelectedProducts())
+                   url: 'orderConfirm?products=' + JSON.stringify(selectedProducts)
                 });
             }
         }
-        
+
+        /**
+         * 获取选中的商品 
+         */
+        getSelectedProducts = () => {
+            var result = [];
+            this.list.forEach((item)=> {
+                if (item.selected) {
+                    result.push({
+                        // 这里默认一个商品只能买1个
+                        count: 1,
+                        id: item.product._id
+                    });
+                }
+            });
+            return result;
+        }
+
         onLoad (p) {
             this.methods.getCardList(p.pid);
         }

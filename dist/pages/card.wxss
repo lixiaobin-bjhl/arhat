@@ -1,4 +1,35 @@
 @import "./../components/footer.wxss";
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg {
+  background-repeat: none;
+  background-size: contain; }
+
+.middle, .pay-wrap label, .pay-wrap .btn-group .pay-money, .pay-wrap .btn-group .money, .pay-wrap .btn-group button {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.empty-notice {
+  text-align: center;
+  color: #999;
+  font-size: 14px; }
+  .empty-notice .base {
+    color: #333;
+    font-size: 16px; }
+
 .card-list {
   background: #f2f2f2; }
   .card-list .card {
@@ -6,3 +37,38 @@
     background: #FFF; }
     .card-list .card.selected {
       background: red; }
+
+.surfing {
+  width: 308rpx;
+  height: 82rpx;
+  line-height: 82rpx;
+  border: 1px solid #ff9933;
+  color: #ff9933;
+  margin-top: 20px; }
+
+.pay-wrap {
+  position: fixed;
+  bottom: 104rpx;
+  height: 104rpx;
+  background: #FFF;
+  width: 100%;
+  border-top: 1rpx solid #eaeaea; }
+  .pay-wrap label {
+    float: left;
+    font-size: 14px;
+    margin: 10px 0 0 10px; }
+  .pay-wrap .btn-group {
+    float: right; }
+    .pay-wrap .btn-group view {
+      vertical-align: middle; }
+    .pay-wrap .btn-group .pay-money {
+      margin-right: 5px;
+      font-size: 12px; }
+    .pay-wrap .btn-group .money {
+      color: #ff3333; }
+    .pay-wrap .btn-group button {
+      height: 104rpx;
+      width: 222rpx;
+      border-radius: 0;
+      background: #ff3333;
+      color: #FFF; }

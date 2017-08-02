@@ -2,3 +2,16 @@
  * @file global mixin
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
+.icon-bg {
+  background-repeat: none;
+  background-size: contain; }
+
+.middle {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }

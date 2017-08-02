@@ -17,3 +17,10 @@ page {
 .clearfix {
     @include clearfix;
 }
+.empty {
+    @extend .icon-bg;
+    margin: 0 auto;
+    background-image: url('http://otzuzbqja.bkt.clouddn.com/empty.svg');
+    width: 100px;
+    height: 100px;
+}

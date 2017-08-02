@@ -4,7 +4,9 @@
 -->
 
 <style lang="sass">
-     @import '../scss/color';
+    @import '../scss/color';
+    @import '../scss/mixin';
+
     .banner {
         height: 135px;
         text-align: center;
@@ -31,12 +33,8 @@
                 border-bottom: 0;
             }
         }
-        .icon {
-            background-repeat: none;
-            background-size: contain;
-        }
         .arrow-right {
-            @extend .icon;
+            @extend .icon-bg;
             float: right;
             width: 14px;
             height: 14px;
@@ -49,16 +47,16 @@
             margin-top: 12px;
             margin-right: 5px;
             float: left;
-            @extend .icon;
+            @extend .icon-bg;
         }
         .order {
-            background-image: url('http://otzuzbqja.bkt.clouddn.com/order.svg')
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/order2.svg')
         }
         .card {
-            background-image: url('http://otzuzbqja.bkt.clouddn.com/card2.svg')
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/card3.svg')
         }
         .address {
-            background-image: url('http://otzuzbqja.bkt.clouddn.com/address.svg')
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/address2.svg')
         }
     }
 </style>

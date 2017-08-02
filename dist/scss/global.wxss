@@ -7,6 +7,20 @@
  * @file global mixin
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
+.icon-bg, .empty {
+  background-repeat: none;
+  background-size: contain; }
+
+.middle {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
 page {
   background: #f2f2f2;
   padding-bottom: 110rpx;
@@ -23,3 +37,9 @@ page {
 
 .clearfix:after {
   clear: both; }
+
+.empty {
+  margin: 0 auto;
+  background-image: url("http://otzuzbqja.bkt.clouddn.com/empty.svg");
+  width: 100px;
+  height: 100px; }

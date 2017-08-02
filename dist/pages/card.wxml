@@ -2,14 +2,32 @@
     <view class="page card-list">
         <block  wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
             <view bindtap="select" class="card {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
+                <view><checkbox checked="{{item.selected}}"/></view>  
                 <view>{{item.product.title}}</view>
                 <view>{{item.product.priceStr}}</view>
                 <view style="font-size: 12px;color: #3399ff;" catchtap="remove" data-wepy-params-a="{{item}}">从购物车中移出</view>
             </view>
         </block>
-        <view  wx:if="list && !list.length">购物车是空的</view>
-        <view>应付金额: {{totalMoney}}</view>
-        <view bindtap="pay" style="font-size: 12px;color: #3399ff;">结算</view>
+        
+        <view class="pay-wrap clearfix">
+            <label class="checkbox" bindtap="selectAll">
+                <checkbox checked="{{isSelectAll}}"/>全选
+            </label>
+            <view class="btn-group">
+                <view class="pay-money">
+                    <view class="money">合计： {{totalMoney}}</view>
+                    <view class="right gray-light">包含运费</view>
+                </view>
+                <button bindtap="pay">结算</button>
+            </view>
+        </view>
+
+        <view  wx:if="{{list && !list.length}}" class="empty-notice">
+            <view class="empty"/>
+            <view class="base">购物车快饿瘪了^_^</view>
+            <view>快给我挑点宝贝</view>
+            <button bindtap="redirect" class="surfing" data-wepy-params-a="index">去逛逛</button>
+        </view>
         
     <view class="fmenu">
         <view class="menu-item {{$footer$from ==='home' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="index">  

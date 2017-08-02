@@ -29,3 +29,18 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.icon-bg {
+    background-repeat: none;
+    background-size: contain;
+}
+.middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+.right {
+    text-align: right;
+}
+.gray-light {
+    color: #999;
+}

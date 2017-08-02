@@ -9,8 +9,8 @@
         background: #FFF;
         width: 100%;
         position: fixed;
-        bottom: 0;
         border-top: 1rpx solid map-get($borders, shallow);
+        bottom: 0;
         .menu-item {
             flex: 1;
             text-align: center;
@@ -40,7 +40,7 @@
                     background-image: url('http://otzuzbqja.bkt.clouddn.com/card-active1.svg');
                 }
                 .my {
-                    background-image: url('http://otzuzbqja.bkt.clouddn.com/my-active1.svg');
+                    background-image: url('http://otzuzbqja.bkt.clouddn.com/my-active2.svg');
                 }
             }
         }
