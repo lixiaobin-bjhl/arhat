@@ -25,9 +25,10 @@
         background: #FFF;
         color: #555;
         .menu-item {
-            height: 44px;
-            line-height: 44px;
+            height: 48px;
+            line-height: 48px;
             padding: 0 10px;
+            margin-left: 10px;
             border-bottom: 1px solid map-get($borders, shallow);
             &:last-of-type {
                 border-bottom: 0;
@@ -38,25 +39,40 @@
             float: right;
             width: 14px;
             height: 14px;
-            margin-top: 15px;
+            margin-top: 17px;
             background-image: url('http://otzuzbqja.bkt.clouddn.com/arrow-right.svg');
         }
         .menu-sign {
-            width: 20px;
-            height: 20px;
-            margin-top: 12px;
+            margin-top: 14px;
             margin-right: 5px;
             float: left;
-            @extend .icon-bg;
+            width: 20px;
+            height: 20px;
+            @extend .mc;
+            border-radius: 2px;
+            view {
+                @extend .icon-bg;
+                width: 18px;
+                height: 18px;
+            }
+        }
+        .menu-sign1 {
+            background: #ff9900;
+        }
+        .menu-sign2 {
+            background: #ffcc33;
+        }
+        .menu-sign3 {
+            background: #ff6666;
         }
         .order {
-            background-image: url('http://otzuzbqja.bkt.clouddn.com/order2.svg')
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/order3.svg');
         }
         .card {
-            background-image: url('http://otzuzbqja.bkt.clouddn.com/card3.svg')
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/card4.svg');
         }
         .address {
-            background-image: url('http://otzuzbqja.bkt.clouddn.com/address2.svg')
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/address3.svg');
         }
     }
 </style>
@@ -69,17 +85,17 @@
         </view>
         <view class="my-menu">
             <view class="menu-item clearfix" @tap="redirect('order')">
-                <view class="menu-sign order"></view>
+                <view class="menu-sign menu-sign1"><view class="order"></view></view>
                 <view class="arrow-right"></view>
                 我的订单
             </view>
             <view class="menu-item clearfix" @tap="redirect('card')">
-                <view class="menu-sign card"></view>
+                <view class="menu-sign menu-sign2"><view class="card"></view></view>
                 <view class="arrow-right"></view>
                 我的购物车
             </view>
             <view class="menu-item clearfix" @tap="redirect('shippingAddress')">
-                <view class="menu-sign address"></view>
+                <view class="menu-sign menu-sign3"><view class="address"></view></view>
                 <view class="arrow-right"></view>
                 我的地址
             </view>

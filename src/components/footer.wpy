@@ -1,11 +1,13 @@
 <style lang="sass"> 
     @import '../scss/color';
+    @import '../scss/mixin';
+    
     .fmenu {
         display: flex;
         flex-flow:row wrap;
         justify-content: center;
         align-items: center;
-        height: 104rpx;
+        height: 108rpx;
         background: #FFF;
         width: 100%;
         position: fixed;
@@ -19,8 +21,7 @@
                 width: 45rpx;
                 height: 45rpx;
                 margin: 5px auto 3px auto;
-                background-repeat: none;
-                background-size: contain;
+                @extend .icon-bg;
             }
             .home {
                 background-image: url('http://otzuzbqja.bkt.clouddn.com/home1.svg');

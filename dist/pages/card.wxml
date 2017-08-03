@@ -1,15 +1,29 @@
 
     <view class="page card-list">
+        <!-- <view class="caption">
+            <label class="checkbox" bindtap="selectAll">
+                <checkbox checked="{{isSelectAll}}"/>我的购物车
+            </label>
+        </view> -->
         <block  wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-            <view bindtap="select" class="card {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
-                <view><checkbox checked="{{item.selected}}"/></view>  
-                <view>{{item.product.title}}</view>
-                <view>{{item.product.priceStr}}</view>
-                <view style="font-size: 12px;color: #3399ff;" catchtap="remove" data-wepy-params-a="{{item}}">从购物车中移出</view>
+            <view bindtap="select" class="item {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
+                <view class="checkbox"><checkbox checked="{{item.selected}}"/></view>
+                <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"/>
+                </view>
+                <view class="product">  
+                    <view class="title">{{item.product.title}}</view>
+                    <view class="info">
+                       <view class="price">{{item.product.priceStr}}</view>
+                       <view class="count">×{{item.count}}</view>
+                    </view>
+                    <view class="btn-group">
+                        <view catchtap="remove" class="trash" data-wepy-params-a="{{item}}"/>
+                    </view>
+                </view>
             </view>
         </block>
-        
-        <view class="pay-wrap clearfix">
+        <view class="pay-wrap clearfix"  wx:if="{{list && list.length}}">
             <label class="checkbox" bindtap="selectAll">
                 <checkbox checked="{{isSelectAll}}"/>全选
             </label>
@@ -22,7 +36,7 @@
             </view>
         </view>
 
-        <view  wx:if="{{list && !list.length}}" class="empty-notice">
+        <view wx:if="{{list && !list.length}}" class="empty-notice">
             <view class="empty"/>
             <view class="base">购物车快饿瘪了^_^</view>
             <view>快给我挑点宝贝</view>

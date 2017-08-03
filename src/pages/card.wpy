@@ -17,12 +17,50 @@
         }
     }
     .card-list {
-        background: #f2f2f2;
-        .card {
-            margin: 10px; 
+        .item {
+            @include clearfix;
             background: #FFF;
-            &.selected {
-                background: red;
+            padding: 10px 0;
+            font-size: 14px;
+            border-bottom: 1px solid map-get($borders, shallow);
+            .title {
+                @include text-overflow;
+            }
+            .product {
+                overflow: hidden;
+                padding-right: 10px;
+            }
+            .btn-group {
+                @include clearfix;
+                .trash {
+                    float: right;
+                    width: 16px;
+                    height: 16px;
+                    @extend .icon-bg;
+                    background-image: url('http://otzuzbqja.bkt.clouddn.com/trash2.svg')
+                }
+            }
+            .info {
+                @include clearfix;
+                .price {
+                    float: left;
+                    color: #ff3333;
+                }
+                .count {
+                    float: right;
+                    color: #999;
+                }
+            }
+            &:first-of-type {
+                 border-top: 1px solid map-get($borders, shallow);
+            }
+            .checkbox {
+                float: left;
+                height: 60px;
+                @extend .mc;
+            }
+            .product-image {
+                float: left;
             }
         }
     }
@@ -76,16 +114,30 @@
 
 <template>
     <view class="page card-list">
+        <!-- <view class="caption">
+            <label class="checkbox" @tap="selectAll">
+                <checkbox checked="{{isSelectAll}}"/>我的购物车
+            </label>
+        </view> -->
         <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-            <view @tap="select({{item}}, {{index}})" class="card {{item.selected ? 'selected': ''}}">
-                <view><checkbox checked="{{item.selected}}"/></view>  
-                <view>{{item.product.title}}</view>
-                <view>{{item.product.priceStr}}</view>
-                <view style="font-size: 12px;color: #3399ff;" @tap.stop="remove({{item}})">从购物车中移出</view>
+            <view @tap="select({{item}}, {{index}})" class="item {{item.selected ? 'selected': ''}}">
+                <view class="checkbox"><checkbox checked="{{item.selected}}"/></view>
+                <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
+                </view>
+                <view class="product">  
+                    <view class="title">{{item.product.title}}</view>
+                    <view class="info">
+                       <view class="price">{{item.product.priceStr}}</view>
+                       <view class="count">×{{item.count}}</view>
+                    </view>
+                    <view class="btn-group">
+                        <view @tap.stop="remove({{item}})" class="trash"></view>
+                    </view>
+                </view>
             </view>
         </block>
-        
-        <view class="pay-wrap clearfix">
+        <view class="pay-wrap clearfix" wx:if="{{list && list.length}}">
             <label class="checkbox" @tap="selectAll">
                 <checkbox checked="{{isSelectAll}}"/>全选
             </label>
@@ -114,11 +166,12 @@
     import footer from '../components/footer'
     import { getCardByOpenid, remove } from '../service/card'
     import compressImage from '../function/compressImage'
+    import adaptProductList from '../function/adaptProductList'
     import plus from '../function/plus'
     import currency from '../function/currency'
     import purchase from '../function/purchase'
     
-    export default class Card  extends wepy.page {
+    export default class Card extends wepy.page {
 
         config = {
             navigationBarTitleText: '购物车' 
@@ -134,7 +187,7 @@
         }
 
         onShow () {
-            this.$invoke('footer', 'getCountByOpendId');
+            // this.$invoke('footer', 'getCountByOpendId');
         }
 
         computed = {
@@ -149,6 +202,8 @@
             }
         }
 
+        adaptProductList = adaptProductList;
+
         methods = {
             /**
              * 获取产品详情
@@ -158,8 +213,7 @@
                 getCardByOpenid()
                     .then((res)=> {
                         wx.hideLoading();
-                        this.list = res.data.list;
-                        this.$apply();
+                        this.list = this.adaptProductList(res.data);
                     })
                     .catch(()=>{
                         wx.hideLoading();
@@ -194,11 +248,18 @@
              * 将商品从购物车中移除 
              */
             remove (item) {
-                remove(item._id)
-                .then(()=> {
-                    this.methods.getCardList();
-                    this.$invoke('footer', 'getCountByOpendId');;
-                });
+                wx.showModal({
+                    title: '提示',
+                    content: '确认删除' + item.product.title + '?',
+                    success: (res) => {
+                        if (res.confirm) {
+                            remove(item._id)
+                                .then(()=> {
+                                    this.methods.getCardList();
+                                });
+                        }
+                    }
+                })
             },
 
             /**

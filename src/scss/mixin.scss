@@ -31,7 +31,7 @@
 }
 
 .icon-bg {
-    background-repeat: none;
+    background-repeat: no-repeat;
     background-size: contain;
 }
 .middle {
@@ -43,4 +43,10 @@
 }
 .gray-light {
     color: #999;
+}
+
+.mc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

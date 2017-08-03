@@ -8,8 +8,8 @@
  * @file global mixin
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
-.icon-bg {
-  background-repeat: none;
+.icon-bg, .card-list .item .btn-group .trash {
+  background-repeat: no-repeat;
   background-size: contain; }
 
 .middle, .pay-wrap label, .pay-wrap .btn-group .pay-money, .pay-wrap .btn-group .money, .pay-wrap .btn-group button {
@@ -22,6 +22,11 @@
 .gray-light {
   color: #999; }
 
+.mc, .card-list .item .checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 .empty-notice {
   text-align: center;
   color: #999;
@@ -30,13 +35,51 @@
     color: #333;
     font-size: 16px; }
 
-.card-list {
-  background: #f2f2f2; }
-  .card-list .card {
-    margin: 10px;
-    background: #FFF; }
-    .card-list .card.selected {
-      background: red; }
+.card-list .item {
+  background: #FFF;
+  padding: 10px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #eaeaea; }
+  .card-list .item:before, .card-list .item:after {
+    content: " ";
+    display: table; }
+  .card-list .item:after {
+    clear: both; }
+  .card-list .item .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .card-list .item .product {
+    overflow: hidden;
+    padding-right: 10px; }
+  .card-list .item .btn-group:before, .card-list .item .btn-group:after {
+    content: " ";
+    display: table; }
+  .card-list .item .btn-group:after {
+    clear: both; }
+  .card-list .item .btn-group .trash {
+    float: right;
+    width: 16px;
+    height: 16px;
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/trash2.svg"); }
+  .card-list .item .info:before, .card-list .item .info:after {
+    content: " ";
+    display: table; }
+  .card-list .item .info:after {
+    clear: both; }
+  .card-list .item .info .price {
+    float: left;
+    color: #ff3333; }
+  .card-list .item .info .count {
+    float: right;
+    color: #999; }
+  .card-list .item:first-of-type {
+    border-top: 1px solid #eaeaea; }
+  .card-list .item .checkbox {
+    float: left;
+    height: 60px; }
+  .card-list .item .product-image {
+    float: left; }
 
 .surfing {
   width: 308rpx;

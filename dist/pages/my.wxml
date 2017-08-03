@@ -6,17 +6,17 @@
         </view>
         <view class="my-menu">
             <view class="menu-item clearfix" bindtap="redirect" data-wepy-params-a="order">
-                <view class="menu-sign order"/>
+                <view class="menu-sign menu-sign1"><view class="order"/></view>
                 <view class="arrow-right"/>
                 我的订单
             </view>
             <view class="menu-item clearfix" bindtap="redirect" data-wepy-params-a="card">
-                <view class="menu-sign card"/>
+                <view class="menu-sign menu-sign2"><view class="card"/></view>
                 <view class="arrow-right"/>
                 我的购物车
             </view>
             <view class="menu-item clearfix" bindtap="redirect" data-wepy-params-a="shippingAddress">
-                <view class="menu-sign address"/>
+                <view class="menu-sign menu-sign3"><view class="address"/></view>
                 <view class="arrow-right"/>
                 我的地址
             </view>
