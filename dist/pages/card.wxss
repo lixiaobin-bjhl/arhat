@@ -35,51 +35,53 @@
     color: #333;
     font-size: 16px; }
 
-.card-list .item {
-  background: #FFF;
-  padding: 10px 0;
-  font-size: 14px;
-  border-bottom: 1px solid #eaeaea; }
-  .card-list .item:before, .card-list .item:after {
-    content: " ";
-    display: table; }
-  .card-list .item:after {
-    clear: both; }
-  .card-list .item .title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; }
-  .card-list .item .product {
-    overflow: hidden;
-    padding-right: 10px; }
-  .card-list .item .btn-group:before, .card-list .item .btn-group:after {
-    content: " ";
-    display: table; }
-  .card-list .item .btn-group:after {
-    clear: both; }
-  .card-list .item .btn-group .trash {
-    float: right;
-    width: 16px;
-    height: 16px;
-    background-image: url("http://otzuzbqja.bkt.clouddn.com/trash2.svg"); }
-  .card-list .item .info:before, .card-list .item .info:after {
-    content: " ";
-    display: table; }
-  .card-list .item .info:after {
-    clear: both; }
-  .card-list .item .info .price {
-    float: left;
-    color: #ff3333; }
-  .card-list .item .info .count {
-    float: right;
-    color: #999; }
-  .card-list .item:first-of-type {
-    border-top: 1px solid #eaeaea; }
-  .card-list .item .checkbox {
-    float: left;
-    height: 60px; }
-  .card-list .item .product-image {
-    float: left; }
+.card-list {
+  padding-bottom: 104rpx; }
+  .card-list .item {
+    background: #FFF;
+    padding: 10px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #eaeaea; }
+    .card-list .item:before, .card-list .item:after {
+      content: " ";
+      display: table; }
+    .card-list .item:after {
+      clear: both; }
+    .card-list .item .title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .card-list .item .product {
+      overflow: hidden;
+      padding-right: 10px; }
+    .card-list .item .btn-group:before, .card-list .item .btn-group:after {
+      content: " ";
+      display: table; }
+    .card-list .item .btn-group:after {
+      clear: both; }
+    .card-list .item .btn-group .trash {
+      float: right;
+      width: 16px;
+      height: 16px;
+      background-image: url("http://otzuzbqja.bkt.clouddn.com/trash2.svg"); }
+    .card-list .item .info:before, .card-list .item .info:after {
+      content: " ";
+      display: table; }
+    .card-list .item .info:after {
+      clear: both; }
+    .card-list .item .info .price {
+      float: left;
+      color: #ff3333; }
+    .card-list .item .info .count {
+      float: right;
+      color: #999; }
+    .card-list .item:first-of-type {
+      border-top: 1px solid #eaeaea; }
+    .card-list .item .checkbox {
+      float: left;
+      height: 60px; }
+    .card-list .item .product-image {
+      float: left; }
 
 .surfing {
   width: 308rpx;

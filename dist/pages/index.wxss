@@ -1,4 +1,32 @@
 @import "./../components/footer.wxss";
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg, .home .item .product .btn {
+  background-repeat: no-repeat;
+  background-size: contain; }
+
+.middle, .home .item .product .btn {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.mc {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 .banner {
   height: 300rpx;
   width: 100%; }
@@ -7,6 +35,56 @@
   height: 100%;
   width: 100%; }
 
-.weui-media-box__hd_in-appmsg {
-  width: 80px;
-  height: 80px; }
+.home .item {
+  background: #FFF;
+  padding: 10px;
+  border-bottom: 1px solid #eaeaea; }
+  .home .item:before, .home .item:after {
+    content: " ";
+    display: table; }
+  .home .item:after {
+    clear: both; }
+  .home .item:first-of-type {
+    border-top: 1px solid #eaeaea; }
+  .home .item .product-picture {
+    width: 80px;
+    height: 80px;
+    float: left;
+    margin-right: 10px; }
+  .home .item .product {
+    overflow: hidden; }
+    .home .item .product .title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+    .home .item .product .specifications {
+      font-size: 14px; }
+      .home .item .product .specifications view {
+        display: inline-block;
+        color: #666; }
+    .home .item .product .btn {
+      width: 35px;
+      height: 35px;
+      display: inline-block; }
+      .home .item .product .btn.btn-card {
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/card-circle.svg"); }
+      .home .item .product .btn.btn-pay {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        top: -5px;
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/card-purchase.svg"); }
+    .home .item .product .btns {
+      float: right; }
+    .home .item .product .btn-group {
+      color: #ff3333;
+      margin-top: 10px; }
+      .home .item .product .btn-group:before, .home .item .product .btn-group:after {
+        content: " ";
+        display: table; }
+      .home .item .product .btn-group:after {
+        clear: both; }
+      .home .item .product .btn-group .money {
+        float: left; }
+      .home .item .product .btn-group .btns {
+        float: right; }

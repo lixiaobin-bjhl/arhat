@@ -1,5 +1,5 @@
 
-    <view class="page"> 
+    <view class="page home"> 
         <swiper  wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{bannerOption}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
                 <navigator url="productDetail?pid={{item._id}}">
@@ -9,21 +9,29 @@
                 </navigator>
             </block>
         </swiper>
-        <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
-            <navigator  wx:if="{{products && products.length}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
-                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"/>
+        <view class="weui-panel__bd">
+            <navigator  wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
+                <view class="product-picture">
+                    <image class="weui-media-box__thumb" mode="aspectFill" src="{{item.imageUrl}}"/>
                 </view>
-                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                    <view class="weui-media-box__title">{{item.title}}</view>
-                    <view class="weui-media-box__desc">{{item.summary}}</view>
-                    <view class="weui-media-box__title">{{item.payPrice}}<view style="font-size: 12px;float:right; margin-top: 5px; color: #3399ff;" catchtap="addToCard" data-wepy-params-a="{{item}}">加入购物车</view><view catchtap="pay" style="font-size: 12px; float:right; margin-top: 5px; color: #3399ff; margin-right:10px;" data-wepy-params-a="{{item}}">
-                       购买</view></view>
+                <view class="product">
+                    <view class="title">{{item.title}}</view>
+                    <view wx:for="{{item.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
+                    <view class="btn-group">
+                        <view class="money">{{item.priceStr}}</view>
+                        <view class="btns">
+                            <view catchtap="addToCard" class="btn btn-card" data-wepy-params-a="{{item}}"/><view catchtap="pay" class="btn btn-pay" data-wepy-params-a="{{item}}"/>
+                        </view>
+                    </view>
                 </view>
             </navigator>
-           <view class="none-list" wx:if="{{products && !products.length}}">
-                该商户还没有添加产品
-           </view>
+            <view class="none-list" wx:if="{{products && !products.length}}">
+                <view class="empty"/>
+                <view class="base">没有找到产品^_^</view>
+            </view>
            
     <view class="fmenu">
         <view class="menu-item {{$footer$from ==='home' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="index">  

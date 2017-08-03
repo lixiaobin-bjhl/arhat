@@ -17,6 +17,7 @@
         }
     }
     .card-list {
+        padding-bottom: 104rpx;
         .item {
             @include clearfix;
             background: #FFF;

@@ -1,4 +1,7 @@
 <style lang="sass">
+@import '../scss/color';
+@import '../scss/mixin';
+
 .banner {
     height: 300rpx;
     width: 100%;
@@ -7,13 +10,71 @@
     height: 100%;
     width: 100%;
 }
-.weui-media-box__hd_in-appmsg {
-    width: 80px;
-    height: 80px;
+.home {
+    .item {
+        @include clearfix;
+        background: #FFF;
+        padding: 10px;
+        &:first-of-type {
+            border-top: 1px solid map-get($borders, shallow);
+        }
+        border-bottom: 1px solid map-get($borders, shallow);
+        .product-picture {
+            width: 80px;
+            height: 80px;
+            float: left;
+            margin-right: 10px;
+        }
+        .product {
+            overflow: hidden;
+            .title {
+                @include text-overflow;
+            }
+            .specifications {
+                font-size: 14px;
+                view {
+                    display: inline-block;
+                    color: #666;
+                }
+            }
+            .btn {
+                width: 35px;
+                height: 35px;
+                @extend .icon-bg;
+                display: inline-block;
+                @extend .middle;
+                &.btn-card {
+                    background-image: url('http://otzuzbqja.bkt.clouddn.com/card-circle.svg');
+                }
+                &.btn-pay {
+                    width: 30px;
+                    height: 30px;
+                    position: relative;
+                    top: -5px;
+                    background-image: url('http://otzuzbqja.bkt.clouddn.com/card-purchase.svg');
+                }
+            }
+            .btns {
+                float: right;
+            }
+            .btn-group {
+                color: #ff3333;
+                @include clearfix;
+                margin-top: 10px;
+                .money {
+                    float: left;
+                }
+                .btns {
+                    float: right;
+                }
+            }
+        }
+    }
 }
+
 </style>
 <template>
-    <view class="page"> 
+    <view class="page home"> 
         <swiper wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}"
     autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{bannerOption}}" wx:for-item="item"  wx:for-index="index" wx:key="item._id">
@@ -24,27 +85,35 @@
                 </navigator>
             </block>
         </swiper>
-        <view class="weui-panel__bd" style="margin-top: 20rpx; background: #FFF;">
-            <navigator wx:if="{{products && products.length}}" class="weui-media-box weui-media-box_appmsg" 
-                hover-class="weui-cell_active" 
+        <view class="weui-panel__bd">
+            <navigator wx:if="{{products && products.length}}"
+                class="item"
                 wx:for="{{products}}"
                 wx:for-index="index"  
                 wx:for-item="item" 
                 wx:key="item._id" 
                 url="productDetail?pid={{item._id}}">
-                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
+                <view class="product-picture">
+                    <image class="weui-media-box__thumb" mode="aspectFill" src="{{item.imageUrl}}"></image>
                 </view>
-                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                    <view class="weui-media-box__title">{{item.title}}</view>
-                    <view class="weui-media-box__desc">{{item.summary}}</view>
-                    <view class="weui-media-box__title">{{item.payPrice}}<view style="font-size: 12px;float:right; margin-top: 5px; color: #3399ff;" @tap.stop="addToCard({{item}})">加入购物车</view><view @tap.stop="pay({{item}})" style="font-size: 12px; float:right; margin-top: 5px; color: #3399ff; margin-right:10px;">
-                       购买</view></view>
+                <view class="product">
+                    <view class="title">{{item.title}}</view>
+                    <view wx:for="{{item.specifications}}" class="specifications"  wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
+                    <view class="btn-group">
+                        <view class="money">{{item.priceStr}}</view>
+                        <view class="btns">
+                            <view @tap.stop="addToCard({{item}})" class="btn btn-card"></view><view @tap.stop="pay({{item}})" class="btn btn-pay"></view>
+                        </view>
+                    </view>
                 </view>
             </navigator>
-           <view class="none-list" wx:if="{{products && !products.length}}">
-                该商户还没有添加产品
-           </view>
+            <view class="none-list" wx:if="{{products && !products.length}}">
+                <view class="empty"></view>
+                <view class="base">没有找到产品^_^</view>
+            </view>
            <footer from="home"></footer>
         </view>
     </view>
@@ -60,7 +129,6 @@
     import { getUserInfo } from '../service/global'
     import userInfo from '../plugin/userInfo'
     import initUser from '../function/initUser'
-    import purchase from '../function/purchase'
   
     export default class Index extends wepy.page {
         data = {
@@ -83,7 +151,7 @@
         }
 
         onLoad () {
-            this.methods.getProductList();
+            this.getProductList();
             wx.setNavigationBarTitle({
                 title: config.name
             });
@@ -98,46 +166,49 @@
                 toast('获取用户信息失败');
             }
         }
-
-        methods = {
-            adaptList: (data)=> {
-                var bannerOption = [];
-                data.forEach((item)=> {
-                    var storageIds = item.storageIds;
-                    if (storageIds && storageIds.length) {
-                        storageIds.forEach((storageId, index)=> {
-                            // 产品仅显示第1张图
-                            if (index === 0) {
-                                item.imageUrl = compressImage(storageId)
-                            // 其余图片放到banner中显示
-                            } else {
-                                bannerOption.push({
-                                    image: compressImage(storageId),
-                                    _id: item._id
-                                });
-                            }
-                        });
-                    }
-                });
-                this.bannerOption = bannerOption;
-                this.$apply();
-                return data;
-            },
-
-            getProductList: ()=> {
-                wx.showLoading();
+        /**
+         * 适配产品列表
+         */
+        adaptList = (data)=> {
+            var bannerOption = [];
+            data.forEach((item)=> {
+                var storageIds = item.storageIds;
+                if (storageIds && storageIds.length) {
+                    storageIds.forEach((storageId, index)=> {
+                        // 产品仅显示第1张图
+                        if (index === 0) {
+                            item.imageUrl = compressImage(storageId)
+                        // 其余图片放到banner中显示
+                        } else {
+                            bannerOption.push({
+                                image: compressImage(storageId),
+                                _id: item._id
+                            });
+                        }
+                    });
+                }
+            });
+            this.bannerOption = bannerOption;
+            return data;
+        };
+        /**
+         * 获取产品列表 
+         */
+        getProductList = () => {
+            wx.showLoading();
                 getList()
                     .then((res)=> {
                         wx.hideLoading();
-                        this.products = this.methods.adaptList(res.data.list);
+                        this.products = this.adaptList(res.data.list);
                         this.$apply();
                     })
                     .catch(()=> {
                         this.products = [];
                         wx.hideLoading();
                     });
-            },
-            purchase,
+        };
+
+        methods = {
             /**
              * 购买
              */
