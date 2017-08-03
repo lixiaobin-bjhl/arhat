@@ -123,8 +123,6 @@
                         });
                         var productPics = [];
                         product.storageIds.forEach((item)=> {
-                            console.log(item);
-                            console.log(compressImage(item));
                             productPics.push(compressImage(item));
                         });
                         this.setData('productPics', productPics);

@@ -1,0 +1,55 @@
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg {
+  background-repeat: no-repeat;
+  background-size: contain; }
+
+.middle {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.mc {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.stepper {
+  width: 102px;
+  height: 26px;
+  line-height: 26px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: #FFF;
+  font-size: 14px; }
+
+.stepper text {
+  width: 30px;
+  text-align: center;
+  float: left; }
+
+.stepper input {
+  width: 40px;
+  float: left;
+  height: 26px;
+  line-height: 26px;
+  margin: 0 auto;
+  text-align: center;
+  font-size: 12px;
+  border-left: 1px solid #eaeaea;
+  border-right: 1px solid #eaeaea; }
+
+.stepper .disabled {
+  color: #ccc; }

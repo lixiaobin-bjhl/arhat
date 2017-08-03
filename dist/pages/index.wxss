@@ -1,3 +1,4 @@
+@import "./../components/addToCard.wxss";
 @import "./../components/footer.wxss";
 @charset "UTF-8";
 /**
@@ -37,7 +38,7 @@
 
 .home .item {
   background: #FFF;
-  padding: 10px;
+  padding: 10px 10px 1px 10px;
   border-bottom: 1px solid #eaeaea; }
   .home .item:before, .home .item:after {
     content: " ";

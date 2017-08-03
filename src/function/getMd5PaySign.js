@@ -20,7 +20,6 @@ export default function (params) {
         + params.timeStamp
 
     var stringSignTemp = stringA + '&key=' + params.key;
-    console.log('stringSignTemp', stringSignTemp);
     
     return md5(stringSignTemp).toUpperCase();
 

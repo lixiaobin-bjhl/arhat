@@ -14,7 +14,7 @@
     .item {
         @include clearfix;
         background: #FFF;
-        padding: 10px;
+        padding: 10px 10px 1px 10px;
         &:first-of-type {
             border-top: 1px solid map-get($borders, shallow);
         }
@@ -71,13 +71,11 @@
         }
     }
 }
-
 </style>
 <template>
-    <view class="page home"> 
-        <swiper wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}"
-    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-            <block wx:for="{{bannerOption}}" wx:for-item="item"  wx:for-index="index" wx:key="item._id">
+    <view class="page home">
+        <swiper wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{bannerOption}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
                 <navigator url="productDetail?pid={{item._id}}">
                     <swiper-item>
                         <image src="{{item.image}}" class="slide-image" mode="aspectFill"></image>
@@ -86,26 +84,21 @@
             </block>
         </swiper>
         <view class="weui-panel__bd">
-            <navigator wx:if="{{products && products.length}}"
-                class="item"
-                wx:for="{{products}}"
-                wx:for-index="index"  
-                wx:for-item="item" 
-                wx:key="item._id" 
-                url="productDetail?pid={{item._id}}">
+            <navigator wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="product-picture">
                     <image class="weui-media-box__thumb" mode="aspectFill" src="{{item.imageUrl}}"></image>
                 </view>
                 <view class="product">
                     <view class="title">{{item.title}}</view>
-                    <view wx:for="{{item.specifications}}" class="specifications"  wx:for-item="specification" wx:for-index="index" wx:key="index">
+                    <view wx:for="{{item.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
                         <view>{{specification.name}}：</view>
                         <view>{{specification.value}}</view>
                     </view>
                     <view class="btn-group">
                         <view class="money">{{item.priceStr}}</view>
                         <view class="btns">
-                            <view @tap.stop="addToCard({{item}})" class="btn btn-card"></view><view @tap.stop="pay({{item}})" class="btn btn-pay"></view>
+                            <view @tap.stop="showAddToCard({{item}})" class="btn btn-card"></view>
+                            <view @tap.stop="pay({{item}})" class="btn btn-pay"></view>
                         </view>
                     </view>
                 </view>
@@ -114,125 +107,144 @@
                 <view class="empty"></view>
                 <view class="base">没有找到产品^_^</view>
             </view>
-           <footer from="home"></footer>
         </view>
+        <addToCard :product.sync="selectedProduct" @addtocard.user="addToCardHandler"></addToCard>
+        <footer from="home"></footer>
     </view>
 </template>
 <script>
-    import wepy from 'wepy'
-    import footer from '../components/footer'
-    import { getList } from '../service/product'
-    import { addToCard } from '../service/card'
-    import { login, token } from '../service/user';
-    import compressImage from '../function/compressImage'
-    import config from '../config'
-    import { getUserInfo } from '../service/global'
-    import userInfo from '../plugin/userInfo'
-    import initUser from '../function/initUser'
-  
-    export default class Index extends wepy.page {
-        data = {
-            bannerOption: [],
-            products: null,
-            indicatorDots: true,
-            autoplay: true,
-            interval: 5000,
-            duration: 1000
-        }
 
-        components = {
-            footer
-        }
+import wepy from 'wepy'
+import footer from '../components/footer'
+import { getList } from '../service/product'
+import * as cardRequest from '../service/card'
+import { login, token } from '../service/user'
+import compressImage from '../function/compressImage'
+import config from '../config'
+import { getUserInfo } from '../service/global'
+import userInfo from '../plugin/userInfo'
+import initUser from '../function/initUser'
+import addToCard from '../components/addToCard'
 
-        onShow () {
-            if (userInfo.getOpenId()) {
-                this.$invoke('footer', 'getCountByOpendId');
-            }
-        }
+export default class Index extends wepy.page {
+    data = {
+        bannerOption: [],
+        products: null,
+        indicatorDots: true,
+        autoplay: true,
+        interval: 5000,
+        duration: 1000,
+        selectedProduct: {}
+    }
 
-        onLoad () {
-            this.getProductList();
-            wx.setNavigationBarTitle({
-                title: config.name
-            });
-            this.setUserInfo();
-        }
+    components = {
+        footer,
+        addToCard
+    }
 
-        async setUserInfo() {
-            let res;
-            try {
-                res = await initUser(this);
-            } catch (e) {
-                toast('获取用户信息失败');
-            }
-        }
-        /**
-         * 适配产品列表
-         */
-        adaptList = (data)=> {
-            var bannerOption = [];
-            data.forEach((item)=> {
-                var storageIds = item.storageIds;
-                if (storageIds && storageIds.length) {
-                    storageIds.forEach((storageId, index)=> {
-                        // 产品仅显示第1张图
-                        if (index === 0) {
-                            item.imageUrl = compressImage(storageId)
-                        // 其余图片放到banner中显示
-                        } else {
-                            bannerOption.push({
-                                image: compressImage(storageId),
-                                _id: item._id
-                            });
-                        }
-                    });
-                }
-            });
-            this.bannerOption = bannerOption;
-            return data;
-        };
-        /**
-         * 获取产品列表 
-         */
-        getProductList = () => {
-            wx.showLoading();
-                getList()
-                    .then((res)=> {
-                        wx.hideLoading();
-                        this.products = this.adaptList(res.data.list);
-                        this.$apply();
-                    })
-                    .catch(()=> {
-                        this.products = [];
-                        wx.hideLoading();
-                    });
-        };
-
-        methods = {
-            /**
-             * 购买
-             */
-            pay (item) {
-               wx.navigateTo({
-                   url: 'orderConfirm?products=' + JSON.stringify([{
-                       count: 1,
-                       id: item._id
-                   }])
-               });
-            },
-            addToCard (item) {
-                wx.showLoading();
-                addToCard({
-                    product: item._id,
-                    count: 1
-                })
-                .then(()=> {
-                    wx.hideLoading();
-                    this.$invoke('footer', 'getCountByOpendId');
-                    toast('已成功加到购物车');
-                })
-            }
+    onShow() {
+        if (userInfo.getOpenId()) {
+            this.$invoke('footer', 'getCountByOpendId');
         }
     }
+
+    onLoad() {
+        this.getProductList();
+        wx.setNavigationBarTitle({
+            title: config.name
+        });
+        this.setUserInfo();
+    }
+
+    async setUserInfo() {
+        let res;
+        try {
+            res = await initUser(this);
+        } catch (e) {
+            toast('获取用户信息失败');
+        }
+    }
+    /**
+     * 适配产品列表
+     */
+    adaptList = (data) => {
+        var bannerOption = [];
+        data.forEach((item) => {
+            var storageIds = item.storageIds;
+            item.count = 1;
+            if (storageIds && storageIds.length) {
+                storageIds.forEach((storageId, index) => {
+                    // 产品仅显示第1张图
+                    if (index === 0) {
+                        item.imageUrl = compressImage(storageId)
+                        // 其余图片放到banner中显示
+                    } else {
+                        bannerOption.push({
+                            image: compressImage(storageId),
+                            _id: item._id
+                        });
+                    }
+                });
+            }
+        });
+        this.bannerOption = bannerOption;
+        return data;
+    };
+    /**
+     * 获取产品列表 
+     */
+    getProductList = () => {
+        wx.showLoading();
+        getList()
+            .then((res) => {
+                wx.hideLoading();
+                this.products = this.adaptList(res.data.list);
+                this.$apply();
+            })
+            .catch(() => {
+                this.products = [];
+                wx.hideLoading();
+            });
+    };
+
+    methods = {
+        /**
+         * 购买
+         */
+        pay (item) {
+            wx.navigateTo({
+                url: 'orderConfirm?products=' + JSON.stringify([{
+                    count: 1,
+                    id: item._id
+                }])
+            });
+        },
+
+        /**
+         * 显示添加到购物车对话框
+         */
+        showAddToCard: (item) => {
+            this.selectedProduct = item;
+            this.$invoke('addToCard', 'show');
+            // wx.showLoading();
+            // addToCard({
+            //     product: item._id,
+            //     count: 1
+            // })
+            // .then(()=> {
+            //     wx.hideLoading();
+            //     this.$invoke('footer', 'getCountByOpendId');
+            //     toast('已成功加到购物车');
+            // })
+        },
+
+        /**
+         * 添加商品到购物车
+         */
+        addToCardHandler (data) {
+            console.log(data);
+        }
+    }
+}
 </script>
 

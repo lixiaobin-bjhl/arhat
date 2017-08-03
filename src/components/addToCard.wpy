@@ -1,0 +1,182 @@
+<style lang="sass">
+    @import '../scss/color';
+    @import '../scss/mixin';
+    
+    .commodity-screen {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #000;
+        opacity: 0.2;
+        overflow: hidden;
+        z-index: 1000;
+        color: #fff;
+    }
+
+    .commodity-attr-box {
+        width: 100%;
+        height: 200px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 2000;
+        background: #fff;
+        font-size: 14px;
+    }
+
+    .content {
+        position: relative;
+        top: -30px;
+    }
+
+    .add-to-card {
+        .title {
+            @include text-overflow;
+        }
+        .c {
+             padding: 0 10px;
+             border-bottom: 1px solid map-get($borders, shallow);
+        }
+        .specifications {
+            
+        }
+        .info {
+            @include clearfix;
+            .image {
+                float: left;
+                width: 64px;
+                height: 64px;
+                image {
+                    border-radius: 3px;
+                    width: 60px;
+                    height: 60px;
+                    border: 1px solid map-get($borders, shallow);
+                    padding: 1px;
+                    background: #f2f2f2;
+                }
+            }
+            .desc {
+                margin-left: 84px;
+                overflow: hidden;
+            }
+        }
+        
+        .submit {
+            width: 100%;
+            border-radius: 0;
+            background: #ff3333;
+            color: #FFF;
+        }
+    }
+
+</style>
+
+
+<template>
+    <view class="add-to-card">
+        <view class="commodity-screen" bindtap="hide" wx:if="{{showModalStatus}}"></view>
+        <view animation="{{animationData}}" class="commodity-attr-box" wx:if="{{showModalStatus}}">
+            <view class="content">
+                <view class="info c">
+                    <view class="image">
+                        <image  mode="aspectFill" src="{{product.imageUrl}}"></image>
+                    </view>
+                    <div class="desc">
+                        <view class="title">{{product.title}}</view>
+                        <view>{{product.priceStr}}</view>
+                    </div>
+                </view>
+                <view wx:for="{{product.specifications}}" class="specifications c" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                    <view>{{specification.name}}：</view>
+                    <view>{{specification.value}}</view>
+                </view>
+                <numberInput :num.sync="product.count"></numberInput>
+                <button class="submit" @tap="submit" disabled="{{submitting}}">确定</button> 
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+    import numberInput from './numberInput';
+    import wepy from 'wepy';
+    export default class AddToCard extends wepy.component {
+
+        data = {
+            showModalStatus: false,
+            animationData:  {},
+            submitting: false
+        }
+
+        components = {
+            numberInput
+        }
+
+        props = {
+           product: {
+               type: Object,
+               twoWay: true,
+               default () {
+                   return {};
+               }
+           } 
+        }
+
+        methods = {
+
+            /**
+             * 显示添加购物车对话框
+             */
+            show: function () {
+                var animation = wx.createAnimation({
+                    duration: 200,
+                    timingFunction: "linear",
+                    delay: 0
+                });
+
+                this.animation = animation
+                animation.translateY(200).step()
+                this.animationData = animation.export();
+                this.showModalStatus = true;
+                setTimeout(()=> {
+                    animation.translateY(0).step()
+                    this.animationData = animation.export();
+                    this.$apply();
+                }, 200)
+            },
+
+            /**
+             * 隐藏添加购物车对话框
+             */
+            hide:  ()=> {
+                // 隐藏遮罩层
+                var animation = wx.createAnimation({
+                    duration: 200,
+                    timingFunction: "linear",
+                    delay: 0
+                })
+                this.animation = animation
+                animation.translateY(300).step()
+                this.animationData = animation.export();
+                setTimeout(()=> {
+                    animation.translateY(0).step()
+                    this.animationData = animation.export();
+                    this.showModalStatus = false;
+                    this.$apply();
+                }, 200);
+            },
+
+            /**
+             * 提交 
+             */
+            submit: ()=> {
+                this.submitting = true;
+                this.$emit('addtocard', this.product);
+                this.methods.hide();
+                this.submitting = false;
+            }
+        }
+    }
+</script>

@@ -1,0 +1,99 @@
+<style lang="sass">
+    @import '../scss/color';
+    @import '../scss/mixin';
+
+    .stepper {
+        width: 102px;
+        height: 26px;
+        line-height: 26px;
+        border: 1px solid #999;
+        border-radius: 3px;
+        background: #FFF;
+        font-size: 14px;
+    }
+
+    .stepper text {
+        width: 30px;
+        text-align: center;
+        float: left;
+    }
+
+    .stepper input {
+        width: 40px;
+        float: left;
+        height: 26px;
+        line-height: 26px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 12px;
+        border-left: 1px solid map-get($borders, shallow);
+        border-right: 1px solid map-get($borders, shallow);
+    }
+
+    .stepper .disabled{
+        color: #ccc;
+    }
+</style>
+<template> 
+    <view class="stepper clearfix">
+	    <text class="{{minusStatus}}" bindtap="bindMinus">-</text>
+	    <input type="number" bindchange="bindManual" value="{{num}}" />
+	    <text class="normal" bindtap="bindPlus">+</text>
+    </view>
+</template>
+
+<script>
+
+    import wepy from 'wepy';
+
+    export default class NumberInput extends wepy.component {
+        data = {
+		    minusStatus: 'disabled'
+        }
+
+        props = {
+            num: {
+                type: Number,
+                default: 1,
+                twoWay: true
+            }
+        }
+
+        methods = {
+            /**
+             * 点击减号 
+             */
+            bindMinus () {
+                var num = this.num;
+                if (num > 1) {
+                    num --;
+                }
+                // 只有大于一件的时候，才能normal状态，否则disable状态
+                var minusStatus = num <= 1 ? 'disabled' : 'normal';
+                // 将数值与状态写回
+                this.num = num;
+                this.minusStatus = minusStatus;
+            },
+            /**
+             * 点击加号 
+             */
+            bindPlus () {
+                var num = this.num;
+                // 不作过多考虑自增1
+                num ++;
+                // 只有大于一件的时候，才能normal状态，否则disable状态
+                var minusStatus = num < 1 ? 'disabled' : 'normal';
+                // 将数值与状态写回
+                this.num = num;
+                this.minusStatus = minusStatus;
+            },
+            /**
+             * 输入框事件
+             */
+            bindManual: function(e) {
+                var num = e.detail.value;
+                this.num = num;
+            }
+        }
+    }
+</script>

@@ -1,5 +1,5 @@
 
-    <view class="page home"> 
+    <view class="page home">
         <swiper  wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{bannerOption}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
                 <navigator url="productDetail?pid={{item._id}}">
@@ -23,7 +23,8 @@
                     <view class="btn-group">
                         <view class="money">{{item.priceStr}}</view>
                         <view class="btns">
-                            <view catchtap="addToCard" class="btn btn-card" data-wepy-params-a="{{item}}"/><view catchtap="pay" class="btn btn-pay" data-wepy-params-a="{{item}}"/>
+                            <view catchtap="showAddToCard" class="btn btn-card" data-wepy-params-a="{{item}}"/>
+                            <view catchtap="pay" class="btn btn-pay" data-wepy-params-a="{{item}}"/>
                         </view>
                     </view>
                 </view>
@@ -32,7 +33,38 @@
                 <view class="empty"/>
                 <view class="base">没有找到产品^_^</view>
             </view>
-           
+        </view>
+        
+    <view class="add-to-card">
+        <view class="commodity-screen" bindtap="$addToCard$hide"  wx:if="{{$addToCard$showModalStatus}}"/>
+        <view animation="{{$addToCard$animationData}}" class="commodity-attr-box"  wx:if="{{$addToCard$showModalStatus}}">
+            <view class="content">
+                <view class="info c">
+                    <view class="image">
+                        <image mode="aspectFill" src="{{$addToCard$product.imageUrl}}"/>
+                    </view>
+                    <div class="desc">
+                        <view class="title">{{$addToCard$product.title}}</view>
+                        <view>{{$addToCard$product.priceStr}}</view>
+                    </div>
+                </view>
+                <view wx:for="{{$addToCard$product.specifications}}" class="specifications c" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                    <view>{{specification.name}}：</view>
+                    <view>{{specification.value}}</view>
+                </view>
+                 
+    <view class="stepper clearfix">
+	    <text class="{{$addToCard$numberInput$minusStatus}}" bindtap="$addToCard$numberInput$bindMinus">-</text>
+	    <input type="number" bindchange="$addToCard$numberInput$bindManual" value="{{$addToCard$numberInput$num}}"/>
+	    <text class="normal" bindtap="$addToCard$numberInput$bindPlus">+</text>
+    </view>
+
+                <button class="submit" bindtap="$addToCard$submit" disabled="{{$addToCard$submitting}}">确定</button> 
+            </view>
+        </view>
+    </view>
+
+        
     <view class="fmenu">
         <view class="menu-item {{$footer$from ==='home' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="index">  
             <view class="icon home"/>    
@@ -53,5 +85,4 @@
         <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view> -->
     </view>
 
-        </view>
     </view>

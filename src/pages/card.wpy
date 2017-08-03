@@ -212,18 +212,21 @@
             getCardList: () => {
                 wx.showLoading();
                 getCardByOpenid()
-                    .then((res)=> {
+                    .then((res) => {
                         wx.hideLoading();
                         this.list = this.adaptProductList(res.data);
+                        setTimeout(()=> {
+                            this.methods.selectAll();
+                        });
                     })
-                    .catch(()=>{
+                    .catch(() => {
                         wx.hideLoading();
                     });
             },
             /**
              * 全选 
              */
-            selectAll () {
+            selectAll: ()=> {
                 this.isSelectAll = !this.isSelectAll;
                 // 将所有产品全选或返选上
                 this.list.forEach((item, index)=> {
