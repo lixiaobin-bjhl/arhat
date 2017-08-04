@@ -161,7 +161,9 @@ export default class Index extends wepy.page {
         try {
             res = await initUser(this);
         } catch (e) {
-            toast('获取用户信息失败');
+            wx.showToast({
+                title: '获取用户信息失败'
+            });
         }
     }
     /**
@@ -177,7 +179,7 @@ export default class Index extends wepy.page {
                     // 产品仅显示第1张图
                     if (index === 0) {
                         item.imageUrl = compressImage(storageId)
-                        // 其余图片放到banner中显示
+                    // 其余图片放到banner中显示
                     } else {
                         bannerOption.push({
                             image: compressImage(storageId),
@@ -225,24 +227,28 @@ export default class Index extends wepy.page {
          */
         showAddToCard: (item) => {
             this.selectedProduct = item;
-            this.$invoke('addToCard', 'show');
-            // wx.showLoading();
-            // addToCard({
-            //     product: item._id,
-            //     count: 1
-            // })
-            // .then(()=> {
-            //     wx.hideLoading();
-            //     this.$invoke('footer', 'getCountByOpendId');
-            //     toast('已成功加到购物车');
-            // })
+            setTimeout(()=> {
+                this.$invoke('addToCard', 'show');
+            });
+            
         },
 
         /**
          * 添加商品到购物车
          */
         addToCardHandler (data) {
-            console.log(data);
+            wx.showLoading();
+            cardRequest.addToCard({
+                product: data._id,
+                count: data.count
+            })
+            .then(()=> {
+                wx.hideLoading();
+                // this.$invoke('footer', 'getCountByOpendId');
+                wx.showToast({
+                    title: '已成功加到购物车'
+                });
+            });
         }
     }
 }

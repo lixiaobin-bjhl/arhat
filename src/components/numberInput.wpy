@@ -93,7 +93,11 @@
             bindManual: function(e) {
                 var num = e.detail.value;
                 this.num = num;
-            }
+            },
+
+            getNum () {
+                return this.num;
+            } 
         }
     }
 </script>

@@ -17,7 +17,7 @@
 
     .commodity-attr-box {
         width: 100%;
-        height: 200px;
+        min-height: 150px;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -29,25 +29,39 @@
     .content {
         position: relative;
         top: -30px;
+        padding-left: 10px;
+        padding-bottom: 25px;
     }
 
     .add-to-card {
-        .title {
-            @include text-overflow;
-        }
         .c {
-             padding: 0 10px;
-             border-bottom: 1px solid map-get($borders, shallow);
+            padding: 5px 0;
+            border-bottom: 1px solid map-get($borders, shallow);
+            &:last-of-type {
+                border-bottom: 0;
+            }
         }
         .specifications {
             
         }
         .info {
             @include clearfix;
+            position: relative;
+            .title {
+                @include text-overflow;
+            }
+            .close {
+                position: absolute;
+                right: 10px;
+                top: 35px;
+            }
+            .price {
+                color: #ff3333;
+            }
             .image {
-                float: left;
                 width: 64px;
                 height: 64px;
+                float: left;
                 image {
                     border-radius: 3px;
                     width: 60px;
@@ -58,15 +72,20 @@
                 }
             }
             .desc {
-                margin-left: 84px;
+                margin: 38px 30px 0 70px;
                 overflow: hidden;
             }
+            .value {
+                 border: 1px solid map-get($borders, shallow);
+                 padding: 6px 9px;
+            }
         }
-        
         .submit {
             width: 100%;
             border-radius: 0;
             background: #ff3333;
+            position: absolute;
+            bottom: 0;
             color: #FFF;
         }
     }
@@ -81,20 +100,24 @@
             <view class="content">
                 <view class="info c">
                     <view class="image">
-                        <image  mode="aspectFill" src="{{product.imageUrl}}"></image>
+                        <image mode="aspectFill" src="{{product.imageUrl}}"></image>
                     </view>
-                    <div class="desc">
-                        <view class="title">{{product.title}}</view>
-                        <view>{{product.priceStr}}</view>
-                    </div>
+                    <view class="desc">
+                        <icon type="cancel" @tap="hide" class="close" color="#ff3333" size="23"/>
+                        <view class="title">{{product.title}}</view> 
+                        <view class="price">{{product.priceStr}}</view>
+                    </view>
                 </view>
                 <view wx:for="{{product.specifications}}" class="specifications c" wx:for-item="specification" wx:for-index="index" wx:key="index">
                     <view>{{specification.name}}：</view>
-                    <view>{{specification.value}}</view>
+                    <view class="value">{{specification.value}}</view>
                 </view>
-                <numberInput :num.sync="product.count"></numberInput>
-                <button class="submit" @tap="submit" disabled="{{submitting}}">确定</button> 
+                <view class="c">
+                    <view>购买数量：</view> 
+                    <numberInput :num.sync="product.count"></numberInput>
+                </view>
             </view>
+            <button class="submit" @tap="submit" disabled="{{submitting}}">确定</button> 
         </view>
     </view>
 </template>
@@ -119,13 +142,14 @@
                type: Object,
                twoWay: true,
                default () {
-                   return {};
+                   return {
+                       count: 5
+                   };
                }
            } 
         }
 
         methods = {
-
             /**
              * 显示添加购物车对话框
              */
@@ -135,14 +159,13 @@
                     timingFunction: "linear",
                     delay: 0
                 });
-
                 this.animation = animation
                 animation.translateY(200).step()
-                this.animationData = animation.export();
+                this.animationData = animation.export()
                 this.showModalStatus = true;
                 setTimeout(()=> {
                     animation.translateY(0).step()
-                    this.animationData = animation.export();
+                    this.animationData = animation.export()
                     this.$apply();
                 }, 200)
             },
@@ -156,13 +179,13 @@
                     duration: 200,
                     timingFunction: "linear",
                     delay: 0
-                })
+                });
                 this.animation = animation
                 animation.translateY(300).step()
-                this.animationData = animation.export();
+                this.animationData = animation.export()
                 setTimeout(()=> {
                     animation.translateY(0).step()
-                    this.animationData = animation.export();
+                    this.animationData = animation.export()
                     this.showModalStatus = false;
                     this.$apply();
                 }, 200);
@@ -173,6 +196,8 @@
              */
             submit: ()=> {
                 this.submitting = true;
+                var count = this.$invoke('numberInput', 'getNum');
+                this.product.count = count;
                 this.$emit('addtocard', this.product);
                 this.methods.hide();
                 this.submitting = false;

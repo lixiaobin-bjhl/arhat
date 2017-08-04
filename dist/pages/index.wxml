@@ -43,24 +43,28 @@
                     <view class="image">
                         <image mode="aspectFill" src="{{$addToCard$product.imageUrl}}"/>
                     </view>
-                    <div class="desc">
-                        <view class="title">{{$addToCard$product.title}}</view>
-                        <view>{{$addToCard$product.priceStr}}</view>
-                    </div>
+                    <view class="desc">
+                        <icon type="cancel" bindtap="$addToCard$hide" class="close" color="#ff3333" size="23"/>
+                        <view class="title">{{$addToCard$product.title}}</view> 
+                        <view class="price">{{$addToCard$product.priceStr}}</view>
+                    </view>
                 </view>
                 <view wx:for="{{$addToCard$product.specifications}}" class="specifications c" wx:for-item="specification" wx:for-index="index" wx:key="index">
                     <view>{{specification.name}}：</view>
-                    <view>{{specification.value}}</view>
+                    <view class="value">{{specification.value}}</view>
                 </view>
-                 
+                <view class="c">
+                    <view>购买数量：</view> 
+                     
     <view class="stepper clearfix">
 	    <text class="{{$addToCard$numberInput$minusStatus}}" bindtap="$addToCard$numberInput$bindMinus">-</text>
 	    <input type="number" bindchange="$addToCard$numberInput$bindManual" value="{{$addToCard$numberInput$num}}"/>
 	    <text class="normal" bindtap="$addToCard$numberInput$bindPlus">+</text>
     </view>
 
-                <button class="submit" bindtap="$addToCard$submit" disabled="{{$addToCard$submitting}}">确定</button> 
+                </view>
             </view>
+            <button class="submit" bindtap="$addToCard$submit" disabled="{{$addToCard$submitting}}">确定</button> 
         </view>
     </view>
 

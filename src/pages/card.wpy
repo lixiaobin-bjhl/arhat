@@ -169,6 +169,7 @@
     import compressImage from '../function/compressImage'
     import adaptProductList from '../function/adaptProductList'
     import plus from '../function/plus'
+    import multiply from '../function/multiply'
     import currency from '../function/currency'
     import purchase from '../function/purchase'
     
@@ -196,7 +197,7 @@
                 var result = 0;
                 this.list.forEach((item)=> {
                     if (item.selected) {
-                        result = plus(item.product.payPrice, result);
+                        result = plus(multiply(item.product.payPrice, item.count), result);
                     }
                 });
                 return currency(result);
