@@ -1093,11 +1093,28 @@ page {
 .clearfix:after {
   clear: both; }
 
+.tags {
+  border-bottom: 1px solid #eaeaea;
+  margin-left: 15px;
+  padding: 10px 0; }
+  .tags > view {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 0 3px;
+    color: #ff3333;
+    line-height: 18px;
+    border-radius: 3px;
+    font-size: 12px;
+    border: 1px solid #ff3333; }
+
 .empty {
   margin: 0 auto;
   background-image: url("http://otzuzbqja.bkt.clouddn.com/empty.svg");
   width: 100px;
   height: 100px; }
+
+.money {
+  color: #ff3333; }
 
 checkbox {
   transform: scale(0.8); }

@@ -27,8 +27,12 @@
 
     import wepy from 'wepy';
     import { getCountByOpendId } from '../service/card';
+    import CommonMixin from '../mixins/common';
 
     export default class Footer extends wepy.component {
+
+        mixins = [CommonMixin];
+
         data = {
             cardCount: 0
         }
@@ -38,18 +42,18 @@
         }
 
         methods =  {
-            /**
-             * 页面跳转 
-             */
-            redirect (url) {
-                // 本来就在当前页，就不跳转了
-                if (url == this.from) {
-                    return;
-                }
-                wx.redirectTo({
-                    url: url
-                });
-            },
+            // /**
+            //  * 页面跳转 
+            //  */
+            // redirect (url) {
+            //     // 本来就在当前页，就不跳转了
+            //     if (url == this.from) {
+            //         return;
+            //     }
+            //     wx.redirectTo({
+            //         url: url
+            //     });
+            // },
             /**
              * 统计购物车的数数
              */

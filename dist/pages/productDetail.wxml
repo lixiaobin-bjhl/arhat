@@ -20,12 +20,16 @@
                 </view>
             </view>-->
 
-        <view class="weui-form-preview" hidden="{{activeIndex != 0}}" style="margin-top: 20rpx;">
+        <view class="weui-form-preview" hidden="{{activeIndex != 0}}">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">付款金额</view>
-                    <view class="weui-form-preview__value_in-hd">{{product.payPrice}}</view>
+                    <view class="weui-form-preview__label">价格</view>
+                    <view class="weui-form-preview__value_in-hd money">{{product.priceStr}}</view>
                 </view>
+            </view>
+            <view class="tags">
+                <view>包邮</view>
+                <view>折扣</view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item"  wx:if="{{product.discountPrice}}">

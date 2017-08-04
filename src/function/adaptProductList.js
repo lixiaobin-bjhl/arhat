@@ -15,6 +15,7 @@ export default function adaptProductList (data) {
         if (!item.count) {
             item.count = 1;
         }
+        item.selected = true;
         if (storageIds && storageIds.length) {
             storageIds.forEach((storageId, index)=> {
                 // 产品仅显示第1张图

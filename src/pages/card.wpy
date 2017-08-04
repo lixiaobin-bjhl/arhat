@@ -181,7 +181,7 @@
 
         data = {
            list: [],
-           isSelectAll: false
+           isSelectAll: true
         }
 
         components = {
@@ -216,10 +216,8 @@
                     .then((res) => {
                         wx.hideLoading();
                         this.list = this.adaptProductList(res.data);
-                        setTimeout(()=> {
-                            this.methods.selectAll();
-                            this.$apply();
-                        }, 1000);
+                        // this.methods.selectAll();
+                        // this.$apply();
                     })
                     .catch(() => {
                         wx.hideLoading();
