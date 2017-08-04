@@ -84,7 +84,7 @@
             </block>
         </swiper>
         <view class="weui-panel__bd">
-            <navigator wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
+            <navigator open-type="redirect" wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="product-picture">
                     <image class="weui-media-box__thumb" mode="aspectFill" src="{{item.imageUrl}}"></image>
                 </view>
@@ -108,7 +108,7 @@
                 <view class="base">没有找到产品^_^</view>
             </view>
         </view>
-        <addToCard :product.sync="selectedProduct" @addtocard.user="addToCardHandler"></addToCard>
+        <addToCard :product.sync="selectedProduct" @addtocardsuccess.user="addToCardHandler"></addToCard>
         <footer from="home"></footer>
     </view>
 </template>
@@ -117,7 +117,6 @@
 import wepy from 'wepy'
 import footer from '../components/footer'
 import { getList } from '../service/product'
-import * as cardRequest from '../service/card'
 import { login, token } from '../service/user'
 import compressImage from '../function/compressImage'
 import config from '../config'
@@ -154,6 +153,9 @@ export default class Index extends wepy.page {
             title: config.name
         });
         this.setUserInfo();
+        // wx.redirectTo({
+        //             url: 'productDetail?pid=59206d80c5ca1c13e0ce5789'
+        // });
     }
 
     async setUserInfo() {
@@ -234,21 +236,10 @@ export default class Index extends wepy.page {
         },
 
         /**
-         * 添加商品到购物车
+         * 添加到购物车中处理 
          */
-        addToCardHandler (data) {
-            wx.showLoading();
-            cardRequest.addToCard({
-                product: data._id,
-                count: data.count
-            })
-            .then(()=> {
-                wx.hideLoading();
-                // this.$invoke('footer', 'getCountByOpendId');
-                wx.showToast({
-                    title: '已成功加到购物车'
-                });
-            });
+        addToCardHandler () {
+            console.log('add to card success');
         }
     }
 }

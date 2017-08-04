@@ -1,0 +1,71 @@
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg, .fmenu .menu-item .icon {
+  background-repeat: no-repeat;
+  background-size: contain; }
+
+.middle {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.mc {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.plain-btn {
+  border-radius: 0;
+  background: #ff3333;
+  border: 0;
+  font-size: 14px;
+  color: #FFF; }
+  .plain-btn:after {
+    content: '';
+    border: 0; }
+
+.fmenu {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  height: 108rpx;
+  background: #FFF;
+  width: 100%;
+  position: fixed;
+  border-top: 1rpx solid #eaeaea;
+  bottom: 0; }
+  .fmenu .menu-item {
+    flex: 1;
+    text-align: center;
+    font-size: 30rpx; }
+    .fmenu .menu-item .icon {
+      width: 45rpx;
+      height: 45rpx;
+      margin: 5px auto 3px auto; }
+    .fmenu .menu-item .home {
+      background-image: url("http://otzuzbqja.bkt.clouddn.com/home1.svg"); }
+    .fmenu .menu-item .card {
+      background-image: url("http://otzuzbqja.bkt.clouddn.com/card1.svg"); }
+    .fmenu .menu-item .my {
+      background-image: url("http://otzuzbqja.bkt.clouddn.com/my1.svg"); }
+    .fmenu .menu-item.active {
+      color: #1296db; }
+      .fmenu .menu-item.active .home {
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/home-active1.svg"); }
+      .fmenu .menu-item.active .card {
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/card-active1.svg"); }
+      .fmenu .menu-item.active .my {
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/my-active2.svg"); }

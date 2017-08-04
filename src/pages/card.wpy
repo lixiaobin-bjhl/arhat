@@ -124,7 +124,7 @@
             <view @tap="select({{item}}, {{index}})" class="item {{item.selected ? 'selected': ''}}">
                 <view class="checkbox"><checkbox checked="{{item.selected}}"/></view>
                 <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
-                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
+                    <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{item}})" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
                 </view>
                 <view class="product">  
                     <view class="title">{{item.product.title}}</view>
@@ -218,7 +218,8 @@
                         this.list = this.adaptProductList(res.data);
                         setTimeout(()=> {
                             this.methods.selectAll();
-                        });
+                            this.$apply();
+                        }, 1000);
                     })
                     .catch(() => {
                         wx.hideLoading();
@@ -265,6 +266,13 @@
                         }
                     }
                 })
+            },
+
+            /**
+             * 跳转到产品详情 
+             */
+            redirectProductDetail (item) {
+                this.methods.redirect('productDetail?pid=' + item.product._id);
             },
 
             /**

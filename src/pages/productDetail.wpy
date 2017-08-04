@@ -3,9 +3,34 @@
      @author XiaoBin Li(lixiaobin8878@gmail.com) 
 -->
 
-<template>
-    <view class="page" style="background: #f2f2f2">
+<style lang="sass"> 
+    @import '../scss/color';
+    @import '../scss/mixin';
+    @import '../scss/components/footer';
 
+    .product-detail {
+        .fmenu {
+            .menu-item {
+                &:first-of-type {
+                    border-right: 1px solid map-get($borders, shallow);
+                }
+            }
+            .btn {
+                @extend .plain-btn;
+                flex: 2;
+                line-height: 108rpx;
+            }
+            .btn-pay {
+                background-color: #ff9933;
+            }
+        }
+    }
+    
+   
+</style>
+
+<template>
+    <view class="page product-detail">
         <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{productPics}}"  wx:for-index="index" wx:key="*this">
                 <swiper-item>
@@ -26,71 +51,80 @@
                 </view>
             </view>-->
 
-            <view class="weui-form-preview" hidden="{{activeIndex != 0}}" style="margin-top: 20rpx;">
-                <view class="weui-form-preview__hd">
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">付款金额</view>
-                        <view class="weui-form-preview__value_in-hd">{{product.payPrice}}</view>
-                    </view>
-                </view>
-                <view class="weui-form-preview__bd">
-                    <view class="weui-form-preview__item" wx:if="{{product.discountPrice}}">
-                        <view class="weui-form-preview__label">原价</view>
-                        <view class="weui-form-preview__value" style="text-decoration: line-through;">{{product.priceStr}}</view>
-                    </view>
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">商品</view>
-                        <view class="weui-form-preview__value">{{product.title}}</view>
-                    </view>
-
-                    <view class="weui-form-preview__item">
-                        <block wx:for="{{product.specifications}}"  wx:for-index="index" wx:key="index">
-                            <view class="weui-form-preview__label">{{item.name}}</view>
-                            <view class="weui-form-preview__value">{{item.value}}</view>
-                        </block>
-                    </view>
-
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">分类</view>
-                        <view class="weui-form-preview__value">{{product.productSubject.name}}</view>
-                    </view>
-
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">库存</view>
-                        <view class="weui-form-preview__value">{{product.storeCount}}</view>
-                    </view>
-
-                    <block wx:for="{{product.customField}}"  wx:for-index="index" wx:key="index" wx:if="{{product.customField && product.customField.length && item.value}}">
-                        <view class="weui-form-preview__item">
-                            <view class="weui-form-preview__label">{{item.name}}</view>
-                            <view class="weui-form-preview__value">{{item.value}}</view>
-                        </view>
-                    </block>
-
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">标题摘要</view>
-                        <view class="weui-form-preview__value">{{product.summary}}</view>
-                    </view>
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">备注</view>
-                        <view class="weui-form-preview__value">{{product.remark || '-'}}</view>
-                    </view>
-                </view>
-                <view class="weui-form-preview__ft">
-                    <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">购买</navigator>
+        <view class="weui-form-preview" hidden="{{activeIndex != 0}}" style="margin-top: 20rpx;">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">付款金额</view>
+                    <view class="weui-form-preview__value_in-hd">{{product.payPrice}}</view>
                 </view>
             </view>
-            
-            <view hidden="{{activeIndex != 1}}">
-                评价
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item" wx:if="{{product.discountPrice}}">
+                    <view class="weui-form-preview__label">原价</view>
+                    <view class="weui-form-preview__value" style="text-decoration: line-through;">{{product.priceStr}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">商品</view>
+                    <view class="weui-form-preview__value">{{product.title}}</view>
+                </view>
+
+                <view class="weui-form-preview__item">
+                    <block wx:for="{{product.specifications}}"  wx:for-index="index" wx:key="index">
+                        <view class="weui-form-preview__label">{{item.name}}</view>
+                        <view class="weui-form-preview__value">{{item.value}}</view>
+                    </block>
+                </view>
+
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">分类</view>
+                    <view class="weui-form-preview__value">{{product.productSubject.name}}</view>
+                </view>
+
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">库存</view>
+                    <view class="weui-form-preview__value">{{product.storeCount}}</view>
+                </view>
+
+                <block wx:for="{{product.customField}}"  wx:for-index="index" wx:key="index" wx:if="{{product.customField && product.customField.length && item.value}}">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">{{item.name}}</view>
+                        <view class="weui-form-preview__value">{{item.value}}</view>
+                    </view>
+                </block>
+
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">标题摘要</view>
+                    <view class="weui-form-preview__value">{{product.summary}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">备注</view>
+                    <view class="weui-form-preview__value">{{product.remark || '-'}}</view>
+                </view>
             </view>
         </view>
+        <view hidden="{{activeIndex != 1}}">
+            评价
+        </view>
+        <view class="fmenu">
+            <view class="menu-item" @tap="redirect('index')">  
+                <view class="icon home"></view>    
+                <view>首页</view>  
+            </view>   
+            <view class="menu-item" @tap="redirect('card')">
+                <view class="icon card"></view>   
+                <view>购物车</view>
+            </view>
+            <button class="btn btn-card" @tap="showAddToCard()">加入购物车</button>
+            <button class="btn btn-pay" @tap="pay()">立即购买</button>
+        </view>
+        <addToCard :product.sync="product"></addToCard>
     </view>
 </template>
 
 <script>
     import wepy from 'wepy'
     import { getDetial } from '../service/product'
+    import addToCard from '../components/addToCard'
     import compressImage from '../function/compressImage'
     
     export default class ProductDetail  extends wepy.page {
@@ -106,41 +140,77 @@
             interval: 5000,
             duration: 1000
         }
+        /**
+         * 获取订单详情
+         */
+        getDetial = (pid) => {
+            wx.showLoading();
+            getDetial(pid)
+                .then((res)=> {
+                    var product = res.data;
+                    this.product = product;
+                    wx.hideLoading();
+                    wx.setNavigationBarTitle({
+                        title: product.title
+                    });
+                    var productPics = [];
+                    product.storageIds.forEach((item)=> {
+                        productPics.push(compressImage(item));
+                    });
+                    this.productPics = productPics;
+                })
+                .catch(()=>{
+                    wx.hideLoading();
+                });
+        }
+        
+        components = {
+            addToCard
+        }
 
         methods = {
             /**
-             * 获取产品详情
+             * 购买
              */
-            getDetial: (pid) => {
-                wx.showLoading();
-                getDetial(pid)
-                    .then((res)=> {
-                        var product = res.data;
-                        this.setData('product', product);
-                        wx.hideLoading();
-                        wx.setNavigationBarTitle({
-                            title: product.title
-                        });
-                        var productPics = [];
-                        product.storageIds.forEach((item)=> {
-                            productPics.push(compressImage(item));
-                        });
-                        this.setData('productPics', productPics);
-                    })
-                    .catch(()=>{
-                        wx.hideLoading();
-                    });
+            pay () {
+                var product = this.product;
+                wx.navigateTo({
+                    url: 'orderConfirm?products=' + JSON.stringify([{
+                        count: 1,
+                        id: product._id
+                    }])
+                });
             },
+
+            /**
+             * 显示添加到购物车对话框
+             */
+            showAddToCard: () => {
+                this.product.imageUrl = this.productPics[0];
+                setTimeout(()=> {
+                    this.$invoke('addToCard', 'show');
+                });
+                
+            },
+
             tabClick: function (e) {
                 this.setData({
                     sliderOffset: e.currentTarget.offsetLeft,
                     activeIndex: e.currentTarget.id
                 });
+            },
+            /**
+             * 跳转地址 
+             */
+            redirect (url) {
+                wx.redirectTo({
+                    url: url
+                });
             }
         }
 
         onLoad (p) {
-            this.methods.getDetial(p.pid);
+            this.getDetial(p.pid);
         }
 
     }

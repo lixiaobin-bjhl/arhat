@@ -1,51 +1,5 @@
 <style lang="sass"> 
-    @import '../scss/color';
-    @import '../scss/mixin';
-    
-    .fmenu {
-        display: flex;
-        flex-flow:row wrap;
-        justify-content: center;
-        align-items: center;
-        height: 108rpx;
-        background: #FFF;
-        width: 100%;
-        position: fixed;
-        border-top: 1rpx solid map-get($borders, shallow);
-        bottom: 0;
-        .menu-item {
-            flex: 1;
-            text-align: center;
-            font-size: 30rpx;
-            .icon {
-                width: 45rpx;
-                height: 45rpx;
-                margin: 5px auto 3px auto;
-                @extend .icon-bg;
-            }
-            .home {
-                background-image: url('http://otzuzbqja.bkt.clouddn.com/home1.svg');
-            }
-            .card {
-                background-image: url('http://otzuzbqja.bkt.clouddn.com/card1.svg');
-            }
-            .my {
-                background-image: url('http://otzuzbqja.bkt.clouddn.com/my1.svg');
-            }
-            &.active {
-                color: $brand;
-                .home {
-                    background-image: url('http://otzuzbqja.bkt.clouddn.com/home-active1.svg');
-                }
-                .card {
-                    background-image: url('http://otzuzbqja.bkt.clouddn.com/card-active1.svg');
-                }
-                .my {
-                    background-image: url('http://otzuzbqja.bkt.clouddn.com/my-active2.svg');
-                }
-            }
-        }
-    }
+    @import '../scss/components/footer';
 </style>
 <template>
     <view class="fmenu">

@@ -1,3 +1,4 @@
+@import "./../components/addToCard.wxss";
 @charset "UTF-8";
 /**
  * @file 全站颜色配置
@@ -26,13 +27,50 @@
   justify-content: center;
   align-items: center; }
 
-.plain-btn {
+.plain-btn, .product-detail .fmenu .btn {
   border-radius: 0;
   background: #ff3333;
   border: 0;
   font-size: 14px;
   color: #FFF; }
-  .plain-btn:after {
+  .plain-btn:after, .product-detail .fmenu .btn:after {
+    content: '';
+    border: 0; }
+
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg, .fmenu .menu-item .icon {
+  background-repeat: no-repeat;
+  background-size: contain; }
+
+.middle {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.mc {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.plain-btn, .product-detail .fmenu .btn {
+  border-radius: 0;
+  background: #ff3333;
+  border: 0;
+  font-size: 14px;
+  color: #FFF; }
+  .plain-btn:after, .product-detail .fmenu .btn:after {
     content: '';
     border: 0; }
 
@@ -69,3 +107,13 @@
         background-image: url("http://otzuzbqja.bkt.clouddn.com/card-active1.svg"); }
       .fmenu .menu-item.active .my {
         background-image: url("http://otzuzbqja.bkt.clouddn.com/my-active2.svg"); }
+
+.product-detail .fmenu .menu-item:first-of-type {
+  border-right: 1px solid #eaeaea; }
+
+.product-detail .fmenu .btn {
+  flex: 2;
+  line-height: 108rpx; }
+
+.product-detail .fmenu .btn-pay {
+  background-color: #ff9933; }

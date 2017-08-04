@@ -123,8 +123,10 @@
 </template>
 
 <script>
-    import numberInput from './numberInput';
-    import wepy from 'wepy';
+    import numberInput from './numberInput'
+    import wepy from 'wepy'
+    import * as cardRequest from '../service/card'
+
     export default class AddToCard extends wepy.component {
 
         data = {
@@ -197,10 +199,24 @@
             submit: ()=> {
                 this.submitting = true;
                 var count = this.$invoke('numberInput', 'getNum');
+                var product = this.product;
                 this.product.count = count;
-                this.$emit('addtocard', this.product);
-                this.methods.hide();
-                this.submitting = false;
+
+                wx.showLoading();
+                cardRequest.addToCard({
+                    product: product._id,
+                    count: product.count
+                })
+                .then(()=> {
+                    wx.hideLoading();
+                    this.$emit('addtocardsuccess', product); 
+                    this.methods.hide();
+                    this.submitting = false;
+                    this.$apply();
+                    wx.showToast({
+                        title: '已成功加到购物车'
+                    });
+                });
             }
         }
     }

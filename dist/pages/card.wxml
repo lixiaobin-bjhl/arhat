@@ -9,7 +9,7 @@
             <view bindtap="select" class="item {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
                 <view class="checkbox"><checkbox checked="{{item.selected}}"/></view>
                 <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
-                    <image class="weui-media-box__thumb" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"/>
+                    <image class="weui-media-box__thumb" catchtap="redirectProductDetail" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}" data-wepy-params-a="{{item}}"/>
                 </view>
                 <view class="product">  
                     <view class="title">{{item.product.title}}</view>

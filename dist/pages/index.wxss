@@ -28,6 +28,16 @@
   justify-content: center;
   align-items: center; }
 
+.plain-btn {
+  border-radius: 0;
+  background: #ff3333;
+  border: 0;
+  font-size: 14px;
+  color: #FFF; }
+  .plain-btn:after {
+    content: '';
+    border: 0; }
+
 .banner {
   height: 300rpx;
   width: 100%; }

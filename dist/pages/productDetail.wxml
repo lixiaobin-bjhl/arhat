@@ -1,6 +1,5 @@
 
-    <view class="page" style="background: #f2f2f2">
-
+    <view class="page product-detail">
         <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block  wx:for="{{productPics}}" wx:for-index="index" wx:key="*this">
                 <swiper-item>
@@ -21,62 +20,104 @@
                 </view>
             </view>-->
 
-            <view class="weui-form-preview" hidden="{{activeIndex != 0}}" style="margin-top: 20rpx;">
-                <view class="weui-form-preview__hd">
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">付款金额</view>
-                        <view class="weui-form-preview__value_in-hd">{{product.payPrice}}</view>
-                    </view>
-                </view>
-                <view class="weui-form-preview__bd">
-                    <view class="weui-form-preview__item"  wx:if="{{product.discountPrice}}">
-                        <view class="weui-form-preview__label">原价</view>
-                        <view class="weui-form-preview__value" style="text-decoration: line-through;">{{product.priceStr}}</view>
-                    </view>
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">商品</view>
-                        <view class="weui-form-preview__value">{{product.title}}</view>
-                    </view>
-
-                    <view class="weui-form-preview__item">
-                        <block wx:for="{{product.specifications}}" wx:for-index="index" wx:key="index">
-                            <view class="weui-form-preview__label">{{item.name}}</view>
-                            <view class="weui-form-preview__value">{{item.value}}</view>
-                        </block>
-                    </view>
-
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">分类</view>
-                        <view class="weui-form-preview__value">{{product.productSubject.name}}</view>
-                    </view>
-
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">库存</view>
-                        <view class="weui-form-preview__value">{{product.storeCount}}</view>
-                    </view>
-
-                    <block wx:for="{{product.customField}}" wx:for-index="index" wx:key="index" wx:if="{{product.customField && product.customField.length && item.value}}">
-                        <view class="weui-form-preview__item">
-                            <view class="weui-form-preview__label">{{item.name}}</view>
-                            <view class="weui-form-preview__value">{{item.value}}</view>
-                        </view>
-                    </block>
-
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">标题摘要</view>
-                        <view class="weui-form-preview__value">{{product.summary}}</view>
-                    </view>
-                    <view class="weui-form-preview__item">
-                        <view class="weui-form-preview__label">备注</view>
-                        <view class="weui-form-preview__value">{{product.remark || '-'}}</view>
-                    </view>
-                </view>
-                <view class="weui-form-preview__ft">
-                    <navigator url="" class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active">购买</navigator>
+        <view class="weui-form-preview" hidden="{{activeIndex != 0}}" style="margin-top: 20rpx;">
+            <view class="weui-form-preview__hd">
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">付款金额</view>
+                    <view class="weui-form-preview__value_in-hd">{{product.payPrice}}</view>
                 </view>
             </view>
-            
-            <view hidden="{{activeIndex != 1}}">
-                评价
+            <view class="weui-form-preview__bd">
+                <view class="weui-form-preview__item"  wx:if="{{product.discountPrice}}">
+                    <view class="weui-form-preview__label">原价</view>
+                    <view class="weui-form-preview__value" style="text-decoration: line-through;">{{product.priceStr}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">商品</view>
+                    <view class="weui-form-preview__value">{{product.title}}</view>
+                </view>
+
+                <view class="weui-form-preview__item">
+                    <block wx:for="{{product.specifications}}" wx:for-index="index" wx:key="index">
+                        <view class="weui-form-preview__label">{{item.name}}</view>
+                        <view class="weui-form-preview__value">{{item.value}}</view>
+                    </block>
+                </view>
+
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">分类</view>
+                    <view class="weui-form-preview__value">{{product.productSubject.name}}</view>
+                </view>
+
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">库存</view>
+                    <view class="weui-form-preview__value">{{product.storeCount}}</view>
+                </view>
+
+                <block wx:for="{{product.customField}}" wx:for-index="index" wx:key="index" wx:if="{{product.customField && product.customField.length && item.value}}">
+                    <view class="weui-form-preview__item">
+                        <view class="weui-form-preview__label">{{item.name}}</view>
+                        <view class="weui-form-preview__value">{{item.value}}</view>
+                    </view>
+                </block>
+
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">标题摘要</view>
+                    <view class="weui-form-preview__value">{{product.summary}}</view>
+                </view>
+                <view class="weui-form-preview__item">
+                    <view class="weui-form-preview__label">备注</view>
+                    <view class="weui-form-preview__value">{{product.remark || '-'}}</view>
+                </view>
             </view>
         </view>
+        <view hidden="{{activeIndex != 1}}">
+            评价
+        </view>
+        <view class="fmenu">
+            <view class="menu-item" bindtap="redirect" data-wepy-params-a="index">  
+                <view class="icon home"/>    
+                <view>首页</view>  
+            </view>   
+            <view class="menu-item" bindtap="redirect" data-wepy-params-a="card">
+                <view class="icon card"/>   
+                <view>购物车</view>
+            </view>
+            <button class="btn btn-card" bindtap="showAddToCard" data-wepy-params-a="">加入购物车</button>
+            <button class="btn btn-pay" bindtap="pay" data-wepy-params-a="">立即购买</button>
+        </view>
+        
+    <view class="add-to-card">
+        <view class="commodity-screen" bindtap="$addToCard$hide"  wx:if="{{$addToCard$showModalStatus}}"/>
+        <view animation="{{$addToCard$animationData}}" class="commodity-attr-box"  wx:if="{{$addToCard$showModalStatus}}">
+            <view class="content">
+                <view class="info c">
+                    <view class="image">
+                        <image mode="aspectFill" src="{{$addToCard$product.imageUrl}}"/>
+                    </view>
+                    <view class="desc">
+                        <icon type="cancel" bindtap="$addToCard$hide" class="close" color="#ff3333" size="23"/>
+                        <view class="title">{{$addToCard$product.title}}</view> 
+                        <view class="price">{{$addToCard$product.priceStr}}</view>
+                    </view>
+                </view>
+                <view wx:for="{{$addToCard$product.specifications}}" class="specifications c" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                    <view>{{specification.name}}：</view>
+                    <view class="value">{{specification.value}}</view>
+                </view>
+                <view class="c">
+                    <view>购买数量：</view> 
+                     
+    <view class="stepper clearfix">
+	    <text class="{{$addToCard$numberInput$minusStatus}}" bindtap="$addToCard$numberInput$bindMinus">-</text>
+	    <input type="number" bindchange="$addToCard$numberInput$bindManual" value="{{$addToCard$numberInput$num}}"/>
+	    <text class="normal" bindtap="$addToCard$numberInput$bindPlus">+</text>
+    </view>
+
+                </view>
+            </view>
+            <button class="submit" bindtap="$addToCard$submit" disabled="{{$addToCard$submitting}}">确定</button> 
+        </view>
+    </view>
+
+    </view>

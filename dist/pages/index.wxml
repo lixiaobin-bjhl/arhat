@@ -10,7 +10,7 @@
             </block>
         </swiper>
         <view class="weui-panel__bd">
-            <navigator  wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
+            <navigator open-type="redirect"  wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="product-picture">
                     <image class="weui-media-box__thumb" mode="aspectFill" src="{{item.imageUrl}}"/>
                 </view>
