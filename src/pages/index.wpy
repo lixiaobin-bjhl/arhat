@@ -160,7 +160,7 @@ export default class Index extends wepy.page {
         //     url: 'orderConfirm?products=' + JSON.stringify([{count:2, id: "59206d80c5ca1c13e0ce5789"}])
         // });
         // wx.redirectTo({
-        //     url: 'shippingAddress?products=' + JSON.stringify([{count:2, id: "59206d80c5ca1c13e0ce5789"}])
+        //     url: 'order'
         // });
     }
 

@@ -1,17 +1,33 @@
 
-    <view class="page">
+    <view class="order">
         <view  wx:if="{{list && list.length}}">
-            <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-                <view style="border-bottom: 1px solid #DDD">
-                    <block wx:for="{{item.products}}" wx:for-item="product" wx:for-index="n" wx:key="product._id">
-                        <view>{{product.product.title}}</view>
-                        <view>数量：{{product.count}}</view>
-                    </block>
-                    <view>支付状态：{{item.statusStr}}</view>
-                    <view>价格{{item.payStr}}</view>
-                    <view style="color: #3399ff;" bindtap="pay" wx:if="{{item.status === 0}}" data-wepy-params-a="{{item}}">去支付</view>
+            <view class="order-item" wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+                <view class="order-number">订单编号：{{item._id}}</view>
+                <view class="product-item" wx:for="{{item.products}}" wx:for-item="n" wx:for-index="i" wx:key="product._id">
+                    <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" catchtap="redirectProductDetail" style="background-color: #eee;" mode="aspectFill" src="{{n.imageUrl}}" data-wepy-params-a="{{item}}"/>
+                    </view>  
+                    <view class="title">{{n.product.title}}</view>
+                    <view wx:for="{{n.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view> 
+                    <view class="info">
+                        <view class="price">{{n.product.priceStr}}</view>
+                        <view class="count">×{{n.count}}</view>
+                    </view>
                 </view>
-            </block>
+                <view class="total-info">
+                    <view class="pull-left">
+                        <view>合计：<view class="money">{{item.payStr}}</view></view>
+                        <view>支付状态：{{item.statusStr}}</view>
+                    </view>
+                    
+                    <view class="pull-right">
+                        <view class="btn-pay" bindtap="pay" wx:if="{{item.status === 0}}" data-wepy-params-a="{{item}}">去支付</view>
+                    </view>
+                </view>
+            </view>
         </view>
         <view  wx:else>
             还没有订单

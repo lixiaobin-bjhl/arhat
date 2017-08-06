@@ -1,18 +1,72 @@
+<style lang="scss">
+    @import '../scss/color';
+    @import '../scss/mixin';
+    @import '../scss/components/footer';
+
+    .order {
+        .order-item {
+            background: #FFF;
+            border-bottom: 1rpx solid map-get($borders, shallow);
+            &:first-of-type {
+                border-top: 1rpx solid map-get($borders, shallow);
+            }
+        }
+        .total-info {
+            @include clearfix;
+            padding: 10px;
+        }
+        .pull-left {
+            view {
+                @extend .middle;
+                margin-right: 3px;
+            }
+        }
+        .order-number {
+            color: #999;
+            padding: 0 10px;
+        }
+        .btn-pay {
+            @extend .plain-btn;
+            padding: 1px 2px;
+            background: transparent;
+            border: 1px solid #FF3333;
+            border-radius: 3px;
+            color: #FF3333;
+        }
+    }
+
+</style>
 
 <template>
-    <view class="page">
+    <view class="order">
         <view wx:if="{{list && list.length}}">
-            <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-                <view style="border-bottom: 1px solid #DDD">
-                    <block wx:for="{{item.products}}" wx:for-item="product" wx:for-index="n" wx:key="product._id">
-                        <view>{{product.product.title}}</view>
-                        <view>数量：{{product.count}}</view>
-                    </block>
-                    <view>支付状态：{{item.statusStr}}</view>
-                    <view>价格{{item.payStr}}</view>
-                    <view style="color: #3399ff;" @tap="pay({{item}})" wx:if="{{item.status === 0}}">去支付</view>
+            <view class="order-item" wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+                <view class="order-number">订单编号：{{item._id}}</view>
+                <view class="product-item" wx:for="{{item.products}}" wx:for-item="n" wx:for-index="i" wx:key="product._id">
+                    <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{item}})" style="background-color: #eee;" mode="aspectFill" src="{{n.imageUrl}}"></image>
+                    </view>  
+                    <view class="title">{{n.product.title}}</view>
+                    <view wx:for="{{n.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view> 
+                    <view class="info">
+                        <view class="price">{{n.product.priceStr}}</view>
+                        <view class="count">×{{n.count}}</view>
+                    </view>
                 </view>
-            </block>
+                <view class="total-info">
+                    <view class="pull-left">
+                        <view>合计：<view class="money">{{item.payStr}}</view></view>
+                        <view>支付状态：{{item.statusStr}}</view>
+                    </view>
+                    
+                    <view class="pull-right">
+                        <view class="btn-pay" @tap="pay({{item}})" wx:if="{{item.status === 0}}">去支付</view>
+                    </view>
+                </view>
+            </view>
         </view>
         <view wx:else>
             还没有订单
@@ -31,6 +85,7 @@
     import config from '../config';
     import indexBy from '../function/indexBy'
     import createOrderNumber from '../function/createOrderNumber'
+    import adaptProductList from '../function/adaptProductList'
     import purchase from '../function/purchase'
 
     export default class Order extends wepy.page {
@@ -40,7 +95,7 @@
         }
 
         onShow () {
-            this.methods.getOrderList();
+            this.getOrderList();
         }
 
         data = {
@@ -49,29 +104,18 @@
 
         methods = {
             /**
-             * 获取支付状态
-             */
-            getStatusStr (status) {
-                var option = indexBy(pageConfig.ORDER_STATUS, 'id')[status];
-                var result = '';
-                if (option) {
-                    result = option.name;
-                }
-                return result;
-            },
-            /**
              * 付款 
              */
             pay (item) {
                 var params = {
                     products: item.products.map((item)=> {
                         return {
-                            product: item.product._id,
+                            product: item._id,
                             count: item.count
                         }
                     }),
                     id: item._id,
-                    shippingAddress: item.shippingAddress._id,
+                    shippingAddress: item.shippingAddress && item.shippingAddress._id,
                     discountMoney: 0,
                     title: item.products.map((item)=> {
                         return item.product.title
@@ -85,26 +129,40 @@
                     totalFee: multiply(item.totalFee, 100)
                 };
                 purchase(params);
-            },
-            /**
-             * 获取收货地址列表
-             */
-            getOrderList: ()=> {
-                list()
-                    .then((res)=> {
-                        var data = res.data;
-                        data.forEach((item)=> {
-                            item.statusStr = this.methods.getStatusStr(item.status);
-                            item.payStr = currency(divide(item.totalFee, 100));
-                        });
-                        this.list = data; 
-                        this.$apply();
-                    })
-                    .catch(()=> {
-                        this.list = [];
-                        this.$apply();
-                    });
             }
+        }
+
+        /**
+         * 获取支付状态
+         */
+        getStatusStr = (status) => {
+            var option = indexBy(pageConfig.ORDER_STATUS, 'id')[status];
+            var result = '';
+            if (option) {
+                result = option.name;
+            }
+            return result;
+        }
+
+        /**
+         * 获取收货地址列表
+         */
+        getOrderList = ()=> {
+            list()
+                .then((res)=> {
+                    var data = res.data;
+                    data.forEach((item)=> {
+                        item.statusStr = this.getStatusStr(item.status);
+                        item.products = adaptProductList(item.products);
+                        item.payStr = currency(divide(item.totalFee, 100));
+                    });
+                    this.list = data; 
+                    this.$apply();
+                })
+                .catch(()=> {
+                    this.list = [];
+                    this.$apply();
+                });
         }
      }
 </script>
