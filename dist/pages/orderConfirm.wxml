@@ -11,7 +11,7 @@
         <view bindtap="selectShipingAddress" class="address"  wx:else>
             <view class="icon arrow"/>
             <view class="btn-create">
-                <view class="icon icon-plus"/>新增收货地址
+                <view class="icon icon-plus"/>添加收货地址
             </view>
         </view>
         <block wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">

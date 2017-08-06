@@ -1178,3 +1178,11 @@ checkbox {
 
 .weui-form-preview__bd {
   background: #FFF; }
+
+.empty-notice {
+  text-align: center;
+  color: #999;
+  font-size: 14px; }
+  .empty-notice .base {
+    color: #333;
+    font-size: 16px; }

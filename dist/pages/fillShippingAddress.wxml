@@ -1,29 +1,35 @@
 
-    <form bindsubmit="submit" bindreset="reset">
-        <view class="section">
-            <view class="section__title">收货人姓名</view>
-            <input bindinput="bindInputName" maxlength="5" value="{{name}}" placeholder="收货人姓名" auto-focus/>
-        </view>
-        <view class="section">
-            <view class="section__title">收货人手机号</view>
-            <input bindinput="bindInputMobile" maxlength="11" value="{{contactNumber}}" placeholder="收货人手机号"/>
-        </view>
-
-        <view class="section">
-            <view class="section__title">省市区</view>
-            <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
-                <view class="picker">
-                当前选择：{{region[0] || '-'}} {{region[1] || '-'}} {{region[2] || '-'}}
+    <view bindsubmit="submit" bindreset="reset" class="fill-shipping-address">
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">收货人姓名</view>
+                <view class="weui-form-preview__value"><input bindinput="bindInputName" maxlength="5" value="{{name}}" placeholder="收货人姓名" auto-focus/></view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">收货人手机号</view>
+                <view class="weui-form-preview__value"> <input bindinput="bindInputMobile" maxlength="11" value="{{contactNumber}}" placeholder="收货人手机号"/></view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">省市区</view>
+                <view class="weui-form-preview__value">
+                    <picker mode="region" bindchange="bindRegionChange" value="{{region}}">
+                        <view class="picker">
+                            <view>{{region[0] || '-省-'}}</view>
+                            <view>{{region[1] || '-市-'}}</view>
+                            <view>{{region[2] || '-区-'}}</view>
+                        </view>
+                    </picker>
                 </view>
-            </picker>
+            </view>
+
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">收货人地址</view>
+                <view class="weui-form-preview__value"><input bindinput="bindInputAddress" maxlength="20" value="{{address}}" placeholder="收货人地址"/></view>
+            </view>
         </view>
 
-        <view class="section">
-            <view class="section__title">收货人地址</view>
-            <input bindinput="bindInputAddress" maxlength="20" value="{{address}}" placeholder="收货人地址"/>
+        <view class="btn-group">
+            <button formType="submit" class="submit" type="primary" bindtap="submit">保存</button>
+            <button formType="submit" bindtap="redirect" data-wepy-params-a="shippingAddress">取消</button>
         </view>
-
-        <view class="btn-area">
-            <button formType="submit">保存</button>
-        </view>
-   </form>
+   </view>

@@ -37,14 +37,6 @@
     content: '';
     border: 0; }
 
-.empty-notice {
-  text-align: center;
-  color: #999;
-  font-size: 14px; }
-  .empty-notice .base {
-    color: #333;
-    font-size: 16px; }
-
 .card-list {
   padding-bottom: 104rpx; }
   .card-list .product-item {

@@ -1,5 +1,50 @@
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg {
+  background-repeat: no-repeat;
+  background-size: contain; }
 
-    .section {
-        border-bottom: 1px solid #DDD;
-        padding: 10px;
-    }
+.middle, .fill-shipping-address .picker view {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.mc {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.plain-btn {
+  border-radius: 0;
+  background: #ff3333;
+  border: 0;
+  font-size: 14px;
+  color: #FFF; }
+  .plain-btn:after {
+    content: '';
+    border: 0; }
+
+.fill-shipping-address {
+  border-top: 1px solid #eaeaea; }
+  .fill-shipping-address .weui-form-preview__item {
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px 0; }
+  .fill-shipping-address .picker view {
+    margin: 0 5px; }
+  .fill-shipping-address .btn-group {
+    padding: 10px;
+    background: #FFF; }
+    .fill-shipping-address .btn-group .submit {
+      margin: 10px 0; }
