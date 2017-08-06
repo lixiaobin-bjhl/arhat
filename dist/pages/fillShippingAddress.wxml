@@ -6,7 +6,7 @@
         </view>
         <view class="section">
             <view class="section__title">收货人手机号</view>
-            <input bindinput="bindInputMobile" maxlength="11" value="{{mobile}}" placeholder="收货人手机号"/>
+            <input bindinput="bindInputMobile" maxlength="11" value="{{contactNumber}}" placeholder="收货人手机号"/>
         </view>
 
         <view class="section">

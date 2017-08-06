@@ -1,28 +1,65 @@
 
-    <view class="page">
-        <block  wx:if="{{defaultShippingAddress}}">
-            <view>{{defaultShippingAddress.name}}</view>
-            <view>{{defaultShippingAddress.mobile}}</view>
-            <view>{{defaultShippingAddress.region}}{{defaultShippingAddress.address}}</view>
-            <view style="color: #3399ff" bindtap="selectShipingAddress">
-                地址管理
+    <view class="page order-confirm">
+        <view  wx:if="{{defaultShippingAddress}}" class="address" bindtap="selectShipingAddress">
+            <view class="icon arrow"/>
+            <view class="clearfix">
+                <view class="pull-left"><view class="icon icon-address"/>收货人：{{defaultShippingAddress.name}}</view>
+                <view class="pull-right">{{defaultShippingAddress.contactNumber}}</view>
             </view>
-        </block>
-        <view style="color: #3399ff" bindtap="selectShipingAddress"  wx:else>
-            选择配送地址
+            <view class="gray-light">{{defaultShippingAddress.region}}{{defaultShippingAddress.address}}</view>
+        </view>
+        <view bindtap="selectShipingAddress" class="address"  wx:else>
+            <view class="icon arrow"/>
+            <view class="btn-create">
+                <view class="icon icon-plus"/>新增收货地址
+            </view>
         </view>
         <block wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-            <view bindtap="select" class="card {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
-                <view>{{item.title}}</view>
-                <view>{{item.priceStr}}</view>
-                <view>数量 {{item.count}}</view>
+            <view class="product-item">
+                <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" catchtap="redirectProductDetail" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}" data-wepy-params-a="{{item}}"/>
+                </view>
+                <view class="product">  
+                    <view class="title">{{item.title}}</view>
+                    <view wx:for="{{item.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
+                    <view class="info">
+                        <view class="price">{{item.priceStr}}</view>
+                        <view class="count">×{{item.count}}</view>
+                    </view>
+                </view>
             </view>
         </block>
-        <view class="section">
-            <textarea placeholder="请输入备注信息" bindinput="bindInputRemark" value="{{remark}}" maxlength="50" style="border: 1px solid #DDD; height: 100px"/>
+
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">收货方式</view>
+                <view class="weui-form-preview__value">快递</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">快递费用</view>
+                <view class="money">{{expressMoney}}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">商品</view>
+                <view class="weui-form-preview__value">123</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">给商家留言</view>
+                <view class="weui-form-preview__value">
+                    <input placeholder="给商家留言" bindinput="bindInputMessage" value="{{message}}" maxlength="50"/>
+                </view>
+            </view>
         </view>
-        <view>收货方式快递</view>
-        <view>快递费用：0.00</view>
-        <view>应付金额：{{totalMoney}}</view>
-        <view style="color: #3399ff" bindtap="createOrder">提交订单</view>
+
+        <view class="fmenu">
+            <view class="menu-item" bindtap="redirect" data-wepy-params-a="index">  
+                <view class="icon home"/>    
+                <view>首页</view>  
+            </view>
+            <view class="total">合计：<view class="money middle">{{totalMoney}}</view></view>
+            <button class="btn btn-order" bindtap="createOrder" data-wepy-params-a="">提交订单</button>
+        </view>
     </view>

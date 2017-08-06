@@ -7,6 +7,7 @@
 
 import { post, get, put, del} from '../function/serviceUtil';
 import userInfo from '../plugin/userInfo';
+import config from '../config';
 
 /**
  * 获取配送地址列表 
@@ -31,6 +32,7 @@ export function list () {
  */
 export function add (params) {
     Object.assign(params, {
+        mobile: config.mobile,
         openid: userInfo.getOpenId()
     });
     return post('/api/shippingAddress/', params);
@@ -47,10 +49,10 @@ export function add (params) {
  * 
  * @reutrn {Promise}
  */
-export function update (id, update) {   
+export function update (id, update) { 
     return put('/api/shippingAddress/' + id, {
         name: update.name,
-        mobile: update.mobile,
+        contactNumber: update.contactNumber,
         region: update.region,
         address: update.address
     });

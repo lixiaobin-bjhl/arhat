@@ -18,51 +18,8 @@
     }
     .card-list {
         padding-bottom: 104rpx;
-        .item {
-            @include clearfix;
-            background: #FFF;
+        .product-item {
             padding: 10px 0;
-            font-size: 14px;
-            border-bottom: 1px solid map-get($borders, shallow);
-            .title {
-                @include text-overflow;
-            }
-            .product {
-                overflow: hidden;
-                padding-right: 10px;
-            }
-            .btn-group {
-                @include clearfix;
-                .trash {
-                    float: right;
-                    width: 16px;
-                    height: 16px;
-                    @extend .icon-bg;
-                    background-image: url('http://otzuzbqja.bkt.clouddn.com/trash2.svg')
-                }
-            }
-            .info {
-                @include clearfix;
-                .price {
-                    float: left;
-                    color: #ff3333;
-                }
-                .count {
-                    float: right;
-                    color: #999;
-                }
-            }
-            &:first-of-type {
-                 border-top: 1px solid map-get($borders, shallow);
-            }
-            .checkbox {
-                float: left;
-                height: 60px;
-                @extend .mc;
-            }
-            .product-image {
-                float: left;
-            }
         }
     }
     .surfing {
@@ -121,19 +78,21 @@
             </label>
         </view> -->
         <block wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-            <view @tap="select({{item}}, {{index}})" class="item {{item.selected ? 'selected': ''}}">
+            <view @tap="select({{item}}, {{index}})" class="product-item {{item.selected ? 'selected': ''}}">
                 <view class="checkbox"><checkbox checked="{{item.selected}}"/></view>
                 <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{item}})" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
                 </view>
                 <view class="product">  
                     <view class="title">{{item.product.title}}</view>
+                    <view wx:for="{{item.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
                     <view class="info">
                        <view class="price">{{item.product.priceStr}}</view>
+                       <view @tap.stop="remove({{item}})" class="trash"></view>
                        <view class="count">×{{item.count}}</view>
-                    </view>
-                    <view class="btn-group">
-                        <view @tap.stop="remove({{item}})" class="trash"></view>
                     </view>
                 </view>
             </view>

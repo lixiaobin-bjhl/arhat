@@ -5,6 +5,7 @@
 page {
     background: #f2f2f2;
     color: #333;
+    font-size: 14px;
     padding-bottom: 110rpx;
     -webkit-font-smoothing: antialiased;
     -webkit-text-stroke-width: 0.2px;
@@ -18,6 +19,13 @@ page {
 .clearfix {
     @include clearfix;
 }
+.pull-left {
+    float: left;
+}
+.pull-right {
+    float: right;
+}
+
 .tags {
     border-bottom: 1px solid map-get($borders, shallow);
     margin-left: 15px;
@@ -48,3 +56,65 @@ page {
 checkbox {
     transform:scale(.8);
 } 
+
+.product-item {
+    @include clearfix;
+    background: #FFF;
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid map-get($borders, shallow);
+    .title {
+        @include text-overflow;
+    }
+    .weui-media-box__hd_in-appmsg  {
+        width: 65px;
+        height: 65px;
+    }
+    .product {
+        overflow: hidden;
+        padding-right: 10px;
+    }
+    .specifications {
+        font-size: 14px;
+        view {
+            display: inline-block;
+            color: #666;
+        }
+    }
+    .trash {
+        @extend .middle;
+        width: 16px;
+        height: 16px;
+        float: right;
+        margin: 4px 0 0 4px;
+        @extend .icon-bg;
+        background-image: url('http://otzuzbqja.bkt.clouddn.com/trash2.svg')
+    }
+    .info {
+        @include clearfix;
+        .price {
+            float: left;
+            color: #ff3333;
+        }
+        .count {
+            float: right;
+            color: #999;
+        }
+    }
+    &:first-of-type {
+            border-top: 1px solid map-get($borders, shallow);
+    }
+    .checkbox {
+        float: left;
+        height: 60px;
+        @extend .mc;
+    }
+    .product-image {
+        float: left;
+    }
+}
+
+.weui-form-preview__bd {
+    background: #FFF;
+}
+

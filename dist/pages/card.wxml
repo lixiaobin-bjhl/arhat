@@ -6,19 +6,21 @@
             </label>
         </view> -->
         <block  wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-            <view bindtap="select" class="item {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
+            <view bindtap="select" class="product-item {{item.selected ? 'selected': ''}}" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">
                 <view class="checkbox"><checkbox checked="{{item.selected}}"/></view>
                 <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" catchtap="redirectProductDetail" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}" data-wepy-params-a="{{item}}"/>
                 </view>
                 <view class="product">  
                     <view class="title">{{item.product.title}}</view>
+                    <view wx:for="{{item.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
                     <view class="info">
                        <view class="price">{{item.product.priceStr}}</view>
+                       <view catchtap="remove" class="trash" data-wepy-params-a="{{item}}"/>
                        <view class="count">×{{item.count}}</view>
-                    </view>
-                    <view class="btn-group">
-                        <view catchtap="remove" class="trash" data-wepy-params-a="{{item}}"/>
                     </view>
                 </view>
             </view>

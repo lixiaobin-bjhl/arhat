@@ -3,33 +3,135 @@
      @author XiaoBin Li(lixiaobin8878@gmail.com) 
 -->
 
+
+<style lang="sass"> 
+    
+    @import '../scss/color';
+    @import '../scss/mixin';
+    @import '../scss/components/footer';
+
+    .order-confirm {
+        .address {
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/order-line.png');
+            background-repeat: repeat-x;
+            background-position: bottom center;
+            background-size: 36px 2px;
+            position: relative;
+            padding: 10px 25px 10px 10px;
+            background-color: #FFF;
+            border-top: 1px solid map-get($borders, shallow);
+            .icon {
+                @extend .icon-bg;
+                width: 14px;
+                height: 14px;
+                @extend .middle;
+                &.icon-address {
+                    margin-right: 3px;
+                    background-image: url(http://otzuzbqja.bkt.clouddn.com/address.svg);
+                }
+                &.icon-plus {
+                    width: 28px;
+                    height:28px;
+                    margin-right: 5px;
+                    background-image: url(http://otzuzbqja.bkt.clouddn.com/plus.svg);
+                }
+            }
+            .btn-create {
+                padding: 10px;
+                color: #666;
+            }
+            .arrow {
+                background-image: url('http://otzuzbqja.bkt.clouddn.com/arrow-right.svg');
+                position: absolute;
+                right: 7px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+        .fmenu {
+            .menu-item {
+                &:first-of-type {
+                    border-right: 1px solid map-get($borders, shallow);
+                }
+            }
+            .total {
+                flex: 2;
+                padding-right: 5px;
+                text-align: right;
+            }
+            .btn {
+                @extend .plain-btn;
+                flex: 2;
+                line-height: 108rpx;
+            }
+        }
+    }
+</style>
+
 <template>
-    <view class="page">
-        <block wx:if="{{defaultShippingAddress}}">
-            <view>{{defaultShippingAddress.name}}</view>
-            <view>{{defaultShippingAddress.mobile}}</view>
-            <view>{{defaultShippingAddress.region}}{{defaultShippingAddress.address}}</view>
-            <view style="color: #3399ff" @tap="selectShipingAddress">
-                地址管理
+    <view class="page order-confirm">
+        <view wx:if="{{defaultShippingAddress}}" class="address" @tap="selectShipingAddress">
+            <view class="icon arrow"></view>
+            <view class="clearfix">
+                <view class="pull-left"><view class="icon icon-address"></view>收货人：{{defaultShippingAddress.name}}</view>
+                <view class="pull-right">{{defaultShippingAddress.contactNumber}}</view>
             </view>
-        </block>
-        <view style="color: #3399ff" @tap="selectShipingAddress" wx:else>
-            选择配送地址
+            <view class="gray-light">{{defaultShippingAddress.region}}{{defaultShippingAddress.address}}</view>
+        </view>
+        <view @tap="selectShipingAddress" class="address" wx:else>
+            <view class="icon arrow"></view>
+            <view class="btn-create">
+                <view class="icon icon-plus"></view>新增收货地址
+            </view>
         </view>
         <block wx:if="{{products}}" wx:for="{{products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
-            <view @tap="select({{item}}, {{index}})" class="card {{item.selected ? 'selected': ''}}">
-                <view>{{item.title}}</view>
-                <view>{{item.priceStr}}</view>
-                <view>数量 {{item.count}}</view>
+            <view class="product-item">
+                <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{item}})" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
+                </view>
+                <view class="product">  
+                    <view class="title">{{item.title}}</view>
+                    <view wx:for="{{item.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
+                    <view class="info">
+                        <view class="price">{{item.priceStr}}</view>
+                        <view class="count">×{{item.count}}</view>
+                    </view>
+                </view>
             </view>
         </block>
-        <view class="section">
-            <textarea placeholder="请输入备注信息"  bindinput="bindInputRemark" value="{{remark}}" maxlength="50" style="border: 1px solid #DDD; height: 100px" />
+
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">收货方式</view>
+                <view class="weui-form-preview__value">快递</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">快递费用</view>
+                <view class="weui-form-preview__value" class="money">{{expressMoney}}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">商品</view>
+                <view class="weui-form-preview__value">123</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">给商家留言</view>
+                <view class="weui-form-preview__value">
+                    <input placeholder="给商家留言" bindinput="bindInputMessage" value="{{message}}" maxlength="50" />
+                </view>
+            </view>
         </view>
-        <view>收货方式快递</view>
-        <view>快递费用：0.00</view>
-        <view>应付金额：{{totalMoney}}</view>
-        <view style="color: #3399ff" @tap="createOrder">提交订单</view>
+
+        <view class="fmenu">
+            <view class="menu-item" @tap="redirect('index')">  
+                <view class="icon home"></view>    
+                <view>首页</view>  
+            </view>
+            <view class="total">合计：<view class="money middle">{{totalMoney}}</view></view>
+            <button class="btn btn-order" @tap="createOrder()">提交订单</button>
+        </view>
     </view>
 </template>
 
@@ -39,11 +141,13 @@
     import { listByIds } from '../service/product'
     import { removeByPids } from '../service/card'
     import { list } from '../service/shippingAddress'
-    import * as order from '../service/order';
-    import multiply from '../function/multiply';
-    import plus from '../function/plus';
-    import config from '../config';
-    import createOrderNumber from '../function/createOrderNumber';
+    import * as order from '../service/order'
+    import multiply from '../function/multiply'
+    import plus from '../function/plus'
+    import currency from '../function/currency'
+    import config from '../config'
+    import adaptProductList from '../function/adaptProductList'
+    import createOrderNumber from '../function/createOrderNumber'
     import purchase from '../function/purchase';
     
     export default class OrderConfirm  extends wepy.page {
@@ -54,12 +158,13 @@
 
         data = {
            products: null,
-           remark: '',
+           message: '',
+           expressMoney: currency(0),
            shippingAddressList: null
         }
 
         onShow () {
-            this.methods.getShippingAddressList();
+            this.getShippingAddressList();
         }
 
         computed = {
@@ -83,28 +188,31 @@
                 return result;
             },
             totalMoney () {
-                var result = 0;
-                var products = this.products || [];
-                products.forEach((item)=> {
-                    result = plus(multiply(item.payPrice, item.count), result);
-                });
-                return result;
+                return currency(this.getTotalMoney());
             }
         }
 
         methods = {
             /**
+             * 跳转地址 
+             */
+            redirect (url) {
+                wx.redirectTo({
+                    url: url
+                });
+            },
+
+            /**
              * 填写备注信息 
              */
-            bindInputRemark: (e)=> {
-                this.remark = e.detail.value;
+            bindInputMessage: (e)=> {
+                this.message = e.detail.value;
             },
 
             /**
              * 创建订单 
              */
             createOrder: ()=> {
-
                 var outTradeNo = createOrderNumber();
 
                 if (!this.defaultShippingAddress) {
@@ -130,11 +238,11 @@
                     .slice(0, 50),
                     status: 0,
                     mobile: config.mobile,
-                    remark: this.remark.trim(),
+                    message: this.message.trim(),
                     mchId: config.mchId,
                     outTradeNo: outTradeNo,
                     expressMoney: 0,
-                    totalFee: multiply(this.totalMoney, 100)
+                    totalFee: multiply(this.getTotalMoney(), 100)
                 };
 
                 order.add(params)
@@ -156,50 +264,62 @@
                 wx.navigateTo({
                    url: 'shippingAddress'
                 });
-            },
-
-            /**
-             * 获取收货地址列表
-             */
-            getShippingAddressList: ()=> {
-                list()
-                    .then((res)=> {
-                        this.shippingAddressList = res.data.list; 
-                        this.$apply();
-                    })
-                    .catch(()=> {
-                        this.shippingAddressList = [];
-                        this.$apply();
-                    });
-            },
-
-            /**
-             * 根据产品ids获取商品信息 
-             */
-            getProductsByIds: (products) => {
-                wx.showLoading();
-                listByIds({
-                    products: products
-                })
-                    .then((res)=> {
-                        wx.hideLoading();
-                        this.products = res.data.list;
-                        this.$apply();
-                    })
-                    .catch(()=> {
-                        this.products = [];
-                        this.$apply();
-                        wx.hideLoading();
-                    });
             }
         };
+
+        /**
+         * 获取收货地址列表
+         */
+        getShippingAddressList = ()=> {
+            list()
+                .then((res)=> {
+                    this.shippingAddressList = res.data; 
+                    this.$apply();
+                })
+                .catch(()=> {
+                    this.shippingAddressList = [];
+                    this.$apply();
+                });
+        }
+
+        /**
+         * 根据产品ids获取商品信息 
+         */
+        getProductsByIds = (products) => {
+            wx.showLoading();
+            listByIds({
+                products: products
+            })
+                .then((res)=> {
+                    wx.hideLoading();
+                    this.products = adaptProductList(res.data);
+                    this.$apply();
+                })
+                .catch(()=> {
+                    this.products = [];
+                    this.$apply();
+                    wx.hideLoading();
+                });
+        }
+
+        /**
+         * 获取产品总价
+         */
+        getTotalMoney =  ()=> {
+            var result = 0;
+            var products = this.products || [];
+            products.forEach((item)=> {
+                result = plus(multiply(item.payPrice, item.count), result);
+            });
+            return result;
+        }
 
         onLoad (p) {
             var products = p.products;
             products = JSON.parse(products);
             
-            // 直接购买产品 
-            this.methods.getProductsByIds(products);
+            // 获取购买产品的信息 
+            this.getProductsByIds(products);
         }
     }
 </script>

@@ -1046,11 +1046,11 @@ icon {
  * @file global mixin
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
-.icon-bg, .empty {
+.icon-bg, .empty, .product-item .trash {
   background-repeat: no-repeat;
   background-size: contain; }
 
-.middle {
+.middle, .product-item .trash {
   display: inline-block;
   vertical-align: middle; }
 
@@ -1060,7 +1060,7 @@ icon {
 .gray-light {
   color: #999; }
 
-.mc {
+.mc, .product-item .checkbox {
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -1078,6 +1078,7 @@ icon {
 page {
   background: #f2f2f2;
   color: #333;
+  font-size: 14px;
   padding-bottom: 110rpx;
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px; }
@@ -1092,6 +1093,12 @@ page {
 
 .clearfix:after {
   clear: both; }
+
+.pull-left {
+  float: left; }
+
+.pull-right {
+  float: right; }
 
 .tags {
   border-bottom: 1px solid #eaeaea;
@@ -1118,3 +1125,56 @@ page {
 
 checkbox {
   transform: scale(0.8); }
+
+.product-item {
+  background: #FFF;
+  padding: 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #eaeaea; }
+  .product-item:before, .product-item:after {
+    content: " ";
+    display: table; }
+  .product-item:after {
+    clear: both; }
+  .product-item .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  .product-item .weui-media-box__hd_in-appmsg {
+    width: 65px;
+    height: 65px; }
+  .product-item .product {
+    overflow: hidden;
+    padding-right: 10px; }
+  .product-item .specifications {
+    font-size: 14px; }
+    .product-item .specifications view {
+      display: inline-block;
+      color: #666; }
+  .product-item .trash {
+    width: 16px;
+    height: 16px;
+    float: right;
+    margin: 4px 0 0 4px;
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/trash2.svg"); }
+  .product-item .info:before, .product-item .info:after {
+    content: " ";
+    display: table; }
+  .product-item .info:after {
+    clear: both; }
+  .product-item .info .price {
+    float: left;
+    color: #ff3333; }
+  .product-item .info .count {
+    float: right;
+    color: #999; }
+  .product-item:first-of-type {
+    border-top: 1px solid #eaeaea; }
+  .product-item .checkbox {
+    float: left;
+    height: 60px; }
+  .product-item .product-image {
+    float: left; }
+
+.weui-form-preview__bd {
+  background: #FFF; }

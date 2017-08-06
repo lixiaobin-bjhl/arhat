@@ -1,0 +1,150 @@
+@charset "UTF-8";
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg, .fmenu .menu-item .icon, .order-confirm .address .icon {
+  background-repeat: no-repeat;
+  background-size: contain; }
+
+.middle, .order-confirm .address .icon {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.mc {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.plain-btn, .order-confirm .fmenu .btn {
+  border-radius: 0;
+  background: #ff3333;
+  border: 0;
+  font-size: 14px;
+  color: #FFF; }
+  .plain-btn:after, .order-confirm .fmenu .btn:after {
+    content: '';
+    border: 0; }
+
+/**
+ * @file 全站颜色配置
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+/**
+ * @file global mixin
+ * @author XiaoBin Li(lixiaobin8878@gmail.com) 
+ */
+.icon-bg, .fmenu .menu-item .icon, .order-confirm .address .icon {
+  background-repeat: no-repeat;
+  background-size: contain; }
+
+.middle, .order-confirm .address .icon {
+  display: inline-block;
+  vertical-align: middle; }
+
+.right {
+  text-align: right; }
+
+.gray-light {
+  color: #999; }
+
+.mc {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.plain-btn, .order-confirm .fmenu .btn {
+  border-radius: 0;
+  background: #ff3333;
+  border: 0;
+  font-size: 14px;
+  color: #FFF; }
+  .plain-btn:after, .order-confirm .fmenu .btn:after {
+    content: '';
+    border: 0; }
+
+.fmenu {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  height: 108rpx;
+  background: #FFF;
+  width: 100%;
+  position: fixed;
+  border-top: 1rpx solid #eaeaea;
+  bottom: 0; }
+  .fmenu .menu-item {
+    flex: 1;
+    text-align: center;
+    font-size: 30rpx; }
+    .fmenu .menu-item .icon {
+      width: 45rpx;
+      height: 45rpx;
+      margin: 5px auto 3px auto; }
+    .fmenu .menu-item .home {
+      background-image: url("http://otzuzbqja.bkt.clouddn.com/home1.svg"); }
+    .fmenu .menu-item .card {
+      background-image: url("http://otzuzbqja.bkt.clouddn.com/card1.svg"); }
+    .fmenu .menu-item .my {
+      background-image: url("http://otzuzbqja.bkt.clouddn.com/my1.svg"); }
+    .fmenu .menu-item.active {
+      color: #1296db; }
+      .fmenu .menu-item.active .home {
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/home-active1.svg"); }
+      .fmenu .menu-item.active .card {
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/card-active1.svg"); }
+      .fmenu .menu-item.active .my {
+        background-image: url("http://otzuzbqja.bkt.clouddn.com/my-active2.svg"); }
+
+.order-confirm .address {
+  background-image: url("http://otzuzbqja.bkt.clouddn.com/order-line.png");
+  background-repeat: repeat-x;
+  background-position: bottom center;
+  background-size: 36px 2px;
+  position: relative;
+  padding: 10px 25px 10px 10px;
+  background-color: #FFF;
+  border-top: 1px solid #eaeaea; }
+  .order-confirm .address .icon {
+    width: 14px;
+    height: 14px; }
+    .order-confirm .address .icon.icon-address {
+      margin-right: 3px;
+      background-image: url(http://otzuzbqja.bkt.clouddn.com/address.svg); }
+    .order-confirm .address .icon.icon-plus {
+      width: 28px;
+      height: 28px;
+      margin-right: 5px;
+      background-image: url(http://otzuzbqja.bkt.clouddn.com/plus.svg); }
+  .order-confirm .address .btn-create {
+    padding: 10px;
+    color: #666; }
+  .order-confirm .address .arrow {
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/arrow-right.svg");
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%); }
+
+.order-confirm .fmenu .menu-item:first-of-type {
+  border-right: 1px solid #eaeaea; }
+
+.order-confirm .fmenu .total {
+  flex: 2;
+  padding-right: 5px;
+  text-align: right; }
+
+.order-confirm .fmenu .btn {
+  flex: 2;
+  line-height: 108rpx; }

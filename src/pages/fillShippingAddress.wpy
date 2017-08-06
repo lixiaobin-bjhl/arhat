@@ -13,7 +13,7 @@
         </view>
         <view class="section">
             <view class="section__title">收货人手机号</view>
-            <input bindinput="bindInputMobile" maxlength="11" value="{{mobile}}" placeholder="收货人手机号"/>
+            <input bindinput="bindInputMobile" maxlength="11" value="{{contactNumber}}" placeholder="收货人手机号"/>
         </view>
 
         <view class="section">
@@ -47,7 +47,7 @@
             id: null,
             shippingAddressList: null,
             name: '',
-            mobile: '',
+            contactNumber: '',
             address: '',
             region: []
         }
@@ -61,14 +61,14 @@
                         this.name = data.name;
                         this.address = data.address;
                         this.region = data.region;
-                        this.mobile = data.mobile;
+                        this.contactNumber = data.contactNumber;
                     });
             },
             bindInputName: function (e) {
                 this.name = e.detail.value;
             },
             bindInputMobile: function (e) {
-                this.mobile = e.detail.value;
+                this.contactNumber = e.detail.value;
             },
             bindInputAddress: function (e) {
                 this.address = e.detail.value;
@@ -78,7 +78,7 @@
             },
             submit: ()=> {
                 var name = this.name;
-                var mobile = this.mobile;
+                var contactNumber = this.contactNumber;
                 var address = this.address;
                 var region = this.region;
 
@@ -89,7 +89,7 @@
                     return;
                 }
 
-                if (!/^1\d{10}/.test(mobile)) {
+                if (!/^1\d{10}/.test(contactNumber)) {
                     wx.showToast({
                         title: '请输入正确的手机号'
                     });
@@ -114,7 +114,7 @@
 
                 var params = {
                     name,
-                    mobile,
+                    contactNumber,
                     address,
                     region
                 };
