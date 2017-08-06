@@ -42,14 +42,6 @@
   .card-list .product-item {
     padding: 10px 0; }
 
-.surfing {
-  width: 308rpx;
-  height: 82rpx;
-  line-height: 82rpx;
-  border: 1px solid #ff9933;
-  color: #ff9933;
-  margin-top: 20px; }
-
 .pay-wrap {
   position: fixed;
   bottom: 104rpx;

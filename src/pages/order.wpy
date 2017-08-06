@@ -44,7 +44,7 @@
                 <view class="order-number">订单编号：{{item._id}}</view>
                 <view class="product-item" wx:for="{{item.products}}" wx:for-item="n" wx:for-index="i" wx:key="product._id">
                     <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{item}})" style="background-color: #eee;" mode="aspectFill" src="{{n.imageUrl}}"></image>
+                        <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{n}})" style="background-color: #eee;" mode="aspectFill" src="{{n.imageUrl}}"></image>
                     </view>  
                     <view class="title">{{n.product.title}}</view>
                     <view wx:for="{{n.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
@@ -69,7 +69,13 @@
             </view>
         </view>
         <view wx:else>
-            还没有订单
+            <view wx:if="{{list && !list.length}}" class="empty-notice">
+                <view class="empty"></view>
+                <view class="base">还没有订单哦~</view>
+                <view>快去挑点宝贝</view>
+                <button @tap="redirect('index')" class="surfing">去逛逛</button>
+            </view>
+            
         </view>
     </view>
 </template>
@@ -103,6 +109,22 @@
         }
 
         methods = {
+            /**
+             * 跳转到产品详情 
+             */
+            redirectProductDetail (item) {
+                this.methods.redirect('productDetail?pid=' + item.product._id);
+            },
+
+            /**
+             * 跳转地址 
+             */
+            redirect (url) {
+                wx.redirectTo({
+                    url: url
+                });
+            },
+
             /**
              * 付款 
              */
