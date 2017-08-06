@@ -38,7 +38,8 @@ export function list () {
  */
 export function add (params) {
     Object.assign(params, {
-        openid: userInfo.getOpenId()
+        openid: userInfo.getOpenId(),
+        user: wx.getStorageSync('userId')
     });
     return post('/api/order/', params);
 }

@@ -21,7 +21,13 @@ export default function initUser (context) {
                         getUserInfo()
                             .then((res)=> {
                                 // userInfo.setInfo(res);
-                                add(res);
+                                add(res)
+                                    .then((res)=> {
+                                        wx.setStorage({
+                                            key: 'userId',
+                                            data: res.data._id
+                                        });
+                                    })
                                 resolve(res);
                             })
                             .catch(reject);
