@@ -83,7 +83,7 @@
         width: 30px;
         height: 30px;
         position: relative;
-        top: -5px;
+        top: -4px;
         background-image: url("http://otzuzbqja.bkt.clouddn.com/card-purchase.svg"); }
     .home .item .product .btns {
       float: right; }
