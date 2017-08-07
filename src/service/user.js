@@ -35,7 +35,6 @@ export function add (params) {
         gender: params.gender,
         language: params.language,
         nickName: params.nickName,
-        province: params.province,
         openid: userInfo.getOpenId()
     })
 }

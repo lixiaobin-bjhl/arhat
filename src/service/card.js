@@ -18,6 +18,7 @@ export function addToCard (params) {
     return post('/api/card', {
         product: params.product,
         count: params.count,
+        user: wx.getStorageSync('userId'),
         openid: userInfo.getOpenId(),
         mobile: config.mobile
     })

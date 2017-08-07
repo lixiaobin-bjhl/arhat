@@ -33,6 +33,7 @@ export function list () {
 export function add (params) {
     Object.assign(params, {
         mobile: config.mobile,
+        user: wx.getStorageSync('userId'),
         openid: userInfo.getOpenId()
     });
     return post('/api/shippingAddress/', params);
