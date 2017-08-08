@@ -1,6 +1,7 @@
 
 @import './color';
 @import './mixin';
+@import './variable';
 
 page {
     background: #f2f2f2;
@@ -134,5 +135,12 @@ checkbox {
     border: 1px solid #ff9933;
     color: #ff9933;
     margin-top: 20px;
+}
+
+.text-success {
+    color: $color-success;
+}
+.text-warning {
+    color: $color-warning;
 }
 

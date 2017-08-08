@@ -5,7 +5,7 @@
                 <view class="order-number">订单编号：{{item._id}}</view>
                 <view class="product-item" wx:for="{{item.products}}" wx:for-item="n" wx:for-index="i" wx:key="product._id">
                     <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" catchtap="redirectProductDetail" style="background-color: #eee;" mode="aspectFill" src="{{n.imageUrl}}" data-wepy-params-a="{{n}}"/>
+                        <image class="weui-media-box__thumb" catchtap="redirectProductDetail" mode="aspectFill" src="{{n.imageUrl}}" data-wepy-params-a="{{n}}"/>
                     </view>  
                     <view class="title">{{n.product.title}}</view>
                     <view wx:for="{{n.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
@@ -20,7 +20,7 @@
                 <view class="total-info">
                     <view class="pull-left">
                         <view>合计：<view class="money">{{item.payStr}}</view></view>
-                        <view>支付状态：{{item.statusStr}}</view>
+                        <view>支付状态：<view class="{{item.status === 1 ? 'text-success': ''}} {{item.status === 0 ? 'text-warning': ''}}">{{item.statusStr}}</view></view>
                     </view>
                     
                     <view class="pull-right">
@@ -36,6 +36,26 @@
                 <view>快去挑点宝贝</view>
                 <button bindtap="redirect" class="surfing" data-wepy-params-a="index">去逛逛</button>
             </view>
-            
         </view>
+        
+    <view class="fmenu">
+        <view class="menu-item {{$footer$from ==='home' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="index">  
+            <view class="icon home"/>    
+            <view>首页</view>  
+        </view>   
+        <view class="menu-item {{$footer$from ==='card' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="card">
+            <view class="icon card"/>   
+            <view>购物车</view>
+        </view> 
+        <view class="menu-item {{$footer$from ==='my' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="my">
+            <view class="icon my"/>  
+            <view>我的</view>
+        </view>
+
+        <!-- <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
+       <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="order">我的订单</navigator></view>
+       <view class="weui-footer">
+        <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view> -->
+    </view>
+
     </view>

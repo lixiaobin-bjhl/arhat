@@ -1,3 +1,4 @@
+@import "./../components/footer.wxss";
 @charset "UTF-8";
 /**
  * @file 全站颜色配置
@@ -109,11 +110,12 @@
 
 .order .order-item {
   background: #FFF;
-  border-bottom: 1rpx solid #eaeaea; }
-  .order .order-item:first-of-type {
-    border-top: 1rpx solid #eaeaea; }
+  border-bottom: 1rpx solid #eaeaea;
+  border-top: 1rpx solid #eaeaea;
+  margin-bottom: 10px; }
 
 .order .total-info {
+  color: #666;
   padding: 10px; }
   .order .total-info:before, .order .total-info:after {
     content: " ";

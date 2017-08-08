@@ -1,5 +1,5 @@
 /**
- * @fileOverview function initUser
+ * @fileOverview function purchase
  * @author XiaoBin Li(lixiaobin8878@gmail.com)
  */
 
@@ -24,7 +24,7 @@ export default function (params) {
     var signType = 'MD5';
     var openid = userInfo.getOpenId();
     var out_trade_no = params.outTradeNo;
-    var notify_url = 'https://www.sheliguo.com/purchase/notice';
+    var notify_url = config.domain + '/purchase/notice';
     var trade_type = 'JSAPI';
     var body = params.title;
     var appid = config.appId;

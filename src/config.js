@@ -7,7 +7,8 @@
 
 module.exports = {
     // domain: 'http://172.24.8.136:7001',
-    domain: 'http://127.0.0.1:7001',
+    domain: 'https://www.sheliguo.com',
+    // domain: 'http://127.0.0.1:7001',
     mobile: '18610720742',
     name: '兄弟鱼坊',
     appId: 'wx9a725aa4ebad3f02',

@@ -7,12 +7,12 @@
         .order-item {
             background: #FFF;
             border-bottom: 1rpx solid map-get($borders, shallow);
-            &:first-of-type {
-                border-top: 1rpx solid map-get($borders, shallow);
-            }
+            border-top: 1rpx solid map-get($borders, shallow);
+            margin-bottom: 10px;
         }
         .total-info {
             @include clearfix;
+            color: #666;
             padding: 10px;
         }
         .pull-left {
@@ -34,7 +34,6 @@
             color: #FF3333;
         }
     }
-
 </style>
 
 <template>
@@ -44,7 +43,7 @@
                 <view class="order-number">订单编号：{{item._id}}</view>
                 <view class="product-item" wx:for="{{item.products}}" wx:for-item="n" wx:for-index="i" wx:key="product._id">
                     <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{n}})" style="background-color: #eee;" mode="aspectFill" src="{{n.imageUrl}}"></image>
+                        <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{n}})" mode="aspectFill" src="{{n.imageUrl}}"></image>
                     </view>  
                     <view class="title">{{n.product.title}}</view>
                     <view wx:for="{{n.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
@@ -59,7 +58,7 @@
                 <view class="total-info">
                     <view class="pull-left">
                         <view>合计：<view class="money">{{item.payStr}}</view></view>
-                        <view>支付状态：{{item.statusStr}}</view>
+                        <view>支付状态：<view class="{{item.status === 1 ? 'text-success': ''}} {{item.status === 0 ? 'text-warning': ''}}">{{item.statusStr}}</view></view>
                     </view>
                     
                     <view class="pull-right">
@@ -75,8 +74,8 @@
                 <view>快去挑点宝贝</view>
                 <button @tap="redirect('index')" class="surfing">去逛逛</button>
             </view>
-            
         </view>
+        <footer></footer>
     </view>
 </template>
 
@@ -87,6 +86,7 @@
     import pageConfig  from './config'
     import multiply from '../function/multiply'
     import divide from '../function/divide'
+    import footer from '../components/footer'
     import currency from '../function/currency'
     import config from '../config';
     import indexBy from '../function/indexBy'
@@ -148,7 +148,7 @@
                     mchId: config.mchId,
                     outTradeNo: createOrderNumber(),
                     expressMoney: 0,
-                    totalFee: multiply(item.totalFee, 100)
+                    totalFee: item.totalFee
                 };
                 purchase(params);
             }
@@ -185,6 +185,10 @@
                     this.list = [];
                     this.$apply();
                 });
+        }
+
+        components = {
+            footer
         }
      }
 </script>
