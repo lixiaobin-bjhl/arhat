@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _wepy = require('./../npm/wepy/lib/wepy.js');
 
 var _wepy2 = _interopRequireDefault(_wepy);
@@ -41,34 +43,29 @@ var Footer = function (_wepy$component) {
             cardCount: 0
         }, _this.props = {
             from: String
-        }, _this.methods = {
-            // /**
-            //  * 页面跳转 
-            //  */
-            // redirect (url) {
-            //     // 本来就在当前页，就不跳转了
-            //     if (url == this.from) {
-            //         return;
-            //     }
-            //     wx.redirectTo({
-            //         url: url
-            //     });
-            // },
-            /**
-             * 统计购物车的数数
-             */
-            getCountByOpendId: function getCountByOpendId() {
-                // getCountByOpendId()
-                //     .then((res)=> {
-                //         this.cardCount = res.data.count;
-                //         this.$apply();
-                //     });
-            }
+        }, _this.getCountByOpendId = function () {
+            var p = (0, _card.getCountByOpendId)();
+            p && p.then(function (res) {
+                _this.cardCount = res.data.count;
+                _this.$apply();
+            });
         }, _temp), _possibleConstructorReturn(_this, _ret);
     }
+
+    /**
+     * 统计购物车的数数
+     */
+
+
+    _createClass(Footer, [{
+        key: 'onLoad',
+        value: function onLoad() {
+            this.getCountByOpendId();
+        }
+    }]);
 
     return Footer;
 }(_wepy2.default.component);
 
 exports.default = Footer;
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvb3Rlci5qcyJdLCJuYW1lcyI6WyJGb290ZXIiLCJtaXhpbnMiLCJkYXRhIiwiY2FyZENvdW50IiwicHJvcHMiLCJmcm9tIiwiU3RyaW5nIiwibWV0aG9kcyIsImdldENvdW50QnlPcGVuZElkIiwiY29tcG9uZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7O0FBRUk7Ozs7QUFDQTs7QUFDQTs7Ozs7Ozs7Ozs7O0lBRXFCQSxNOzs7Ozs7Ozs7Ozs7OzswTEFFakJDLE0sR0FBUyxrQixRQUVUQyxJLEdBQU87QUFDSEMsdUJBQVc7QUFEUixTLFFBSVBDLEssR0FBUTtBQUNKQyxrQkFBTUM7QUFERixTLFFBSVJDLE8sR0FBVztBQUNQO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOzs7QUFHQUMsK0JBQW1CLDZCQUFLO0FBQ3BCO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDSDtBQXRCTSxTOzs7O0VBWnFCLGVBQUtDLFM7O2tCQUFwQlQsTSIsImZpbGUiOiJmb290ZXIuanMiLCJzb3VyY2VzQ29udGVudCI6WyJcblxuICAgIGltcG9ydCB3ZXB5IGZyb20gJ3dlcHknO1xuICAgIGltcG9ydCB7IGdldENvdW50QnlPcGVuZElkIH0gZnJvbSAnLi4vc2VydmljZS9jYXJkJztcbiAgICBpbXBvcnQgQ29tbW9uTWl4aW4gZnJvbSAnLi4vbWl4aW5zL2NvbW1vbic7XG5cbiAgICBleHBvcnQgZGVmYXVsdCBjbGFzcyBGb290ZXIgZXh0ZW5kcyB3ZXB5LmNvbXBvbmVudCB7XG5cbiAgICAgICAgbWl4aW5zID0gW0NvbW1vbk1peGluXTtcblxuICAgICAgICBkYXRhID0ge1xuICAgICAgICAgICAgY2FyZENvdW50OiAwXG4gICAgICAgIH1cblxuICAgICAgICBwcm9wcyA9IHtcbiAgICAgICAgICAgIGZyb206IFN0cmluZ1xuICAgICAgICB9XG5cbiAgICAgICAgbWV0aG9kcyA9ICB7XG4gICAgICAgICAgICAvLyAvKipcbiAgICAgICAgICAgIC8vICAqIOmhtemdoui3s+i9rCBcbiAgICAgICAgICAgIC8vICAqL1xuICAgICAgICAgICAgLy8gcmVkaXJlY3QgKHVybCkge1xuICAgICAgICAgICAgLy8gICAgIC8vIOacrOadpeWwseWcqOW9k+WJjemhte+8jOWwseS4jei3s+i9rOS6hlxuICAgICAgICAgICAgLy8gICAgIGlmICh1cmwgPT0gdGhpcy5mcm9tKSB7XG4gICAgICAgICAgICAvLyAgICAgICAgIHJldHVybjtcbiAgICAgICAgICAgIC8vICAgICB9XG4gICAgICAgICAgICAvLyAgICAgd3gucmVkaXJlY3RUbyh7XG4gICAgICAgICAgICAvLyAgICAgICAgIHVybDogdXJsXG4gICAgICAgICAgICAvLyAgICAgfSk7XG4gICAgICAgICAgICAvLyB9LFxuICAgICAgICAgICAgLyoqXG4gICAgICAgICAgICAgKiDnu5/orqHotK3nianovabnmoTmlbDmlbBcbiAgICAgICAgICAgICAqL1xuICAgICAgICAgICAgZ2V0Q291bnRCeU9wZW5kSWQ6ICgpPT4ge1xuICAgICAgICAgICAgICAgIC8vIGdldENvdW50QnlPcGVuZElkKClcbiAgICAgICAgICAgICAgICAvLyAgICAgLnRoZW4oKHJlcyk9PiB7XG4gICAgICAgICAgICAgICAgLy8gICAgICAgICB0aGlzLmNhcmRDb3VudCA9IHJlcy5kYXRhLmNvdW50O1xuICAgICAgICAgICAgICAgIC8vICAgICAgICAgdGhpcy4kYXBwbHkoKTtcbiAgICAgICAgICAgICAgICAvLyAgICAgfSk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG4iXX0=
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImZvb3Rlci5qcyJdLCJuYW1lcyI6WyJGb290ZXIiLCJtaXhpbnMiLCJkYXRhIiwiY2FyZENvdW50IiwicHJvcHMiLCJmcm9tIiwiU3RyaW5nIiwiZ2V0Q291bnRCeU9wZW5kSWQiLCJwIiwidGhlbiIsInJlcyIsImNvdW50IiwiJGFwcGx5IiwiY29tcG9uZW50Il0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7QUFFSTs7OztBQUNBOztBQUNBOzs7Ozs7Ozs7Ozs7SUFFcUJBLE07Ozs7Ozs7Ozs7Ozs7OzBMQUVqQkMsTSxHQUFTLGtCLFFBRVRDLEksR0FBTztBQUNIQyx1QkFBVztBQURSLFMsUUFJUEMsSyxHQUFRO0FBQ0pDLGtCQUFNQztBQURGLFMsUUFPUkMsaUIsR0FBb0IsWUFBSztBQUNyQixnQkFBSUMsSUFBSSw4QkFBUjtBQUNBQSxpQkFBS0EsRUFBRUMsSUFBRixDQUFPLFVBQUNDLEdBQUQsRUFBUTtBQUNoQixzQkFBS1AsU0FBTCxHQUFpQk8sSUFBSVIsSUFBSixDQUFTUyxLQUExQjtBQUNBLHNCQUFLQyxNQUFMO0FBQ0gsYUFISSxDQUFMO0FBSUgsUzs7O0FBVEQ7Ozs7Ozs7aUNBV1M7QUFDTixpQkFBS0wsaUJBQUw7QUFDRjs7OztFQXpCK0IsZUFBS00sUzs7a0JBQXBCYixNIiwiZmlsZSI6ImZvb3Rlci5qcyIsInNvdXJjZXNDb250ZW50IjpbIlxuXG4gICAgaW1wb3J0IHdlcHkgZnJvbSAnd2VweSc7XG4gICAgaW1wb3J0IHsgZ2V0Q291bnRCeU9wZW5kSWQgfSBmcm9tICcuLi9zZXJ2aWNlL2NhcmQnO1xuICAgIGltcG9ydCBDb21tb25NaXhpbiBmcm9tICcuLi9taXhpbnMvY29tbW9uJztcblxuICAgIGV4cG9ydCBkZWZhdWx0IGNsYXNzIEZvb3RlciBleHRlbmRzIHdlcHkuY29tcG9uZW50IHtcblxuICAgICAgICBtaXhpbnMgPSBbQ29tbW9uTWl4aW5dO1xuXG4gICAgICAgIGRhdGEgPSB7XG4gICAgICAgICAgICBjYXJkQ291bnQ6IDBcbiAgICAgICAgfVxuXG4gICAgICAgIHByb3BzID0ge1xuICAgICAgICAgICAgZnJvbTogU3RyaW5nXG4gICAgICAgIH1cblxuICAgICAgICAvKipcbiAgICAgICAgICog57uf6K6h6LSt54mp6L2m55qE5pWw5pWwXG4gICAgICAgICAqL1xuICAgICAgICBnZXRDb3VudEJ5T3BlbmRJZCA9ICgpPT4ge1xuICAgICAgICAgICAgdmFyIHAgPSBnZXRDb3VudEJ5T3BlbmRJZCgpO1xuICAgICAgICAgICAgcCAmJiBwLnRoZW4oKHJlcyk9PiB7XG4gICAgICAgICAgICAgICAgdGhpcy5jYXJkQ291bnQgPSByZXMuZGF0YS5jb3VudDtcbiAgICAgICAgICAgICAgICB0aGlzLiRhcHBseSgpO1xuICAgICAgICAgICAgfSk7XG4gICAgICAgIH1cblxuICAgICAgICBvbkxvYWQoKSB7XG4gICAgICAgICAgIHRoaXMuZ2V0Q291bnRCeU9wZW5kSWQoKTtcbiAgICAgICAgfVxuXG4gICAgfVxuIl19

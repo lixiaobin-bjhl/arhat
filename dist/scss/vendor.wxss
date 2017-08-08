@@ -1200,3 +1200,9 @@ checkbox {
 
 .text-warning {
   color: #f7ba2a; }
+
+.text-danger {
+  color: #ff4949; }
+
+.text-gray {
+  color: #666; }

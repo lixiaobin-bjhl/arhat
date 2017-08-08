@@ -8,7 +8,11 @@
             <view>首页</view>  
         </view>   
         <view class="menu-item {{from ==='card' ? 'active': ''}}" @tap="redirect('card')">
-            <view class="icon card"></view>   
+            
+            <view class="icon card">
+                <view class="red-point" wx:if="{{ cardCount > 0 && cardCount <=9 }}">{{cardCount}}</view>
+                <view class="red-point" wx:if="{{cardCount > 9}}">9+</view>
+            </view>   
             <view>购物车</view>
         </view> 
         <view class="menu-item {{from ==='my' ? 'active': ''}}" @tap="redirect('my')">
@@ -41,29 +45,20 @@
             from: String
         }
 
-        methods =  {
-            // /**
-            //  * 页面跳转 
-            //  */
-            // redirect (url) {
-            //     // 本来就在当前页，就不跳转了
-            //     if (url == this.from) {
-            //         return;
-            //     }
-            //     wx.redirectTo({
-            //         url: url
-            //     });
-            // },
-            /**
-             * 统计购物车的数数
-             */
-            getCountByOpendId: ()=> {
-                // getCountByOpendId()
-                //     .then((res)=> {
-                //         this.cardCount = res.data.count;
-                //         this.$apply();
-                //     });
-            }
+        /**
+         * 统计购物车的数数
+         */
+        getCountByOpendId = ()=> {
+            var p = getCountByOpendId();
+            p && p.then((res)=> {
+                this.cardCount = res.data.count;
+                this.$apply();
+            });
         }
+
+        onLoad() {
+           this.getCountByOpendId();
+        }
+
     }
 </script>

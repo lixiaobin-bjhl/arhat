@@ -131,7 +131,7 @@
         }
 
         onShow () {
-            // this.$invoke('footer', 'getCountByOpendId');
+            this.$invoke('footer', 'getCountByOpendId');
         }
 
         computed = {
@@ -159,7 +159,7 @@
                         wx.hideLoading();
                         this.list = this.adaptProductList(res.data);
                         // this.methods.selectAll();
-                        // this.$apply();
+                        this.$apply();
                     })
                     .catch(() => {
                         wx.hideLoading();
@@ -202,6 +202,7 @@
                             remove(item._id)
                                 .then(()=> {
                                     this.methods.getCardList();
+                                    this.$invoke('footer', 'getCountByOpendId');
                                 });
                         }
                     }

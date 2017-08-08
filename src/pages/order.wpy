@@ -6,6 +6,7 @@
     .order {
         .order-item {
             background: #FFF;
+            padding-top: 10px;
             border-bottom: 1rpx solid map-get($borders, shallow);
             border-top: 1rpx solid map-get($borders, shallow);
             margin-bottom: 10px;
@@ -58,7 +59,7 @@
                 <view class="total-info">
                     <view class="pull-left">
                         <view>合计：<view class="money">{{item.payStr}}</view></view>
-                        <view>支付状态：<view class="{{item.status === 1 ? 'text-success': ''}} {{item.status === 0 ? 'text-warning': ''}}">{{item.statusStr}}</view></view>
+                        <view>支付状态：<view class="{{item.status === 0 ? 'text-danger': ''}} {{item.status === 1 ? 'text-success': ''}} {{item.status === 2 ? 'text-warning': ''}} {{item.status === 3 ? 'text-gary': ''}}">{{item.statusStr}}</view></view>
                     </view>
                     
                     <view class="pull-right">

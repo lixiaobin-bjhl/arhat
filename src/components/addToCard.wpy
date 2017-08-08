@@ -213,6 +213,7 @@
                     this.methods.hide();
                     this.submitting = false;
                     this.$apply();
+                    this.$parent.$invoke('footer', 'getCountByOpendId');
                     wx.showToast({
                         title: '已成功加到购物车'
                     });

@@ -28,7 +28,11 @@
             <view>首页</view>  
         </view>   
         <view class="menu-item {{$footer$from ==='card' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="card">
-            <view class="icon card"/>   
+            
+            <view class="icon card">
+                <view class="red-point"  wx:if="{{ $footer$cardCount > 0 && $footer$cardCount <=9 }}">{{$footer$cardCount}}</view>
+                <view class="red-point"  wx:if="{{$footer$cardCount > 9}}">9+</view>
+            </view>   
             <view>购物车</view>
         </view> 
         <view class="menu-item {{$footer$from ==='my' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="my">

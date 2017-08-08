@@ -20,7 +20,7 @@
                 <view class="total-info">
                     <view class="pull-left">
                         <view>合计：<view class="money">{{item.payStr}}</view></view>
-                        <view>支付状态：<view class="{{item.status === 1 ? 'text-success': ''}} {{item.status === 0 ? 'text-warning': ''}}">{{item.statusStr}}</view></view>
+                        <view>支付状态：<view class="{{item.status === 0 ? 'text-danger': ''}} {{item.status === 1 ? 'text-success': ''}} {{item.status === 2 ? 'text-warning': ''}} {{item.status === 3 ? 'text-gary': ''}}">{{item.statusStr}}</view></view>
                     </view>
                     
                     <view class="pull-right">
@@ -44,7 +44,11 @@
             <view>首页</view>  
         </view>   
         <view class="menu-item {{$footer$from ==='card' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="card">
-            <view class="icon card"/>   
+            
+            <view class="icon card">
+                <view class="red-point"  wx:if="{{ $footer$cardCount > 0 && $footer$cardCount <=9 }}">{{$footer$cardCount}}</view>
+                <view class="red-point"  wx:if="{{$footer$cardCount > 9}}">9+</view>
+            </view>   
             <view>购物车</view>
         </view> 
         <view class="menu-item {{$footer$from ==='my' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="my">
