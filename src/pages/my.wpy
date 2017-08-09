@@ -99,7 +99,8 @@
                 <view class="arrow-right"></view>
                 我的地址
             </view>
-        </view> 
+        </view>
+        <copyright></copyright>
         <footer from="my"></footer>
     </view>
 </template>
@@ -109,6 +110,7 @@
     import wepy from 'wepy'
     import footer from '../components/footer'
     import { getUserInfo } from '../service/global'
+    import copyright from '../components/copyright'
     
     export default class My  extends wepy.page {
 
@@ -121,7 +123,8 @@
         }
 
         components = {
-            footer
+            footer,
+            copyright
         }
 
         onShow () {

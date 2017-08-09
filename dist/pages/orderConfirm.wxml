@@ -62,4 +62,15 @@
             <view class="total">合计：<view class="money middle">{{totalMoney}}</view></view>
             <button class="btn btn-order" bindtap="createOrder" data-wepy-params-a="">提交订单</button>
         </view>
+        
+    <view class="copyright">
+        <view class="moon">
+            <view class="icon"/>
+            <view class="middle">AppMoon</view>
+        </view>
+        <view class="t">
+            appmoon.cn提供技术支持
+        </view>
+    </view>
+
     </view>

@@ -20,7 +20,18 @@
                 <view class="arrow-right"/>
                 我的地址
             </view>
-        </view> 
+        </view>
+        
+    <view class="copyright">
+        <view class="moon">
+            <view class="icon"/>
+            <view class="middle">AppMoon</view>
+        </view>
+        <view class="t">
+            appmoon.cn提供技术支持
+        </view>
+    </view>
+
         
     <view class="fmenu">
         <view class="menu-item {{$footer$from ==='home' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="index">  

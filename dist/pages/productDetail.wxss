@@ -1,3 +1,4 @@
+@import "./../components/copyright.wxss";
 @import "./../components/addToCard.wxss";
 @charset "UTF-8";
 /**

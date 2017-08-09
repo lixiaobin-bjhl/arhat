@@ -32,4 +32,15 @@
             <button formType="submit" class="submit" type="primary" bindtap="submit">保存</button>
             <button formType="submit" bindtap="redirect" data-wepy-params-a="shippingAddress">取消</button>
         </view>
+        
+    <view class="copyright">
+        <view class="moon">
+            <view class="icon"/>
+            <view class="middle">AppMoon</view>
+        </view>
+        <view class="t">
+            appmoon.cn提供技术支持
+        </view>
+    </view>
+
    </view>

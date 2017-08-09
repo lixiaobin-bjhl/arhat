@@ -1,3 +1,4 @@
+@import "./../components/copyright.wxss";
 @charset "UTF-8";
 /**
  * @file 全站颜色配置

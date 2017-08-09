@@ -99,6 +99,7 @@
             <view>快给我挑点宝贝</view>
             <button @tap="redirect('index')" class="surfing">去逛逛</button>
         </view>
+        <copyright></copyright>
         <footer from="card"></footer>
     </view>
 </template>
@@ -114,6 +115,7 @@
     import multiply from '../function/multiply'
     import currency from '../function/currency'
     import purchase from '../function/purchase'
+    import copyright from '../components/copyright'
     
     export default class Card extends wepy.page {
 
@@ -127,7 +129,8 @@
         }
 
         components = {
-            footer
+            footer,
+            copyright
         }
 
         onShow () {

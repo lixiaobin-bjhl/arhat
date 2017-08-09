@@ -76,6 +76,7 @@
                 <button @tap="redirect('index')" class="surfing">去逛逛</button>
             </view>
         </view>
+        <copyright></copyright>
         <footer></footer>
     </view>
 </template>
@@ -94,6 +95,7 @@
     import createOrderNumber from '../function/createOrderNumber'
     import adaptProductList from '../function/adaptProductList'
     import purchase from '../function/purchase'
+    import copyright from '../components/copyright'
 
     export default class Order extends wepy.page {
         
@@ -189,7 +191,8 @@
         }
 
         components = {
-            footer
+            footer,
+            copyright
         }
      }
 </script>

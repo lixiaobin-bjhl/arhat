@@ -109,6 +109,7 @@
             </view>
         </view>
         <addToCard :product.sync="selectedProduct" @addtocardsuccess.user="addToCardHandler"></addToCard>
+        <copyright></copyright>
         <footer from="home"></footer>
     </view>
 </template>
@@ -124,6 +125,7 @@ import { getUserInfo } from '../service/global'
 import userInfo from '../plugin/userInfo'
 import initUser from '../function/initUser'
 import addToCard from '../components/addToCard'
+import copyright from '../components/copyright'
 
 export default class Index extends wepy.page {
     data = {
@@ -138,6 +140,7 @@ export default class Index extends wepy.page {
 
     components = {
         footer,
+        copyright,
         addToCard
     }
 

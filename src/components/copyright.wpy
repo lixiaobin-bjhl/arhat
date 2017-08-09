@@ -1,0 +1,70 @@
+<style lang="sass"> 
+
+    @import '../scss/color';
+    @import '../scss/mixin';
+
+    .copyright {
+        text-align: center;
+        color: #cecece;
+        margin: 20px 0;
+        font-family: titillium;
+
+        .icon {
+            @extend .icon-bg;
+            width: 18px;
+            height: 18px;
+            @extend .middle;
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/moon.svg');
+        }
+        .t {
+            font-size: 12px;
+        }
+    }
+</style>
+<template>
+    <view class="copyright">
+        <view class="moon">
+            <view class="icon"></view>
+            <view class="middle">AppMoon</view>
+        </view>
+        <view class="t">
+            appmoon.cn提供技术支持
+        </view>
+    </view>
+</template>
+
+<script>
+
+    import wepy from 'wepy';
+    import { getCountByOpendId } from '../service/card';
+    import CommonMixin from '../mixins/common';
+
+    export default class Footer extends wepy.component {
+
+        mixins = [CommonMixin];
+
+        data = {
+            cardCount: 0
+        }
+
+        props = {
+            from: String
+        }
+
+        /**
+         * 统计购物车的数数
+         */
+        getCountByOpendId = ()=> {
+            var p = getCountByOpendId();
+            p && p.then((res)=> {
+                this.cardCount = res.data.count;
+                this.$apply();
+            });
+        }
+
+        onLoad() {
+           this.getCountByOpendId();
+        }
+
+    }
+</script>

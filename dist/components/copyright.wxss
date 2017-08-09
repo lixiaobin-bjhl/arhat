@@ -1,4 +1,3 @@
-@import "./../components/copyright.wxss";
 @charset "UTF-8";
 /**
  * @file 全站颜色配置
@@ -8,11 +7,11 @@
  * @file global mixin
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
-.icon-bg {
+.icon-bg, .copyright .icon {
   background-repeat: no-repeat;
   background-size: contain; }
 
-.middle, .fill-shipping-address .picker view {
+.middle, .copyright .icon {
   display: inline-block;
   vertical-align: middle; }
 
@@ -37,15 +36,14 @@
     content: '';
     border: 0; }
 
-.fill-shipping-address {
-  border-top: 1px solid #eaeaea; }
-  .fill-shipping-address .weui-form-preview__item {
-    border-bottom: 1px solid #eaeaea;
-    padding: 10px 0; }
-  .fill-shipping-address .picker view {
-    margin: 0 5px; }
-  .fill-shipping-address .btn-group {
-    padding: 10px;
-    background: #FFF; }
-    .fill-shipping-address .btn-group .submit {
-      margin: 10px 0; }
+.copyright {
+  text-align: center;
+  color: #cecece;
+  margin: 20px 0;
+  font-family: titillium; }
+  .copyright .icon {
+    width: 18px;
+    height: 18px;
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/moon.svg"); }
+  .copyright .t {
+    font-size: 12px; }

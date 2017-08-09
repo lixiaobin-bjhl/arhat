@@ -132,6 +132,7 @@
             <view class="total">合计：<view class="money middle">{{totalMoney}}</view></view>
             <button class="btn btn-order" @tap="createOrder()">提交订单</button>
         </view>
+        <copyright></copyright>
     </view>
 </template>
 
@@ -148,7 +149,8 @@
     import config from '../config'
     import adaptProductList from '../function/adaptProductList'
     import createOrderNumber from '../function/createOrderNumber'
-    import purchase from '../function/purchase';
+    import purchase from '../function/purchase'
+    import copyright from '../components/copyright'
     
     export default class OrderConfirm  extends wepy.page {
         
@@ -190,6 +192,10 @@
             totalMoney () {
                 return currency(this.getTotalMoney());
             }
+        }
+
+        components = {
+            copyright
         }
 
         methods = {

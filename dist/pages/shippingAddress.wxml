@@ -26,4 +26,15 @@
                 <view class="icon icon-plus"/>添加收货地址
             </view>
         </view>
+        
+    <view class="copyright">
+        <view class="moon">
+            <view class="icon"/>
+            <view class="middle">AppMoon</view>
+        </view>
+        <view class="t">
+            appmoon.cn提供技术支持
+        </view>
+    </view>
+
     </view>

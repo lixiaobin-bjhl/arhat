@@ -123,6 +123,7 @@
             <button class="btn btn-pay" @tap="pay()">立即购买</button>
         </view>
         <addToCard :product.sync="product"></addToCard>
+        <copyright></copyright>
     </view>
 </template>
 
@@ -131,6 +132,7 @@
     import { getDetial } from '../service/product'
     import addToCard from '../components/addToCard'
     import compressImage from '../function/compressImage'
+    import copyright from '../components/copyright'
     
     export default class ProductDetail  extends wepy.page {
         data = {
@@ -170,7 +172,8 @@
         }
         
         components = {
-            addToCard
+            addToCard,
+            copyright
         }
 
         methods = {

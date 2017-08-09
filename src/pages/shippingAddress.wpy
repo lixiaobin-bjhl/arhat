@@ -80,6 +80,7 @@
                 <view class="icon icon-plus"></view>添加收货地址
             </view>
         </view>
+        <copyright></copyright>
     </view>
 </template>
 
@@ -87,6 +88,7 @@
 
     import wepy from 'wepy'
     import { list, setDefault, remove} from '../service/shippingAddress'
+    import copyright from '../components/copyright'
 
     export default class ShippingAddress extends wepy.page {
         
@@ -100,6 +102,10 @@
 
         data = {
             shippingAddressList: null 
+        }
+
+        components = {
+            copyright
         }
 
         methods = {
