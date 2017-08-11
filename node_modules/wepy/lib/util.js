@@ -225,6 +225,14 @@ exports.default = {
             });
         }
         return rst;
+    },
+    hyphenate: function hyphenate(str) {
+        return str.replace(/([^-])([A-Z])/g, '$1-$2').replace(/([^-])([A-Z])/g, '$1-$2').toLowerCase();
+    },
+    camelize: function camelize(str) {
+        return str.replace(/-(\w)/g, function (_, c) {
+            return c ? c.toUpperCase() : '';
+        });
     }
 };
 //# sourceMappingURL=util.js.map

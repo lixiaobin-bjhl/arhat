@@ -132,6 +132,7 @@
         data = {
             showModalStatus: false,
             animationData:  {},
+            product: {}, 
             submitting: false
         }
 
@@ -139,23 +140,12 @@
             numberInput
         }
 
-        props = {
-           product: {
-               type: Object,
-               twoWay: true,
-               default () {
-                   return {
-                       count: 5
-                   };
-               }
-           } 
-        }
-
         methods = {
             /**
              * 显示添加购物车对话框
              */
-            show: function () {
+            show: function (product) {
+                this.product = product;
                 var animation = wx.createAnimation({
                     duration: 200,
                     timingFunction: "linear",

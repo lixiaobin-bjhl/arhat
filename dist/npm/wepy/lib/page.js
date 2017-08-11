@@ -44,12 +44,12 @@ var _class = function (_component) {
             args[_key] = arguments[_key];
         }
 
-        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.isComponent = false, _this.$preloadData = {}, _this.$prefetchData = {}, _temp), _possibleConstructorReturn(_this, _ret);
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = _class.__proto__ || Object.getPrototypeOf(_class)).call.apply(_ref, [this].concat(args))), _this), _this.$isComponent = false, _this.$preloadData = {}, _this.$prefetchData = {}, _temp), _possibleConstructorReturn(_this, _ret);
     }
 
     _createClass(_class, [{
-        key: 'init',
-        value: function init(wxpage, $parent) {
+        key: '$init',
+        value: function $init(wxpage, $parent) {
 
             this.$parent = $parent;
             this.$root = this;
@@ -57,7 +57,7 @@ var _class = function (_component) {
                 $parent.$wxapp = getApp();
             }
             this.$wxapp = $parent.$wxapp;
-            _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'init', this).call(this, wxpage, this);
+            _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), '$init', this).call(this, wxpage, this);
         }
     }, {
         key: 'onLoad',

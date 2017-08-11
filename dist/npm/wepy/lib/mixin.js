@@ -19,8 +19,8 @@ var _class = function () {
     }
 
     _createClass(_class, [{
-        key: 'init',
-        value: function init(parent) {
+        key: '$init',
+        value: function $init(parent) {
             var _this = this;
 
             var k = void 0;

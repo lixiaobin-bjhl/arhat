@@ -44,6 +44,7 @@
   .copyright .icon {
     width: 18px;
     height: 18px;
+    margin-right: 2px;
     background-image: url("http://otzuzbqja.bkt.clouddn.com/moon.svg"); }
   .copyright .t {
     font-size: 12px; }

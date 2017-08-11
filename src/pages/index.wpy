@@ -108,7 +108,7 @@
                 <view class="base">没有找到产品^_^</view>
             </view>
         </view>
-        <addToCard :product.sync="selectedProduct" @addtocardsuccess.user="addToCardHandler"></addToCard>
+        <addToCard @addtocardsuccess.user="addToCardHandler"></addToCard>
         <copyright></copyright>
         <footer from="home"></footer>
     </view>
@@ -135,7 +135,7 @@ export default class Index extends wepy.page {
         autoplay: true,
         interval: 5000,
         duration: 1000,
-        selectedProduct: {}
+        selectedProduct: null
     }
 
     components = {
@@ -237,11 +237,7 @@ export default class Index extends wepy.page {
          * 显示添加到购物车对话框
          */
         showAddToCard: (item) => {
-            this.selectedProduct = item;
-            setTimeout(()=> {
-                this.$invoke('addToCard', 'show');
-            });
-            
+            this.$invoke('addToCard', 'show', item);
         },
 
         /**

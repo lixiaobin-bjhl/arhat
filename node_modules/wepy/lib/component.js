@@ -104,8 +104,8 @@ var _class = function () {
     }
 
     _createClass(_class, [{
-        key: 'init',
-        value: function init($wxpage, $root, $parent) {
+        key: '$init',
+        value: function $init($wxpage, $root, $parent) {
             var _this2 = this;
 
             var self = this;
@@ -130,6 +130,12 @@ var _class = function () {
                 binded = void 0;
             var inRepeat = false,
                 repeatKey = void 0;
+
+            if (this.$initData === undefined) {
+                this.$initData = _util2.default.$copy(this.data, true);
+            } else {
+                this.data = _util2.default.$copy(this.$initData, true);
+            }
 
             if (this.$props) {
                 for (key in this.$props) {
@@ -204,15 +210,20 @@ var _class = function () {
             var coms = Object.getOwnPropertyNames(this.$com);
             if (coms.length) {
                 coms.forEach(function (name) {
-                    _this2.$com[name].init(_this2.getWxPage(), $root, _this2);
+                    _this2.$com[name].$init(_this2.getWxPage(), $root, _this2);
                     _this2.$com[name].onLoad && _this2.$com[name].onLoad();
+
+                    _this2.$com[name].$mixins.forEach(function (mix) {
+                        mix['onLoad'] && mix['onLoad'].call(_this2.$com[name]);
+                    });
+
                     _this2.$com[name].$apply();
                 });
             }
         }
     }, {
-        key: 'initMixins',
-        value: function initMixins() {
+        key: '$initMixins',
+        value: function $initMixins() {
             var _this3 = this;
 
             if (this.mixins) {
@@ -224,7 +235,7 @@ var _class = function () {
             }
             this.mixins.forEach(function (mix) {
                 var inst = new mix();
-                inst.init(_this3);
+                inst.$init(_this3);
                 _this3.$mixins.push(inst);
             });
         }
@@ -417,8 +428,6 @@ var _class = function () {
             var source = this;
             var $evt = new _event2.default(evtName, source, 'emit');
 
-            if (this.$parent === undefined) console.log(this);
-
             if (this.$parent.$events && this.$parent.$events[this.$name]) {
                 var method = this.$parent.$events[this.$name]['v-on:' + evtName];
                 if (method && this.$parent.methods) {
@@ -473,6 +482,16 @@ var _class = function () {
                 var readyToSet = {};
                 for (k in originData) {
                     if (!_util2.default.$isEqual(this[k], originData[k])) {
+                        if (this.watch) {
+                            if (this.watch[k]) {
+                                if (typeof this.watch[k] === 'function') {
+                                    this.watch[k].call(this, this[k], originData[k]);
+                                } else if (typeof this.watch[k] === 'string' && typeof this.methods[k] === 'function') {
+                                    this.methods[k].call(this, this[k], originData[k]);
+                                }
+                            }
+                        }
+
                         readyToSet[this.$prefix + k] = this[k];
                         this.data[k] = this[k];
                         originData[k] = _util2.default.$copy(this[k], true);

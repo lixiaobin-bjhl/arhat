@@ -72,9 +72,11 @@ var _class = function () {
     }
 
     _createClass(_class, [{
-        key: 'init',
-        value: function init(wepy) {
-            this.initAPI(wepy);
+        key: '$init',
+        value: function $init(wepy) {
+            var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            this.$initAPI(wepy, config.promisifyAPI);
             this.$wxapp = getApp();
         }
     }, {
@@ -103,8 +105,8 @@ var _class = function () {
         key: 'requestfix',
         value: function requestfix() {}
     }, {
-        key: 'initAPI',
-        value: function initAPI(wepy) {
+        key: '$initAPI',
+        value: function $initAPI(wepy, promisifyAPI) {
             var self = this;
             var noPromiseMethods = {
                 stopRecord: true,
@@ -120,6 +122,11 @@ var _class = function () {
                 hideKeyboard: true,
                 stopPullDownRefresh: true
             };
+            if (promisifyAPI) {
+                for (var k in promisifyAPI) {
+                    noPromiseMethods[k] = promisifyAPI[k];
+                }
+            }
             Object.keys(wx).forEach(function (key) {
                 if (!noPromiseMethods[key] && key.substr(0, 2) !== 'on' && !/\w+Sync$/.test(key)) {
                     Object.defineProperty(_native2.default, key, {
@@ -140,6 +147,9 @@ var _class = function () {
                                 }
                                 if (key === 'request') {
                                     obj = typeof obj === 'string' ? { url: obj } : obj;
+                                }
+                                if (typeof obj === 'string') {
+                                    return wx[key](obj);
                                 }
                                 if (self.$addons.promisify) {
                                     return new Promise(function (resolve, reject) {

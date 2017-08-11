@@ -122,7 +122,7 @@
             <button class="btn btn-card" @tap="showAddToCard()">加入购物车</button>
             <button class="btn btn-pay" @tap="pay()">立即购买</button>
         </view>
-        <addToCard :product.sync="product"></addToCard>
+        <addToCard></addToCard>
         <copyright></copyright>
     </view>
 </template>
@@ -195,9 +195,7 @@
              */
             showAddToCard: () => {
                 this.product.imageUrl = this.productPics[0];
-                setTimeout(()=> {
-                    this.$invoke('addToCard', 'show');
-                });
+                this.$invoke('addToCard', 'show', this.product);
                 
             },
 
