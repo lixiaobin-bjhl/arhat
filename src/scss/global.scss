@@ -84,10 +84,10 @@ checkbox {
     }
     .trash {
         @extend .middle;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         float: right;
-        margin: 4px 0 0 4px;
+        margin: 0 0 0 4px;
         @extend .icon-bg;
         background-image: url('http://otzuzbqja.bkt.clouddn.com/trash2.svg')
     }
