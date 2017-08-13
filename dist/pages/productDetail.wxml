@@ -81,11 +81,11 @@
         <view class="fmenu">
             <view class="menu-item" bindtap="redirect" data-wepy-params-a="index">  
                 <view class="icon home"/>    
-                <view>首页</view>  
+                <view class="text">首页</view>  
             </view>   
             <view class="menu-item" bindtap="redirect" data-wepy-params-a="card">
                 <view class="icon card"/>   
-                <view>购物车</view>
+                <view class="text">购物车</view>
             </view>
             <button class="btn btn-card" bindtap="showAddToCard" data-wepy-params-a="">加入购物车</button>
             <button class="btn btn-pay" bindtap="pay" data-wepy-params-a="">立即购买</button>

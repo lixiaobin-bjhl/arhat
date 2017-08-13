@@ -37,6 +37,9 @@
     content: '';
     border: 0; }
 
+.swiper-item image {
+  margin: 0 auto; }
+
 .commodity-screen {
   width: 100%;
   height: 100%;

@@ -36,6 +36,9 @@
     content: '';
     border: 0; }
 
+.swiper-item image {
+  margin: 0 auto; }
+
 page {
   background: #f2f2f2;
   color: #333;
@@ -167,3 +170,6 @@ checkbox {
 
 .text-gray {
   color: #666; }
+
+.weui-form-preview__bd {
+  font-size: 14px; }

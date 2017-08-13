@@ -126,6 +126,7 @@ import userInfo from '../plugin/userInfo'
 import initUser from '../function/initUser'
 import addToCard from '../components/addToCard'
 import copyright from '../components/copyright'
+import toast from '../function/toast'
 
 export default class Index extends wepy.page {
     data = {
@@ -172,9 +173,7 @@ export default class Index extends wepy.page {
         try {
             res = await initUser(this);
         } catch (e) {
-            wx.showToast({
-                title: '获取用户信息失败'
-            });
+            toast('获取用户信息失败');
         }
     }
     /**

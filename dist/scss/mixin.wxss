@@ -30,3 +30,6 @@
   .plain-btn:after {
     content: '';
     border: 0; }
+
+.swiper-item image {
+  margin: 0 auto; }

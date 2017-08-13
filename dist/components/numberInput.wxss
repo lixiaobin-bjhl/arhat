@@ -36,6 +36,9 @@
     content: '';
     border: 0; }
 
+.swiper-item image {
+  margin: 0 auto; }
+
 .stepper {
   width: 102px;
   height: 26px;

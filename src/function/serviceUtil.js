@@ -7,6 +7,7 @@
 
 import wepy from 'wepy'
 import config from '../config'
+import toast from './toast';
 
 /**
  * 调用wepy.request 发送请求
@@ -26,11 +27,7 @@ function doRequest(url, data = {}, method = 'get') {
                 var data = response.data;
 
                 if (response.statusCode > 300) {
-                    wx.showToast({
-                        icon: 'loading',
-                        title: '系统异常，请稍后重试',
-                        duration: 3000
-                    });
+                    toast('系统异常，请稍后重试');
                     reject(data);
                     return;
                 }
@@ -40,20 +37,12 @@ function doRequest(url, data = {}, method = 'get') {
                 }  else if (typeof data.code === 'undefined') {
                     resolve(data);
                 } else {
-                    wx.showToast({
-                        icon: 'loading',
-                        title: data.message || '系统异常，请稍后重试',
-                        duration: 3000
-                    });
+                    toast('系统异常，请稍后重试');
                     reject(data);
                 }
             }, 
             (response)=> {
-                wx.showToast({
-                    icon: 'loading',
-                    title: '系统异常，请稍后重试',
-                    duration: 3000
-                });
+                toast('系统异常，请稍后重试');
             }
         );
     });

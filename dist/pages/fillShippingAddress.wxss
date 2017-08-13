@@ -37,6 +37,9 @@
     content: '';
     border: 0; }
 
+.swiper-item image {
+  margin: 0 auto; }
+
 .fill-shipping-address {
   border-top: 1px solid #eaeaea; }
   .fill-shipping-address .weui-form-preview__item {

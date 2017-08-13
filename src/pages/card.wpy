@@ -116,6 +116,7 @@
     import currency from '../function/currency'
     import purchase from '../function/purchase'
     import copyright from '../components/copyright'
+    import toast from '../function/toast'
     
     export default class Card extends wepy.page {
 
@@ -234,9 +235,7 @@
             pay: ()=> {
                 var selectedProducts = this.getSelectedProducts();
                 if (!selectedProducts.length) {
-                    wx.showToast({
-                        title: '请选择商品'
-                    });
+                    toast('请选择商品');
                     return;
                 }
                 wx.navigateTo({

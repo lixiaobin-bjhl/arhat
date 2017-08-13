@@ -67,6 +67,7 @@
     import wepy from 'wepy'
     import { add, show, update } from '../service/shippingAddress'
     import copyright from '../components/copyright'
+    import toast from '../function/toast'
 
     export default class FillShippingAddress  extends wepy.page {
 
@@ -122,30 +123,22 @@
                 var region = this.region;
 
                 if (!name) {
-                    wx.showToast({
-                        title: '请输入姓名'
-                    });
+                    toast('请输入姓名');
                     return;
                 }
 
                 if (!/^1\d{10}/.test(contactNumber)) {
-                    wx.showToast({
-                        title: '请输入正确的手机号'
-                    });
+                    toast('请输入正确的手机号');
                     return;
                 }
 
                 if (region.length !==3) {
-                    wx.showToast({
-                        title: '请选择完整的省市区'
-                    });
+                    toast('请选择完整的省市区');
                     return;
                 }
 
                 if (!address) {
-                    wx.showToast({
-                        title: '请输入收货人地址'
-                    });
+                    toast('请输入收货人地址');
                     return;
                 }
                 

@@ -38,6 +38,9 @@
     content: '';
     border: 0; }
 
+.swiper-item image {
+  margin: 0 auto; }
+
 .card-list {
   padding-bottom: 104rpx; }
   .card-list .product-item {

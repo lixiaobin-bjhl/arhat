@@ -5,19 +5,18 @@
     <view class="fmenu">
         <view class="menu-item {{from ==='home' ? 'active': ''}}" @tap="redirect('index')">  
             <view class="icon home"></view>    
-            <view>首页</view>  
+            <view class="text">首页</view>  
         </view>   
         <view class="menu-item {{from ==='card' ? 'active': ''}}" @tap="redirect('card')">
-            
             <view class="icon card">
                 <view class="red-point" wx:if="{{ cardCount > 0 && cardCount <=9 }}">{{cardCount}}</view>
                 <view class="red-point" wx:if="{{cardCount > 9}}">9+</view>
             </view>   
-            <view>购物车</view>
+            <view class="text">购物车</view>
         </view> 
         <view class="menu-item {{from ==='my' ? 'active': ''}}" @tap="redirect('my')">
             <view class="icon my"></view>  
-            <view>我的</view>
+            <view class="text">我的</view>
         </view>
 
         <!-- <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
