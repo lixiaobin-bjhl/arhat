@@ -59,9 +59,11 @@
                 padding-right: 5px;
                 text-align: right;
             }
+            form {
+                flex: 2;
+            }
             .btn {
                 @extend .plain-btn;
-                flex: 2;
                 line-height: 108rpx;
             }
         }
@@ -130,7 +132,9 @@
                 <view>首页</view>  
             </view>
             <view class="total">合计：<view class="money middle">{{totalMoney}}</view></view>
-            <button class="btn btn-order" @tap="createOrder()">提交订单</button>
+            <form bindsubmit="createOrder" report-submit="true">
+                <button class="btn btn-order" formType="submit">提交订单</button>
+            </form>
         </view>
         <copyright></copyright>
     </view>
@@ -143,6 +147,7 @@
     import { removeByPids } from '../service/card'
     import { list } from '../service/shippingAddress'
     import * as order from '../service/order'
+    import * as message from '../service/message'
     import multiply from '../function/multiply'
     import plus from '../function/plus'
     import currency from '../function/currency'
@@ -219,7 +224,8 @@
             /**
              * 创建订单 
              */
-            createOrder: ()=> {
+            createOrder: (e)=> {
+                var formId = e.detail.formId;
                 var outTradeNo = createOrderNumber();
 
                 if (!this.defaultShippingAddress) {
@@ -250,10 +256,14 @@
                     totalFee: multiply(this.getTotalMoney(), 100)
                 };
 
+                params.formId = formId;
+
                 order.add(params)
                     .then((res)=> {
                         var data = res.data;
                         params.id = data._id;
+                        // 给商家发送一个创建订单消息
+                        message.sendCreateOrderMessage(params);
                         // 下单后，把购物车的中商品删除掉
                         removeByPids(products.map((item)=> {
                             return item._id

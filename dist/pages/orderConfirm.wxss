@@ -164,6 +164,8 @@
   padding-right: 5px;
   text-align: right; }
 
+.order-confirm .fmenu form {
+  flex: 2; }
+
 .order-confirm .fmenu .btn {
-  flex: 2;
   line-height: 108rpx; }

@@ -60,7 +60,9 @@
                 <view>首页</view>  
             </view>
             <view class="total">合计：<view class="money middle">{{totalMoney}}</view></view>
-            <button class="btn btn-order" bindtap="createOrder" data-wepy-params-a="">提交订单</button>
+            <form bindsubmit="createOrder" report-submit="true">
+                <button class="btn btn-order" formType="submit">提交订单</button>
+            </form>
         </view>
         
     <view class="copyright">

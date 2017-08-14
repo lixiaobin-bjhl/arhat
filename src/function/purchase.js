@@ -12,6 +12,7 @@ import config from '../config';
 import { getPrepayId } from '../service/purchase';
 import userInfo from '../plugin/userInfo';
 import createOrderNumber from './createOrderNumber';
+import * as message from '../service/message';
 
 export default function (params) {
 
@@ -58,6 +59,7 @@ export default function (params) {
                 timeStamp
             })
             var paySign = getMd5PaySign(data);
+            params.formId = data.prepay_id;
             var paymentRequest = {
                 appId: appid,
                 timeStamp: timeStamp,
@@ -66,12 +68,16 @@ export default function (params) {
                 signType: signType,
                 paySign: paySign,
                 success: function(res) {
+                    // 发送一个支付成功消息
+                    message.sendPaySuccessMessage(params);
                     wx.navigateTo({
                         url: 'order'
                     });
                 },
                 fail: function(res) {
-                    console.log(res);
+                    params.errMsg = res.errMsg;
+                    // 支付失败消息
+                    message.sendPayFailMessage(params);
                 },
                 complete: function(res) {
                     console.log('complete');
