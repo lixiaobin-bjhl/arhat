@@ -8,12 +8,12 @@
 import { post, get } from '../function/serviceUtil';
 
 /**
- * 获取产品列表 
+ * 登录
  * 
- * @param {string} pid 产品id
+ * @param {string} 登录
  */
 export function login (user) {
-    return post('/api/user', {
+    return post('/api/account', {
         mobile: user.mobile,
         password: user.password
     });

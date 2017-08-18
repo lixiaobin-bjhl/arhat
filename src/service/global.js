@@ -7,7 +7,7 @@
 
 import userInfo from '../plugin/userInfo';
 import wepy from 'wepy';
-import { get, xmlPost } from '../function/serviceUtil';
+import { get, xmlPost, post} from '../function/serviceUtil';
 import config from '../config';
 
 /**
@@ -19,7 +19,9 @@ export function login () {
             .then((res)=> {
                 resolve(res);
             })
-            .catch(reject);
+            .catch(()=> {
+                reject();
+            });
     });
 }
 
@@ -40,10 +42,9 @@ export function getUserInfo () {
  * 将jscode转化为session信息
  */
 export function jscode2Session (code) {
-    return get('https://api.weixin.qq.com/sns/jscode2session', {
+    return post('/api/user/jscode2session', {
         appid: config.appId,
         secret: config.appSecret,
-        js_code: code,
-        grant_type: 'authorization_code'
+        code: code
     });
 }

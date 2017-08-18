@@ -146,7 +146,7 @@ export default class Index extends wepy.page {
     }
 
     onShow() {
-        if (userInfo.getOpenId()) {
+        if (userInfo.getOpenid()) {
             this.$invoke('footer', 'getCountByOpendId');
         }
     }

@@ -21,11 +21,17 @@ export default {
     setInfo (userInfo) {
         this._userInfo = userInfo;
     },
-    setOpenId (openId) {
-        this._openId = openId; 
+    getUserid () {
+        if (!this._user) {
+            this._user = wx.getStorageSync('user');
+        }
+        return this._user.id;
     },
-    getOpenId () {
-        return this._openId;
+    getOpenid () {
+        if (!this._user) {
+            this._user = wx.getStorageSync('user');
+        }
+        return this._user.openid;
     },
     setSessionKey (sessionKey) {
         this._sessionKey = sessionKey;

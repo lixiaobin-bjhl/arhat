@@ -16,7 +16,7 @@ import config from '../config';
  */
 export function list () {
     return post('/api/shippingAddress/openid', {
-        openid: userInfo.getOpenId()
+        openid: userInfo.getOpenid()
     });
 }
 
@@ -33,8 +33,8 @@ export function list () {
 export function add (params) {
     Object.assign(params, {
         mobile: config.mobile,
-        user: wx.getStorageSync('userId'),
-        openid: userInfo.getOpenId()
+        user:  userInfo.getUserid(),
+        openid: userInfo.getOpenid()
     });
     return post('/api/shippingAddress/', params);
 }

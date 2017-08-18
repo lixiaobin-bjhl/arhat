@@ -18,8 +18,8 @@ export function addToCard (params) {
     return post('/api/card', {
         product: params.product,
         count: params.count,
-        user: wx.getStorageSync('userId'),
-        openid: userInfo.getOpenId(),
+        user: userInfo.getUserid(),
+        openid: userInfo.getOpenid(),
         mobile: config.mobile
     })
 }
@@ -30,14 +30,18 @@ export function addToCard (params) {
  * @return {Promise}
  */
 export function getCardByOpenid () {
-    return get('/api/card/openid/' + userInfo.getOpenId());
+    var openid = userInfo.getOpenid();
+    if (!openid) {
+        return;
+    }
+    return get('/api/card/openid/' + userInfo.getOpenid());
 }
 
 /**
  * 获取购物车的数量 
  */
 export function getCountByOpendId () {
-    var openid = userInfo.getOpenId();
+    var openid = userInfo.getOpenid();
     if (!openid) {
         return;
     }
@@ -62,7 +66,7 @@ export function remove (id) {
  * @return {Promise}
  */
 export function removeByPids (pids) {
-    var openid = userInfo.getOpenId();
+    var openid = userInfo.getOpenid();
     return del('/api/card/pids/' + openid, {
         pids: pids
     });

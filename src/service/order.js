@@ -15,7 +15,7 @@ import userInfo from '../plugin/userInfo';
  */
 export function list () {
     return post('/api/order/openid', {
-        openid: userInfo.getOpenId()
+        openid: userInfo.getOpenid()
     });
 }
 
@@ -38,7 +38,7 @@ export function list () {
  */
 export function add (params) {
     Object.assign(params, {
-        openid: userInfo.getOpenId(),
+        openid: userInfo.getOpenid(),
         user: wx.getStorageSync('userId')
     });
     return post('/api/order/', params);

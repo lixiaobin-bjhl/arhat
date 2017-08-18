@@ -15,20 +15,24 @@ export default function initUser (context) {
             .then((res)=> {
                 jscode2Session(res.code)
                     .then((res)=> {
-                        userInfo.setOpenId(res.openid);
-                        context.$invoke('footer', 'getCountByOpendId');
-                        userInfo.setSessionKey(res.session_key);
+                        var sessionData = JSON.parse(res.data.body);
+                        var openid = sessionData.openid;
                         getUserInfo()
                             .then((res)=> {
-                                // userInfo.setInfo(res);
-                                add(res)
+                                var params = res;
+                                Object.assign(res, {
+                                    openid
+                                });
+                                add(params)
                                     .then((res)=> {
-                                        wx.setStorage({
-                                            key: 'userId',
-                                            data: res.data._id
+                                        var data = res.data;
+                                        wx.setStorageSync('user', {
+                                            id: data._id,
+                                            openid: openid
                                         });
-                                    })
-                                resolve(res);
+                                        resolve(res);
+                                        context.$invoke('footer', 'getCountByOpendId');
+                                    });
                             })
                             .catch(reject);
                     })

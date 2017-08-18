@@ -27,7 +27,7 @@ function doRequest(url, data = {}, method = 'get') {
                 var data = response.data;
 
                 if (response.statusCode > 300) {
-                    toast('系统异常，请稍后重试');
+                    toast('系统故障，请稍后重试');
                     reject(data);
                     return;
                 }
@@ -37,12 +37,12 @@ function doRequest(url, data = {}, method = 'get') {
                 }  else if (typeof data.code === 'undefined') {
                     resolve(data);
                 } else {
-                    toast('系统异常，请稍后重试');
+                    toast('系统异常，请稍后重试。');
                     reject(data);
                 }
             }, 
             (response)=> {
-                toast('系统异常，请稍后重试');
+                toast('系统异常，请稍后重试^_^');
             }
         );
     });

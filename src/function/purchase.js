@@ -23,7 +23,7 @@ export default function (params) {
     var spbill_create_ip = config.ip;
     var total_fee = params.totalFee;
     var signType = 'MD5';
-    var openid = userInfo.getOpenId();
+    var openid = userInfo.getOpenid();
     var out_trade_no = params.outTradeNo;
     var notify_url = config.domain + '/purchase/notice';
     var trade_type = 'JSAPI';
