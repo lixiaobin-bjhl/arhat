@@ -43,10 +43,6 @@
                 <view class="money">{{expressMoney}}</view>
             </view>
             <view class="weui-form-preview__item">
-                <view class="weui-form-preview__label">商品</view>
-                <view class="weui-form-preview__value">123</view>
-            </view>
-            <view class="weui-form-preview__item">
                 <view class="weui-form-preview__label">给商家留言</view>
                 <view class="weui-form-preview__value">
                     <input placeholder="给商家留言" bindinput="bindInputMessage" value="{{message}}" maxlength="50"/>

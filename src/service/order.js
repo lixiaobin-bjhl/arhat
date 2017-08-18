@@ -39,7 +39,14 @@ export function list () {
 export function add (params) {
     Object.assign(params, {
         openid: userInfo.getOpenid(),
-        user: wx.getStorageSync('userId')
+        user: userInfo.getUserid()
     });
     return post('/api/order/', params);
+}
+
+/**
+ * 查看订单详情
+ */
+export function detail (id) {
+    return get('/api/order/' + id);
 }

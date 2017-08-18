@@ -157,7 +157,7 @@
              * 获取产品详情
              */
             getCardList: () => {
-                wx.showLoading();
+                wx.showLoading({title: '加载中'});
                 getCardByOpenid()
                     .then((res) => {
                         wx.hideLoading();

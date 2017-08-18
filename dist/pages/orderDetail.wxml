@@ -1,0 +1,104 @@
+
+    <view class="page order-detail">
+        <view  wx:if="{{info.shippingAddress}}" class="address">
+            <view class="clearfix">
+                <view class="pull-left"><view class="icon icon-address"/>收货人：{{info.shippingAddress.name}}</view>
+                <view class="pull-right">{{info.shippingAddress.contactNumber}}</view>
+            </view>
+            <view class="gray-light">{{info.shippingAddress.region}}{{info.shippingAddress.address}}</view>
+        </view>
+       
+        <block  wx:if="{{info.products}}" wx:for="{{info.products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+            <view class="product-item">
+                <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" catchtap="redirectProductDetail" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}" data-wepy-params-a="{{item}}"/>
+                </view>
+                <view class="product">  
+                    <view class="title">{{item.product.title}}</view>
+                    <view wx:for="{{item.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
+                    <view class="info">
+                        <view class="price">{{item.product.priceStr}}</view>
+                        <view class="count">×{{item.count}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">订单状态</view>
+                <view class="weui-form-preview__value"><view class="{{info.status === 0 ? 'text-danger': ''}} {{info.status === 1 ? 'text-success': ''}} {{info.status === 2 ? 'text-warning': ''}} {{info.status === 3 ? 'text-gary': ''}}">{{info.statusStr}}</view></view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">收货方式</view>
+                <view class="weui-form-preview__value">快递</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">快递费用</view>
+                <view class="weui-form-preview__value money">{{info.expressMoneyStr}}</view>
+            </view>
+            <view class="weui-form-preview__item" wx:if="{{info.expressType}}">
+                <view class="weui-form-preview__label">快递方式</view>
+                <view class="weui-form-preview__value">{{info.expressType}}</view>
+            </view>
+            <view class="weui-form-preview__item" wx:if="{{info.expressNumber}}">
+                <view class="weui-form-preview__label">快递单号</view>
+                <view class="weui-form-preview__value">{{info.expressNumber}}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">给商家留言</view>
+                <view class="weui-form-preview__value">{{info.message || '-'}}</view>
+            </view>
+        </view>
+
+        <view class="fmenu fmenu2" wx:if="{{info.status === 0}}">
+            <view class="menu-item" bindtap="redirect" data-wepy-params-a="index">  
+                <view class="icon home"/>    
+                <view>首页</view>  
+            </view>
+            <view class="total">合计：<view class="money middle">{{info.totalFeeStr}}</view></view>
+            <form>
+                <button class="btn btn-order" bindtap="pay" data-wepy-params-a="">支付订单</button>
+            </form>
+        </view>
+        <block wx:if="{{info.status !== 0}}">
+            
+    <view class="fmenu">
+        <view class="menu-item {{$footer$from ==='home' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="index">  
+            <view class="icon home"/>    
+            <view class="text">首页</view>  
+        </view>   
+        <view class="menu-item {{$footer$from ==='card' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="card">
+            <view class="icon card">
+                <view class="red-point"  wx:if="{{ $footer$cardCount > 0 && $footer$cardCount <=9 }}">{{$footer$cardCount}}</view>
+                <view class="red-point"  wx:if="{{$footer$cardCount > 9}}">9+</view>
+            </view>   
+            <view class="text">购物车</view>
+        </view> 
+        <view class="menu-item {{$footer$from ==='my' ? 'active': ''}}" bindtap="$footer$redirect" data-wepy-params-a="my">
+            <view class="icon my"/>  
+            <view class="text">我的</view>
+        </view>
+
+        <!-- <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="shippingAddress">我的地址</navigator></view>
+       <view style="margin: 10px;"><navigator style="font-size: 12px;color: #3399ff;" url="order">我的订单</navigator></view>
+       <view class="weui-footer">
+        <view class="weui-footer__text">Copyright © 2017 arhat0.0.1</view> -->
+    </view>
+
+        </block>
+        
+    <view class="copyright">
+        <view class="moon">
+            <view class="icon"/>
+            <view class="middle">AppMoon</view>
+        </view>
+        <view class="t">
+            appmoon.cn提供技术支持
+        </view>
+    </view>
+
+    </view>

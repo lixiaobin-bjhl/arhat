@@ -1,0 +1,251 @@
+<!--
+     @fileOverview arhat-orderDetail
+     @author XiaoBin Li(lixiaobin8878@gmail.com) 
+-->
+
+
+<style lang="sass"> 
+    
+    @import '../scss/color';
+    @import '../scss/mixin';
+    @import '../scss/components/footer';
+
+    .order-detail {
+        .address {
+            background-image: url('http://otzuzbqja.bkt.clouddn.com/order-line.png');
+            background-repeat: repeat-x;
+            background-position: bottom center;
+            background-size: 36px 2px;
+            position: relative;
+            padding: 10px 25px 10px 10px;
+            background-color: #FFF;
+            border-top: 1px solid map-get($borders, shallow);
+            .icon {
+                @extend .icon-bg;
+                width: 14px;
+                height: 14px;
+                @extend .middle;
+                &.icon-address {
+                    margin-right: 3px;
+                    background-image: url(http://otzuzbqja.bkt.clouddn.com/address.svg);
+                }
+                &.icon-plus {
+                    width: 28px;
+                    height:28px;
+                    margin-right: 5px;
+                    background-image: url(http://otzuzbqja.bkt.clouddn.com/plus.svg);
+                }
+            }
+        }
+        .fmenu {
+            .total {
+                flex: 2;
+                padding-right: 5px;
+                text-align: right;
+            }
+            form {
+                flex: 2;
+            }
+            .btn {
+                @extend .plain-btn;
+                line-height: 108rpx;
+            }
+        }
+        .fmenu2 {
+            .menu-item {
+                &:first-of-type {
+                    border-right: 1px solid map-get($borders, shallow);
+                }
+            }
+        }
+    }
+</style>
+
+<template>
+    <view class="page order-detail">
+        <view wx:if="{{info.shippingAddress}}" class="address">
+            <view class="clearfix">
+                <view class="pull-left"><view class="icon icon-address"></view>收货人：{{info.shippingAddress.name}}</view>
+                <view class="pull-right">{{info.shippingAddress.contactNumber}}</view>
+            </view>
+            <view class="gray-light">{{info.shippingAddress.region}}{{info.shippingAddress.address}}</view>
+        </view>
+       
+        <block wx:if="{{info.products}}" wx:for="{{info.products}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+            <view class="product-item">
+                <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" @tap.stop="redirectProductDetail({{item}})" style="background-color: #eee;" mode="aspectFill" src="{{item.imageUrl}}"></image>
+                </view>
+                <view class="product">  
+                    <view class="title">{{item.product.title}}</view>
+                    <view wx:for="{{item.product.specifications}}" class="specifications" wx:for-item="specification" wx:for-index="index" wx:key="index">
+                        <view>{{specification.name}}：</view>
+                        <view>{{specification.value}}</view>
+                    </view>
+                    <view class="info">
+                        <view class="price">{{item.product.priceStr}}</view>
+                        <view class="count">×{{item.count}}</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">订单状态</view>
+                <view class="weui-form-preview__value"><view class="{{info.status === 0 ? 'text-danger': ''}} {{info.status === 1 ? 'text-success': ''}} {{info.status === 2 ? 'text-warning': ''}} {{info.status === 3 ? 'text-gary': ''}}">{{info.statusStr}}</view></view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">收货方式</view>
+                <view class="weui-form-preview__value">快递</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">快递费用</view>
+                <view class="weui-form-preview__value money">{{info.expressMoneyStr}}</view>
+            </view>
+            <view class="weui-form-preview__item" wx:if="{{info.expressType}}">
+                <view class="weui-form-preview__label">快递方式</view>
+                <view class="weui-form-preview__value">{{info.expressType}}</view>
+            </view>
+            <view class="weui-form-preview__item" wx:if="{{info.expressNumber}}">
+                <view class="weui-form-preview__label">快递单号</view>
+                <view class="weui-form-preview__value">{{info.expressNumber}}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">给商家留言</view>
+                <view class="weui-form-preview__value">{{info.message || '-'}}</view>
+            </view>
+        </view>
+
+        <view class="fmenu fmenu2" wx:if="{{info.status === 0}}">
+            <view class="menu-item" @tap="redirect('index')">  
+                <view class="icon home"></view>    
+                <view>首页</view>  
+            </view>
+            <view class="total">合计：<view class="money middle">{{info.totalFeeStr}}</view></view>
+            <form>
+                <button class="btn btn-order" @tap="pay()">支付订单</button>
+            </form>
+        </view>
+        <block wx:if="{{info.status !== 0}}">
+            <footer></footer>
+        </block>
+        <copyright></copyright>
+    </view>
+</template>
+
+<script>
+
+    import wepy from 'wepy'
+    import indexBy from '../function/indexBy'
+    import pageConfig  from './config'
+    import { list } from '../service/shippingAddress'
+    import * as order from '../service/order'
+    import * as message from '../service/message'
+    import multiply from '../function/multiply'
+    import plus from '../function/plus'
+    import currency from '../function/currency'
+    import config from '../config'
+    import adaptProductList from '../function/adaptProductList'
+    import purchase from '../function/purchase'
+    import createOrderNumber from '../function/createOrderNumber'
+    import copyright from '../components/copyright'
+    import toast from '../function/toast'
+    import footer from '../components/footer'
+    
+    export default class OrderConfirm  extends wepy.page {
+        
+        config = {
+            navigationBarTitleText: '订单详情'
+        }
+
+        data = {
+           info: {}
+        }
+
+        onShow () {
+        }
+
+        components = {
+            copyright,
+            footer
+        }
+        
+         /**
+         * 获取支付状态
+         */
+        getStatusStr = (status) => {
+            var option = indexBy(pageConfig.ORDER_STATUS, 'id')[status];
+            var result = '';
+            if (option) {
+                result = option.name;
+            }
+            return result;
+        }
+        
+        /**
+         * 获取订单详情 
+         */
+        getDetail = (id)=> {
+            order.detail(id)
+                .then((res)=> {
+                    var data = res.data;
+                    data.products = adaptProductList(data.products);
+                    data.statusStr = this.getStatusStr(data.status);
+                    this.info = data;
+                    this.$apply();
+                });
+        }
+
+        methods = {
+            /**
+             * 付款 
+             */
+            pay () {
+                var item = this.info;
+                var params = {
+                    products: item.products.map((item)=> {
+                        return {
+                            product: item._id,
+                            count: item.count
+                        }
+                    }),
+                    id: item._id,
+                    shippingAddress: item.shippingAddress && item.shippingAddress._id,
+                    discountMoney: 0,
+                    title: item.products.map((item)=> {
+                        return item.product.title
+                    }).join(',').slice(0, 50),
+                    status: 0,
+                    mobile: config.mobile,
+                    remark: item.remark,
+                    mchId: config.mchId,
+                    outTradeNo: createOrderNumber(),
+                    expressMoney: 0,
+                    totalFee: item.totalFee
+                };
+                purchase(params);
+            },
+            
+            /**
+             * 跳转到产品详情 
+             */
+            redirectProductDetail: function redirectProductDetail(item) {
+                this.methods.redirect('productDetail?pid=' + item.product._id);
+            },
+            /**
+             * 跳转地址 
+             */
+            redirect (url) {
+                wx.redirectTo({
+                    url: url
+                });
+            }
+        }
+
+        onLoad (p) {
+            var id = p.id;
+            this.getDetail(id);   
+        }
+    }
+</script>

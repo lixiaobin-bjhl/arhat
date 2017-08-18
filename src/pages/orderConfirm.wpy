@@ -1,5 +1,5 @@
 <!--
-     @fileOverview arhat-card
+     @fileOverview arhat-orderConfirm
      @author XiaoBin Li(lixiaobin8878@gmail.com) 
 -->
 
@@ -115,10 +115,6 @@
                 <view class="weui-form-preview__value" class="money">{{expressMoney}}</view>
             </view>
             <view class="weui-form-preview__item">
-                <view class="weui-form-preview__label">商品</view>
-                <view class="weui-form-preview__value">123</view>
-            </view>
-            <view class="weui-form-preview__item">
                 <view class="weui-form-preview__label">给商家留言</view>
                 <view class="weui-form-preview__value">
                     <input placeholder="给商家留言" bindinput="bindInputMessage" value="{{message}}" maxlength="50" />
@@ -222,6 +218,13 @@
             },
 
             /**
+             * 跳转到产品详情 
+             */
+            redirectProductDetail: function redirectProductDetail(item) {
+                this.methods.redirect('productDetail?pid=' + item.product._id);
+            },
+
+            /**
              * 创建订单 
              */
             createOrder: (e)=> {
@@ -301,7 +304,7 @@
          * 根据产品ids获取商品信息 
          */
         getProductsByIds = (products) => {
-            wx.showLoading();
+            wx.showLoading({title: '加载中'});
             listByIds({
                 products: products
             })

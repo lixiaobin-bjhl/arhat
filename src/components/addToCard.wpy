@@ -192,7 +192,7 @@
                 var product = this.product;
                 this.product.count = count;
 
-                wx.showLoading();
+                wx.showLoading({title: '加载中'});
                 cardRequest.addToCard({
                     product: product._id,
                     count: product.count

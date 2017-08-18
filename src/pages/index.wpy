@@ -164,6 +164,9 @@ export default class Index extends wepy.page {
         //     url: 'orderConfirm?products=' + JSON.stringify([{count:2, id: "59206d80c5ca1c13e0ce5789"}])
         // });
         // wx.redirectTo({
+        //     url: 'orderDetail?id=59971e9ba1a9a11666bffea5'
+        // });
+        // wx.redirectTo({
         //     url: 'order'
         // });
     }
@@ -206,7 +209,7 @@ export default class Index extends wepy.page {
      * 获取产品列表 
      */
     getProductList = () => {
-        wx.showLoading();
+        wx.showLoading({title: '加载中'});
         getList()
             .then((res) => {
                 wx.hideLoading();

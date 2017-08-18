@@ -1,7 +1,7 @@
 
     <view class="order">
         <view  wx:if="{{list && list.length}}">
-            <view class="order-item" wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
+            <view class="order-item" bindtap="forwardOrderDetail" wx:for="{{list}}" wx:for-item="item" wx:for-index="index" wx:key="item._id" data-wepy-params-a="{{item}}">
                 <view class="order-number">订单编号：{{item._id}}</view>
                 <view class="product-item" wx:for="{{item.products}}" wx:for-item="n" wx:for-index="i" wx:key="product._id">
                     <view class="product-image weui-media-box__hd weui-media-box__hd_in-appmsg">

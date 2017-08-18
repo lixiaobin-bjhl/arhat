@@ -151,7 +151,7 @@
          * 获取订单详情
          */
         getDetial = (pid) => {
-            wx.showLoading();
+            wx.showLoading({title: '加载中'});
             getDetial(pid)
                 .then((res)=> {
                     var product = res.data;

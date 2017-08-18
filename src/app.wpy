@@ -18,6 +18,7 @@
                 'pages/shippingAddress',
                 'pages/fillShippingAddress',
                 'pages/order',
+                'pages/orderDetail',
                 'pages/my'
             ],
             window: {
