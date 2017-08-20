@@ -10,7 +10,7 @@
     height: 100%;
     width: 100%;
 }
-.home {
+.index {
     .product-subject {
         border-top: 1px solid map-get($borders, shallow);
         background: #FFF;
@@ -88,8 +88,8 @@
 }
 </style>
 <template>
-    <view class="page home">
-        <swiper wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <view class="page index">
+        <swiper wx:if="{{bannerOption}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{bannerOption}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
                 <navigator open-type="redirect" url="productDetail?pid={{item._id}}">
                     <swiper-item>
@@ -200,7 +200,7 @@ export default class Index extends wepy.page {
         try {
             res = await initUser(this);
         } catch (e) {
-            toast('获取用户信息失败');
+            toast('获取用户信息失败，小程序不能正常为您提供服务^_^');
         }
     }
     /**
@@ -231,7 +231,12 @@ export default class Index extends wepy.page {
         }
         // 筛选分类时，不要改变bannerOption
         if (!this.bannerOption.length) {
-            this.bannerOption = bannerOption;
+            if (!bannerOption.length) {
+                // 没有banner就不要显示图片
+                this.bannerOption = null;
+            } else {
+                this.bannerOption = bannerOption;
+            }
         }
         return data;
     };

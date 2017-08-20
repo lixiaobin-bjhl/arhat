@@ -1,6 +1,6 @@
 
-    <view class="page home">
-        <swiper  wx:if="{{bannerOption.length}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <view class="page index">
+        <swiper  wx:if="{{bannerOption}}" class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{bannerOption}}" wx:for-item="item" wx:for-index="index" wx:key="item._id">
                 <navigator open-type="redirect" url="productDetail?pid={{item._id}}">
                     <swiper-item>

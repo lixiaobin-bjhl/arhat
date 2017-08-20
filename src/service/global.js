@@ -38,7 +38,9 @@ export function getUserInfo () {
             .then((res) => {
                 resolve(res.userInfo);
             })
-            .catch(reject);
+            .catch(()=> {
+                reject();
+            });
     });
 }
 

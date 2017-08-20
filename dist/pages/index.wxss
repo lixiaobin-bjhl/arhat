@@ -10,11 +10,11 @@
  * @file global mixin
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
-.icon-bg, .home .item .product .btn {
+.icon-bg, .index .item .product .btn {
   background-repeat: no-repeat;
   background-size: contain; }
 
-.middle, .home .item .product .btn {
+.middle, .index .item .product .btn {
   display: inline-block;
   vertical-align: middle; }
 
@@ -50,69 +50,69 @@
   height: 100%;
   width: 100%; }
 
-.home .product-subject {
+.index .product-subject {
   border-top: 1px solid #eaeaea;
   background: #FFF;
   display: flex;
   padding: 10px; }
-  .home .product-subject view {
+  .index .product-subject view {
     flex: 1;
     text-align: center;
     border-bottom: 1px solid transparent; }
-    .home .product-subject view.active {
+    .index .product-subject view.active {
       color: #1296db;
       border-bottom: 1px solid #1296db; }
 
-.home .item {
+.index .item {
   background: #FFF;
   padding: 10px 10px 1px 10px;
   border-bottom: 1px solid #eaeaea; }
-  .home .item:before, .home .item:after {
+  .index .item:before, .index .item:after {
     content: " ";
     display: table; }
-  .home .item:after {
+  .index .item:after {
     clear: both; }
-  .home .item:first-of-type {
+  .index .item:first-of-type {
     border-top: 1px solid #eaeaea; }
-  .home .item .product-picture {
+  .index .item .product-picture {
     width: 80px;
     height: 80px;
     float: left;
     margin-right: 10px; }
-  .home .item .product {
+  .index .item .product {
     overflow: hidden; }
-    .home .item .product .title {
+    .index .item .product .title {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap; }
-    .home .item .product .specifications {
+    .index .item .product .specifications {
       font-size: 14px; }
-      .home .item .product .specifications view {
+      .index .item .product .specifications view {
         display: inline-block;
         color: #666; }
-    .home .item .product .btn {
+    .index .item .product .btn {
       width: 35px;
       height: 35px;
       display: inline-block; }
-      .home .item .product .btn.btn-card {
+      .index .item .product .btn.btn-card {
         background-image: url("http://otzuzbqja.bkt.clouddn.com/card-circle.svg"); }
-      .home .item .product .btn.btn-pay {
+      .index .item .product .btn.btn-pay {
         width: 30px;
         height: 30px;
         position: relative;
         top: -4px;
         background-image: url("http://otzuzbqja.bkt.clouddn.com/card-purchase.svg"); }
-    .home .item .product .btns {
+    .index .item .product .btns {
       float: right; }
-    .home .item .product .btn-group {
+    .index .item .product .btn-group {
       color: #ff3333;
       margin-top: 10px; }
-      .home .item .product .btn-group:before, .home .item .product .btn-group:after {
+      .index .item .product .btn-group:before, .index .item .product .btn-group:after {
         content: " ";
         display: table; }
-      .home .item .product .btn-group:after {
+      .index .item .product .btn-group:after {
         clear: both; }
-      .home .item .product .btn-group .money {
+      .index .item .product .btn-group .money {
         float: left; }
-      .home .item .product .btn-group .btns {
+      .index .item .product .btn-group .btns {
         float: right; }
