@@ -116,8 +116,8 @@ checkbox {
       display: inline-block;
       color: #666; }
   .product-item .trash {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     float: right;
     margin: 0 0 0 4px;
     background-image: url("http://otzuzbqja.bkt.clouddn.com/trash2.svg"); }

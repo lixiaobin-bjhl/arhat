@@ -15,11 +15,11 @@
         border-top: 1px solid map-get($borders, shallow);
         background: #FFF;
         display: flex;
-        padding: 10px;
         view {
             flex: 1;
             text-align: center;
-            border-bottom: 1px solid transparent;
+            padding: 10px 0;
+            border-bottom: 1px solid map-get($borders, shallow);
             &.active {
                 color: $brand;
                 border-bottom: 1px solid $brand;
@@ -30,9 +30,6 @@
         @include clearfix;
         background: #FFF;
         padding: 10px 10px 1px 10px;
-        &:first-of-type {
-            border-top: 1px solid map-get($borders, shallow);
-        }
         border-bottom: 1px solid map-get($borders, shallow);
         .product-picture {
             width: 80px;
@@ -129,7 +126,7 @@
             </view>
         </view>
         <addToCard @addtocardsuccess.user="addToCardHandler"></addToCard>
-        <copyright></copyright>
+        <copyright wx:if="products"></copyright>
         <footer from="home"></footer>
     </view>
 </template>

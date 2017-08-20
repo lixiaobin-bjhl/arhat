@@ -76,7 +76,7 @@
                 <button @tap="redirect('index')" class="surfing">去逛逛</button>
             </view>
         </view>
-        <copyright></copyright>
+        <copyright wx:if="{{list && !list.length}}"></copyright>
         <footer></footer>
     </view>
 </template>

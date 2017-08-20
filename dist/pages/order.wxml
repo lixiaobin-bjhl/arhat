@@ -38,7 +38,7 @@
             </view>
         </view>
         
-    <view class="copyright">
+    <view class="copyright" wx:if="{{list && !list.length}}">
         <view class="moon">
             <view class="icon"/>
             <view class="middle">AppMoon</view>

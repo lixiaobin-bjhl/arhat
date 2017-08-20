@@ -53,12 +53,12 @@
 .index .product-subject {
   border-top: 1px solid #eaeaea;
   background: #FFF;
-  display: flex;
-  padding: 10px; }
+  display: flex; }
   .index .product-subject view {
     flex: 1;
     text-align: center;
-    border-bottom: 1px solid transparent; }
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea; }
     .index .product-subject view.active {
       color: #1296db;
       border-bottom: 1px solid #1296db; }
@@ -72,8 +72,6 @@
     display: table; }
   .index .item:after {
     clear: both; }
-  .index .item:first-of-type {
-    border-top: 1px solid #eaeaea; }
   .index .item .product-picture {
     width: 80px;
     height: 80px;

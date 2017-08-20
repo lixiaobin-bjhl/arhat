@@ -74,7 +74,7 @@
     </view>
 
         
-    <view class="copyright">
+    <view class="copyright" wx:if="products">
         <view class="moon">
             <view class="icon"/>
             <view class="middle">AppMoon</view>

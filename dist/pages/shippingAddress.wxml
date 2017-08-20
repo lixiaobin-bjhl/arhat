@@ -16,7 +16,7 @@
                 </view>
             </view>
         </view>
-        <view  wx:else class="empty-notice">
+        <view class="empty-notice"  wx:if="{{shippingAddressList && !shippingAddressList.length}}">
             <view class="empty"/>
             <view>哎呀，你还没有收货地址哦~</view>
         </view>
@@ -27,7 +27,7 @@
             </view>
         </view>
         
-    <view class="copyright">
+    <view class="copyright" wx:if="{{shippingAddressList}}">
         <view class="moon">
             <view class="icon"/>
             <view class="middle">AppMoon</view>
