@@ -10,6 +10,9 @@
     @import '../scss/components/footer';
 
     .product-detail {
+        .slide-image {
+            width: 100%;
+        }
         .fmenu {
             .menu-item {
                 &:first-of-type {

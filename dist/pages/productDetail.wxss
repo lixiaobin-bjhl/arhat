@@ -127,6 +127,9 @@
       .fmenu .menu-item.active .my {
         background-image: url("http://otzuzbqja.bkt.clouddn.com/my-active2.svg"); }
 
+.product-detail .slide-image {
+  width: 100%; }
+
 .product-detail .fmenu .menu-item:first-of-type {
   border-right: 1px solid #eaeaea; }
 
