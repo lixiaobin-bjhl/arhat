@@ -27,13 +27,13 @@
   justify-content: center;
   align-items: center; }
 
-.plain-btn {
+.plain-btn, .add-to-card .btn-group .submit {
   border-radius: 0;
   background: #ff3333;
   border: 0;
   font-size: 14px;
   color: #FFF; }
-  .plain-btn:after {
+  .plain-btn:after, .add-to-card .btn-group .submit:after {
     content: '';
     border: 0; }
 
@@ -109,10 +109,13 @@
     border: 1px solid #eaeaea;
     padding: 6px 9px; }
 
-.add-to-card .submit {
+.add-to-card .btn-group {
   width: 100%;
-  border-radius: 0;
-  background: #ff3333;
   position: absolute;
   bottom: 0;
-  color: #FFF; }
+  color: #FFF;
+  display: flex; }
+  .add-to-card .btn-group .submit {
+    flex: 1; }
+  .add-to-card .btn-group .btn-pay {
+    background-color: #ff9933; }

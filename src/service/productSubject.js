@@ -1,5 +1,5 @@
 /**
- * @fileOverview arhat-product-service
+ * @fileOverview arhat-productSubject-service
  * @author XiaoBin Li(lixiaobin8878@gmail.com) 
  */
 
@@ -8,10 +8,10 @@
 import { get, post } from '../function/serviceUtil';
 
 /**
- * 获取prepayid
+ * 获取产品列表 
  * 
  * @return {Promise}
  */
-export function getPrepayId (params = {} ) {
-    return post('/purchase/prepayid', params)  
+export function getList () {
+    return get('/api/productSubject');
 }

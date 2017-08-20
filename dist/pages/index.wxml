@@ -10,7 +10,10 @@
             </block>
         </swiper>
         <view class="weui-panel__bd">
-            <navigator open-type="redirect"  wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
+            <view class="product-subject">
+                <view  wx:for="{{subjects}}" class="{{item.active ? 'active': ''}}" bindtap="changeSubject" wx:for-item="item" wx:for-index="index" wx:key="item._id" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}">{{item.name}}</view>
+            </view>
+            <navigator open-type="redirect" wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="product-picture">
                     <image class="weui-media-box__thumb" mode="aspectFill" src="{{item.imageUrl}}"/>
                 </view>
@@ -24,7 +27,6 @@
                         <view class="money">{{item.priceStr}}</view>
                         <view class="btns">
                             <view catchtap="showAddToCard" class="btn btn-card" data-wepy-params-a="{{item}}"/>
-                            <view catchtap="pay" class="btn btn-pay" data-wepy-params-a="{{item}}"/>
                         </view>
                     </view>
                 </view>
@@ -64,7 +66,10 @@
 
                 </view>
             </view>
-            <button class="submit" bindtap="$addToCard$submit" disabled="{{$addToCard$submitting}}">确定</button> 
+            <view class="btn-group">
+                <button class="submit" bindtap="$addToCard$submit" disabled="{{$addToCard$submitting}}">加入购物车</button>
+                <button class="btn-pay submit" bindtap="$addToCard$pay" disabled="{{$addToCard$submitting}}">立即购买</button>  
+            </view>
         </view>
     </view>
 

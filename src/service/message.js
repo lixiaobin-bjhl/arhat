@@ -12,6 +12,8 @@ import divide from '../function/divide';
 
 /**
  * 发送模板消息 
+ * 
+ * @return {Promise}
  */
 function postMessage (touser, templateId, data, formId) {
     return post('/api/message', {
@@ -32,6 +34,8 @@ function postMessage (touser, templateId, data, formId) {
  * @param {number} params.totalFee 交易金额
  * @param {number} params.title 交易内容
  * @param {number} params.id 订单id
+ * 
+ * @return {Promise}
  */
 export function sendCreateOrderMessage (params) {
     return postMessage(
@@ -57,6 +61,8 @@ export function sendCreateOrderMessage (params) {
 
 /**
  * 发送一个支付成功消息 
+ * 
+ * @return {Promise}
  */
 export function sendPaySuccessMessage (params) {
     return postMessage(
@@ -82,6 +88,8 @@ export function sendPaySuccessMessage (params) {
 
 /**
  * 发送一个支付失败消息 
+ * 
+ * @return {Promise}
  */
 export function sendPayFailMessage (params) {
     return postMessage(

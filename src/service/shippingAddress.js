@@ -61,6 +61,8 @@ export function update (id, update) {
 
 /**
  * 根据id获取地址信息 
+ * 
+ * @return {Promise}
  */
 export function show (id) {
     return get('/api/shippingAddress/' + id);
@@ -69,6 +71,8 @@ export function show (id) {
 /**
  * 删除地址
  * @param {string} id 地址id
+ * 
+ * @return {Promise}
  */
 export function remove (id) {
     return del('/api/shippingAddress/' + id);

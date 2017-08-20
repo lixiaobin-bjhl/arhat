@@ -43,12 +43,26 @@
   margin: 0 auto; }
 
 .banner {
-  height: 300rpx;
+  height: 500px;
   width: 100%; }
 
 .banner image {
   height: 100%;
   width: 100%; }
+
+.home .product-subject {
+  margin-top: 5px;
+  border-top: 1px solid #eaeaea;
+  background: #FFF;
+  display: flex;
+  padding: 10px; }
+  .home .product-subject view {
+    flex: 1;
+    text-align: center;
+    border-bottom: 1px solid transparent; }
+    .home .product-subject view.active {
+      color: #1296db;
+      border-bottom: 1px solid #1296db; }
 
 .home .item {
   background: #FFF;

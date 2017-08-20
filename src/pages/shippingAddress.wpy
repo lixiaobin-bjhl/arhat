@@ -181,12 +181,15 @@
              * 获取收货地址列表
              */
             getShippingAddressList: ()=> {
+                wx.showLoading({title: '加载中'});
                 list()
                     .then((res)=> {
+                        wx.hideLoading();
                         this.shippingAddressList = res.data; 
                         this.$apply();
                     })
                     .catch(()=> {
+                        wx.hideLoading();
                         this.shippingAddressList = [];
                         this.$apply();
                     });

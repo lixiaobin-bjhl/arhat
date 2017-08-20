@@ -55,7 +55,7 @@
         <view class="weui-form-preview" hidden="{{activeIndex != 0}}">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__item">
-                    <view class="weui-form-preview__label">价格</view>
+                    <view class="weui-form-preview__label">售价</view>
                     <view class="weui-form-preview__value_in-hd money">{{product.priceStr}}</view>
                 </view>
             </view>
@@ -65,8 +65,8 @@
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__item" wx:if="{{product.discountPrice}}">
-                    <view class="weui-form-preview__label">原价</view>
-                    <view class="weui-form-preview__value" style="text-decoration: line-through;">{{product.priceStr}}</view>
+                    <view class="weui-form-preview__label">折扣</view>
+                    <view class="weui-form-preview__value">立减{{product.discountPrice}}元</view>
                 </view>
                 <view class="weui-form-preview__item">
                     <view class="weui-form-preview__label">商品</view>
@@ -116,13 +116,16 @@
                 <view class="text">首页</view>  
             </view>   
             <view class="menu-item" @tap="redirect('card')">
-                <view class="icon card"></view>   
+                <view class="icon card">
+                    <view class="red-point" wx:if="{{ cardCount > 0 && cardCount <=9 }}">{{cardCount}}</view>
+                    <view class="red-point" wx:if="{{cardCount > 9}}">9+</view>
+                </view>  
                 <view class="text">购物车</view>
             </view>
             <button class="btn btn-card" @tap="showAddToCard()">加入购物车</button>
             <button class="btn btn-pay" @tap="pay()">立即购买</button>
         </view>
-        <addToCard></addToCard>
+        <addToCard @addtocardsuccess.user="addToCardHandler"></addToCard>
         <copyright></copyright>
     </view>
 </template>
@@ -130,11 +133,14 @@
 <script>
     import wepy from 'wepy'
     import { getDetial } from '../service/product'
+    import { getCountByOpendId } from '../service/card'
     import addToCard from '../components/addToCard'
     import compressImage from '../function/compressImage'
     import copyright from '../components/copyright'
+    import userInfo from '../plugin/userInfo'
     
     export default class ProductDetail  extends wepy.page {
+
         data = {
             product: {},
             tabs: ['详情', '评价'],
@@ -142,11 +148,31 @@
             sliderOffset: 0,
             sliderLeft: 0,
             productPics: [],
+            cardCount: 0,
             indicatorDots: true,
             autoplay: true,
             interval: 5000,
             duration: 1000
         }
+
+        onShow() {
+            if (userInfo.getOpenid()) {
+                console.log(231231);
+                this.getCountByOpendId();
+            }
+        }
+
+        /**
+         * 统计购物车的数数
+         */
+        getCountByOpendId = ()=> {
+            var p = getCountByOpendId();
+            p && p.then((res)=> {
+                this.cardCount = res.data.count;
+                this.$apply();
+            });
+        }
+
         /**
          * 获取订单详情
          */
@@ -212,11 +238,18 @@
                 wx.redirectTo({
                     url: url
                 });
-            }
+            },
         }
 
         onLoad (p) {
             this.getDetial(p.pid);
+        }
+
+        /**
+         * 添加到购物车中处理 
+         */
+        addToCardHandler () {
+            this.getCountByOpendId();
         }
 
     }

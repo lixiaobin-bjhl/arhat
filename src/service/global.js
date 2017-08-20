@@ -12,6 +12,8 @@ import config from '../config';
 
 /**
  * 用户登录 
+ * 
+ * @return {Promise}
  */
 export function login () {
     return new Promise((resolve, reject) => {
@@ -27,6 +29,8 @@ export function login () {
 
 /**
  * 获取用的信息 
+ * 
+ * @return {Promise}
  */
 export function getUserInfo () {
     return new Promise((resolve, reject) => {
@@ -40,6 +44,8 @@ export function getUserInfo () {
 
 /**
  * 将jscode转化为session信息
+ * 
+ * @return {Promise}
  */
 export function jscode2Session (code) {
     return post('/api/user/jscode2session', {

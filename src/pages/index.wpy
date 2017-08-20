@@ -3,7 +3,7 @@
 @import '../scss/mixin';
 
 .banner {
-    height: 300rpx;
+    height: 500px;
     width: 100%;
 }
 .banner image {
@@ -11,6 +11,22 @@
     width: 100%;
 }
 .home {
+    .product-subject {
+        margin-top: 5px;
+        border-top: 1px solid map-get($borders, shallow);
+        background: #FFF;
+        display: flex;
+        padding: 10px;
+        view {
+            flex: 1;
+            text-align: center;
+            border-bottom: 1px solid transparent;
+            &.active {
+                color: $brand;
+                border-bottom: 1px solid $brand;
+            }
+        }
+    }
     .item {
         @include clearfix;
         background: #FFF;
@@ -84,6 +100,12 @@
             </block>
         </swiper>
         <view class="weui-panel__bd">
+            <view class="product-subject">
+                <view wx:for="{{subjects}}"
+                    class="{{item.active ? 'active': ''}}"
+                    @tap="changeSubject({{item}}, {{index}})" 
+                    wx:for-item="item" wx:for-index="index" wx:key="item._id">{{item.name}}</view>
+            </view>
             <navigator open-type="redirect" wx:if="{{products && products.length}}" class="item" wx:for="{{products}}" wx:for-index="index" wx:for-item="item" wx:key="item._id" url="productDetail?pid={{item._id}}">
                 <view class="product-picture">
                     <image class="weui-media-box__thumb" mode="aspectFill" src="{{item.imageUrl}}"></image>
@@ -98,7 +120,6 @@
                         <view class="money">{{item.priceStr}}</view>
                         <view class="btns">
                             <view @tap.stop="showAddToCard({{item}})" class="btn btn-card"></view>
-                            <view @tap.stop="pay({{item}})" class="btn btn-pay"></view>
                         </view>
                     </view>
                 </view>
@@ -118,6 +139,7 @@
 import wepy from 'wepy'
 import footer from '../components/footer'
 import { getList } from '../service/product'
+import * as productSubjectRequest from '../service/productSubject'
 import { login, token } from '../service/user'
 import compressImage from '../function/compressImage'
 import config from '../config'
@@ -132,6 +154,8 @@ export default class Index extends wepy.page {
     data = {
         bannerOption: [],
         products: null,
+        subjects: [],
+        subjectId: '',
         indicatorDots: true,
         autoplay: true,
         interval: 5000,
@@ -153,12 +177,13 @@ export default class Index extends wepy.page {
 
     onLoad() {
         this.getProductList();
+        this.getProductSubjectList();
         wx.setNavigationBarTitle({
             title: config.name
         });
         this.setUserInfo();
         // wx.redirectTo({
-        //     url: 'productDetail?pid=59206d80c5ca1c13e0ce5789'
+        //     url: 'productDetail?pid=599922ea78c14837b64945b5'
         // });
         // wx.redirectTo({
         //     url: 'orderConfirm?products=' + JSON.stringify([{count:2, id: "59206d80c5ca1c13e0ce5789"}])
@@ -184,25 +209,31 @@ export default class Index extends wepy.page {
      */
     adaptList = (data) => {
         var bannerOption = [];
-        data.forEach((item) => {
+        for (var l = data.length -1, i = l; i >= 0; i-- ) {
+            var item = data[i];
             var storageIds = item.storageIds;
             item.count = 1;
-            if (storageIds && storageIds.length) {
+            var length = storageIds.length;
+            if (storageIds && length) {
                 storageIds.forEach((storageId, index) => {
-                    // 产品仅显示第1张图
-                    if (index === 0) {
-                        item.imageUrl = compressImage(storageId)
-                    // 其余图片放到banner中显示
-                    } else {
+                    // 如果一个产品有多张图片，把第一张放到banner中, 并且bannger中只放5张图片
+                    if (length > 1 && index === 0 && bannerOption.length < 5) {
                         bannerOption.push({
                             image: compressImage(storageId),
                             _id: item._id
                         });
                     }
+                    // 产品的最后一张个为售卖图片
+                    if (index === length - 1) {
+                        item.imageUrl = compressImage(storageId);
+                    }
                 });
             }
-        });
-        this.bannerOption = bannerOption;
+        }
+        // 筛选分类时，不要改变bannerOption
+        if (!this.bannerOption.length) {
+            this.bannerOption = bannerOption;
+        }
         return data;
     };
     /**
@@ -210,7 +241,9 @@ export default class Index extends wepy.page {
      */
     getProductList = () => {
         wx.showLoading({title: '加载中'});
-        getList()
+        getList({
+            subjectId: this.subjectId
+        })
             .then((res) => {
                 wx.hideLoading();
                 this.products = this.adaptList(res.data.list);
@@ -222,17 +255,35 @@ export default class Index extends wepy.page {
             });
     };
 
+    /**
+     * 获取产品的分类信息 
+     */
+    getProductSubjectList = () => {
+        productSubjectRequest.getList()
+            .then((res)=> {
+                this.subjects = res.data.list;
+                this.$apply();
+            });
+    };
+
     methods = {
         /**
-         * 购买
-         */
-        pay (item) {
-            wx.navigateTo({
-                url: 'orderConfirm?products=' + JSON.stringify([{
-                    count: 1,
-                    id: item._id
-                }])
+         * 改变分类
+         */ 
+        changeSubject (item, index) {
+            // 把之前选中的分类清除
+            this.subjects.forEach((n, index)=> {
+               if (item._id != n._id)  {
+                   this.subjects[index].active = false; 
+               }
             });
+            this.subjects[index].active = !item.active;
+            if (item.active) {
+               this.subjectId = ''; 
+            } else {
+                this.subjectId = item._id;
+            }
+            this.getProductList();
         },
 
         /**

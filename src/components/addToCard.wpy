@@ -80,13 +80,19 @@
                  padding: 6px 9px;
             }
         }
-        .submit {
+        .btn-group {
             width: 100%;
-            border-radius: 0;
-            background: #ff3333;
             position: absolute;
             bottom: 0;
             color: #FFF;
+            display: flex;
+            .submit {
+                flex: 1;
+                @extend .plain-btn;
+            }
+            .btn-pay {
+                background-color: #ff9933;
+            }
         }
     }
 
@@ -117,7 +123,10 @@
                     <numberInput :num.sync="product.count"></numberInput>
                 </view>
             </view>
-            <button class="submit" @tap="submit" disabled="{{submitting}}">确定</button> 
+            <view class="btn-group">
+                <button class="submit" @tap="submit" disabled="{{submitting}}">加入购物车</button>
+                <button class="btn-pay submit" @tap="pay" disabled="{{submitting}}">立即购买</button>  
+            </view>
         </view>
     </view>
 </template>
@@ -126,8 +135,11 @@
     import numberInput from './numberInput'
     import wepy from 'wepy'
     import * as cardRequest from '../service/card'
+    import CommonMixin from '../mixins/common';
 
     export default class AddToCard extends wepy.component {
+    
+        mixins = [CommonMixin];
 
         data = {
             showModalStatus: false,
@@ -181,6 +193,30 @@
                     this.showModalStatus = false;
                     this.$apply();
                 }, 200);
+            },
+
+            /**
+             * 跳转地址 
+             */
+            redirect (url) {
+                wx.redirectTo({
+                    url: url
+                });
+            },
+
+            /**
+             * 购买
+             */
+            pay (item) {
+                var product = this.product;  
+                var count = this.$invoke('numberInput', 'getNum');
+                this.product.count = count;
+                this.submitting = true;
+                this.methods.redirect('orderConfirm?products=' + JSON.stringify([{
+                        count: product.count,
+                        id: product._id
+                    }])
+                );
             },
 
             /**
