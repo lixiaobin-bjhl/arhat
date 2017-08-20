@@ -12,7 +12,6 @@
 }
 .home {
     .product-subject {
-        margin-top: 5px;
         border-top: 1px solid map-get($borders, shallow);
         background: #FFF;
         display: flex;

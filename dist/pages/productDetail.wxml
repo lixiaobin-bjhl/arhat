@@ -3,7 +3,7 @@
         <swiper class="banner" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block  wx:for="{{productPics}}" wx:for-index="index" wx:key="*this">
                 <swiper-item>
-                    <image src="{{item}}" class="slide-image" mode="aspectFill"/>
+                    <image src="{{item}}" class="slide-image" mode="center"/>
                 </swiper-item>
             </block>
         </swiper>
