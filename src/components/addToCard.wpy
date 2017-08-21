@@ -83,11 +83,12 @@
         .btn-group {
             width: 100%;
             position: absolute;
-            bottom: 0;
+            bottom: 0px;
             color: #FFF;
             display: flex;
             .submit {
                 flex: 1;
+                line-height: 3;
                 @extend .plain-btn;
             }
             .btn-pay {

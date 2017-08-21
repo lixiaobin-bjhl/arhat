@@ -197,7 +197,7 @@ export default class Index extends wepy.page {
         try {
             res = await initUser(this);
         } catch (e) {
-            toast('获取用户信息失败，小程序不能正常为您提供服务^_^');
+            toast('获取用户信息失败^_^');
         }
     }
     /**

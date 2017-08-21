@@ -160,7 +160,6 @@
 
         onShow() {
             if (userInfo.getOpenid()) {
-                console.log(231231);
                 this.getCountByOpendId();
             }
         }

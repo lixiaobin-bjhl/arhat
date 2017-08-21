@@ -21,9 +21,7 @@ export function login () {
             .then((res)=> {
                 resolve(res);
             })
-            .catch(()=> {
-                reject();
-            });
+            .catch(reject);
     });
 }
 
@@ -39,7 +37,32 @@ export function getUserInfo () {
                 resolve(res.userInfo);
             })
             .catch(()=> {
-                reject();
+                wx.showModal({
+                    title: '提示',
+                    cancelText: '不授权',
+                    confirmText: '授权',
+                    content: '【' + config.name + '】需要获取你的公开信息（昵称、头像）等，否则不能正常使用。',
+                    success: (res) => {
+                        wx.openSetting({
+                            authSetting: {
+                                "scope.userInfo": true
+                            },
+                            fail: ()=> {
+                                reject();
+                            },
+                            success: (res) => {
+                                if (res.authSetting['scope.userInfo']) {
+                                    wepy.getUserInfo()
+                                        .then((res)=> {
+                                            resolve(res.userInfo);
+                                        });
+                                } else {
+                                    reject();
+                                }
+                            }
+                        });
+                    }
+                });
             });
     });
 }

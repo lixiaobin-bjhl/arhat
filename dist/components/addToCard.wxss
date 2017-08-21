@@ -112,10 +112,11 @@
 .add-to-card .btn-group {
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   color: #FFF;
   display: flex; }
   .add-to-card .btn-group .submit {
-    flex: 1; }
+    flex: 1;
+    line-height: 3; }
   .add-to-card .btn-group .btn-pay {
     background-color: #ff9933; }
