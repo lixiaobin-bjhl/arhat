@@ -20,7 +20,7 @@ export default function initUser (context) {
                         getUserInfo()
                             .then((res)=> {
                                 var params = res;
-                                Object.assign(res, {
+                                Object.assign(params, {
                                     openid
                                 });
                                 add(params)
@@ -28,11 +28,13 @@ export default function initUser (context) {
                                         var data = res.data;
                                         wx.setStorageSync('user', {
                                             id: data._id,
+                                            name: data.nickName,
                                             openid: openid
                                         });
                                         resolve(res);
                                         context.$invoke('footer', 'getCountByOpendId');
                                     });
+                                   
                             })
                             .catch(reject);
                     })

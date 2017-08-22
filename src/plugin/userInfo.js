@@ -9,28 +9,24 @@
 import checkSession from '../function/checkSession';
 
 export default {
-    getInfo () {
-        // var res = await checkSession();
-        // console.log(res);
-        // if (res) {
-            return this._userInfo;
-        // } else {
-        //     toast('登录信息失效');
-        // }
-    },
-    setInfo (userInfo) {
-        this._userInfo = userInfo;
-    },
     getUserid () {
         if (!this._user) {
             this._user = wx.getStorageSync('user');
         }
+        console.log(this._user.id);
         return this._user.id;
+    },
+    getUserName () {
+        if (!this._user) {
+            this._user = wx.getStorageSync('user');
+        }
+        return this._user.name;
     },
     getOpenid () {
         if (!this._user) {
             this._user = wx.getStorageSync('user');
         }
+        console.log('userid' + this._user.id);
         return this._user.openid;
     },
     setSessionKey (sessionKey) {

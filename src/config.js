@@ -19,11 +19,11 @@ module.exports = {
     masterOpenid: 'oe9sM0Tf79ooJm_EgzBYhIxLDIGI',
     templates: {
         // 创建订单消息
-        createOrder: 'WQrM_bW_bTuT9W49tFNp8Eoh3Sa1LAI-5AmjDNNWxtc',
+        createOrder: 'WQrM_bW_bTuT9W49tFNp8C05T9MsZnsUBi0W2OLtdF0',
         // 支付成功消息
-        paySuccess: 'SL-dWLvKqnMX5CwqS3ru5HjlI5xelC0pLNSoVajFchU',
+        paySuccess: 'eler5gq1ajMdRz0EaT0sfdCsT-MkGEXx5FT4zbYFq8o',
         // 支付失败消息
-        payFail: 'SSXRx9FfSnyP3lCQQnbFx6NrLvi0E0fYx-chDrHpN5M'
+        payFail: 'SSXRx9FfSnyP3lCQQnbFx5UrJcX8xGwIjCGna9BZQTk'
     }
 }
 

@@ -53,6 +53,9 @@ export function sendCreateOrderMessage (params) {
             }, 
             "keyword4": {
                 "value": params.id
+            },
+            "keyword5": {
+                "value": userInfo.getUserName()
             }
         },
         params.formId
@@ -70,16 +73,19 @@ export function sendPaySuccessMessage (params) {
         config.templates.paySuccess,
         {
             "keyword1": {
-                "value": new Date().toLocaleString()
-            }, 
-            "keyword2": {
-                "value": params.body
-            },
-            "keyword3": {
                 "value": params.attach
             },
-            "keyword4": {
+            "keyword2": {
                 "value": divide(params.total_fee, 100) + '元'
+            },
+            "keyword3": {
+                "value": params.body
+            },
+            "keyword4": {
+                "value": new Date().toLocaleString()
+            },
+            "keyword5": {
+                "value": userInfo.getUserName()
             }
         },
         params.formId
@@ -107,6 +113,9 @@ export function sendPayFailMessage (params) {
             },
             "keyword4": {
                 "value": divide(params.total_fee, 100) + '元'
+            },
+            "keyword5": {
+                "value": userInfo.getUserName()
             }
         },
         params.formId
