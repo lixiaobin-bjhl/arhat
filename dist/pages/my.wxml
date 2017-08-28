@@ -15,7 +15,7 @@
                 <view class="arrow-right"/>
                 我的购物车
             </view>
-            <view class="menu-item clearfix" bindtap="redirect" data-wepy-params-a="shippingAddress">
+            <view class="menu-item clearfix" bindtap="navigate" data-wepy-params-a="shippingAddress">
                 <view class="menu-sign menu-sign3"><view class="address"/></view>
                 <view class="arrow-right"/>
                 我的地址

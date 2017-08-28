@@ -22,7 +22,7 @@
         </view>
 
         <view class="fmenu">
-            <view class="btn-create" bindtap="redirect" data-wepy-params-a="fillShippingAddress">
+            <view class="btn-create" bindtap="navigate" data-wepy-params-a="fillShippingAddress">
                 <view class="icon icon-plus"/>添加收货地址
             </view>
         </view>

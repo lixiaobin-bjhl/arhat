@@ -154,11 +154,15 @@
   .shipping-address .item .detail {
     color: #666; }
   .shipping-address .item .btn {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     float: right;
-    margin: 5px; }
+    margin: 5px;
+    vertical-align: top; }
   .shipping-address .item .edit {
     background-image: url("http://otzuzbqja.bkt.clouddn.com/edit2.svg"); }
   .shipping-address .item .trash {
-    background-image: url("http://otzuzbqja.bkt.clouddn.com/trash2.svg"); }
+    background-image: url("http://otzuzbqja.bkt.clouddn.com/trash2.svg");
+    width: 22px;
+    height: 22px;
+    margin-top: 3px; }

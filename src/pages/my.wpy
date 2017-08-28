@@ -94,7 +94,7 @@
                 <view class="arrow-right"></view>
                 我的购物车
             </view>
-            <view class="menu-item clearfix" @tap="redirect('shippingAddress')">
+            <view class="menu-item clearfix" @tap="navigate('shippingAddress')">
                 <view class="menu-sign menu-sign3"><view class="address"></view></view>
                 <view class="arrow-right"></view>
                 我的地址
@@ -142,6 +142,14 @@
         }
 
         methods = {
+            /**
+             * 跳转地址，记录history 
+             */
+            navigate (url) {
+                wx.navigateTo({
+                    url: url
+                });
+            },
             /**
              * 跳转地址 
              */
