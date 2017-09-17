@@ -31,9 +31,6 @@ export function addToCard (params) {
  */
 export function getCardByOpenid () {
     var openid = userInfo.getOpenid();
-    if (!openid) {
-        return;
-    }
     return get('/api/card/openid/' + userInfo.getOpenid());
 }
 
@@ -42,9 +39,6 @@ export function getCardByOpenid () {
  */
 export function getCountByOpendId () {
     var openid = userInfo.getOpenid();
-    if (!openid) {
-        return;
-    }
     return get('/api/card/count/' + openid);
 }
 
