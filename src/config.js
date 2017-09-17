@@ -7,8 +7,8 @@
 
 module.exports = {
     // domain: 'http://172.24.8.136:7001',
-    domain: 'https://wx.56xg.com',
-    // domain: 'http://127.0.0.1:7001',
+    // domain: 'https://wx.56xg.com',
+    domain: 'http://127.0.0.1:7001',
     mobile: '18301277911',
     name: '兄弟鱼坊',
     appId: 'wx9a725aa4ebad3f02',

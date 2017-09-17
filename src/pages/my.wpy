@@ -80,7 +80,7 @@
 <template>
     <view class="page">
         <view class="banner"> 
-            <view><image src="{{userInfo.avatarUrl}}"></image></view> 
+            <view wx:if="{{userInfo.avatarUrl}}"><image src="{{userInfo.avatarUrl}}"></image></view> 
             <view>{{userInfo.nickName}}</view>
         </view>
         <view class="my-menu">

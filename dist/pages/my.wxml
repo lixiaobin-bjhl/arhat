@@ -1,7 +1,7 @@
 
     <view class="page">
         <view class="banner"> 
-            <view><image src="{{userInfo.avatarUrl}}"/></view> 
+            <view  wx:if="{{userInfo.avatarUrl}}"><image src="{{userInfo.avatarUrl}}"/></view> 
             <view>{{userInfo.nickName}}</view>
         </view>
         <view class="my-menu">

@@ -13,7 +13,6 @@ export default {
         if (!this._user) {
             this._user = wx.getStorageSync('user');
         }
-        console.log(this._user.id);
         return this._user.id;
     },
     getUserName () {
@@ -26,7 +25,6 @@ export default {
         if (!this._user) {
             this._user = wx.getStorageSync('user');
         }
-        console.log('userid' + this._user.id);
         return this._user.openid;
     },
     setSessionKey (sessionKey) {
